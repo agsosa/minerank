@@ -1,18 +1,13 @@
 import type { NextPage } from "next";
 import Footer from "src/components/common/Footer";
-import styled from "styled-components";
-
-const Test = styled.p`
-  color: red;
-  font-size: 30px;
-`;
+import MainLayout from "src/components/common/MainLayout";
 
 const Home: NextPage = () => {
   return (
-    <div>
-      <Test>hola</Test>
+    <MainLayout>
+      <p>hola</p>
       <Footer />
-    </div>
+    </MainLayout>
   );
 };
 

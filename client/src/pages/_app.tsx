@@ -5,6 +5,7 @@ import "@fontsource/roboto/700.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import CssBaseline from "@mui/material/CssBaseline";
+import GlobalStyle from "src/components/common/GlobalStyle";
 
 function App({ Component, pageProps }: AppProps) {
   return (
@@ -16,6 +17,7 @@ function App({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <CssBaseline />
+      <GlobalStyle />
       <Component {...pageProps} />
     </>
   );
