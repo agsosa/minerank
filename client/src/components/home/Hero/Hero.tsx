@@ -1,8 +1,9 @@
-import { Container, HeroContent, Left, Right } from "./Hero.styled";
+import { Container, ContentOverlay, HeroContent, Left, Right } from "./Hero.styled";
 
 const Hero = () => {
   return (
     <Container>
+      <ContentOverlay />
       <HeroContent>
         <Left>
           <h1>IMAGE</h1>

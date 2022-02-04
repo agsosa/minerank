@@ -6,5 +6,6 @@ export const Container = styled.div`
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03) !important;
   background-color: white;
+  padding: 16px;
   ${CONTENT_WIDTH}
 `;

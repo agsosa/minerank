@@ -8,6 +8,8 @@ export const Container = styled.div`
   background-color: white;
   padding: 15px;
   width: 100%;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03) !important;
 `;
 
 export const Image = styled(NextImage)`
