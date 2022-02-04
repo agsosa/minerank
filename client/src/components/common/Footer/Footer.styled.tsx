@@ -78,7 +78,6 @@ export const Copyright = styled.div`
   align-items: center;
   justify-content: center;
   padding: 20px;
-  padding-bottom: 30px;
   margin-top: 22px;
   z-index: 1;
 `;
