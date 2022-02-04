@@ -4,39 +4,23 @@ import Header from "src/components/common/Header";
 import MainLayout from "src/components/common/MainLayout";
 import Filters from "src/components/home/Filters";
 import Hero from "src/components/home/Hero";
+import HomeLayout from "src/components/home/HomeLayout";
 import LatestServers from "src/components/home/LatestServers";
-import ServerCard from "src/components/home/ServerCard";
-import { CONTENT_WIDTH } from "src/utils/style.utils";
-
-import styled from "styled-components";
-
-const Cards = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  justify-content: center;
-  align-items: center;
-  gap: 22px;
-
-  ${CONTENT_WIDTH}
-`;
+import ServersList from "src/components/home/ServersList";
 
 const Home: NextPage = () => {
   return (
     <MainLayout>
       <Header />
+
       <Hero />
 
-      <Filters />
+      <HomeLayout>
+        <Filters />
+        <ServersList />
+        <LatestServers />
+      </HomeLayout>
 
-      <Cards>
-        <ServerCard />
-        <ServerCard />
-        <ServerCard />
-        <ServerCard />
-        <ServerCard />
-      </Cards>
-
-      <LatestServers />
       <Footer />
     </MainLayout>
   );
