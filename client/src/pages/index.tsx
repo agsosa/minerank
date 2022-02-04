@@ -5,7 +5,6 @@ import MainLayout from "src/components/common/MainLayout";
 import Filters from "src/components/home/Filters";
 import Hero from "src/components/home/Hero";
 import HomeLayout from "src/components/home/HomeLayout";
-import LatestServers from "src/components/home/LatestServers";
 import ServersList from "src/components/home/ServersList";
 
 const Home: NextPage = () => {
@@ -18,7 +17,6 @@ const Home: NextPage = () => {
       <HomeLayout>
         <Filters />
         <ServersList />
-        <LatestServers />
       </HomeLayout>
 
       <Footer />

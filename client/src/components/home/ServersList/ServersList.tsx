@@ -7,7 +7,8 @@ import {
   PromoBox,
   Section,
 } from "./ServersList.styled";
-import { FaStar, FaList } from "react-icons/fa";
+import { FaStar, FaList, FaPlus } from "react-icons/fa";
+import Carousel from "src/components/common/Carousel";
 
 const ServersList = () => {
   return (
@@ -44,6 +45,22 @@ const ServersList = () => {
           <ServerCard />
           <ServerCard />
         </Grid>
+      </Section>
+
+      <Section>
+        <FeaturedTitle>
+          <FaPlus />
+          <h2>Últimos servidores de Minecraft agregados</h2>
+        </FeaturedTitle>
+        <Carousel>
+          <ServerCard />
+          <ServerCard />
+          <ServerCard />
+          <ServerCard />
+          <ServerCard />
+          <ServerCard />
+          <ServerCard />
+        </Carousel>
       </Section>
     </Container>
   );

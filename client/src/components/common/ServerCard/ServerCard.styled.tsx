@@ -10,6 +10,9 @@ export const Container = styled.div`
   width: 100%;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03) !important;
+  scroll-snap-align: start;
+
+ // flex-direction: column; // TODO: For carousel
 `;
 
 export const Image = styled(NextImage)`
