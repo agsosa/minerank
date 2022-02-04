@@ -1,11 +1,11 @@
-import { WIDTH_CONTENT } from "src/utils/style.utils";
+import { CONTENT_WIDTH } from "src/utils/style.utils";
 import styled from "styled-components";
 
 export const Container = styled.div`
   margin-top: auto;
   width: 100%;
 
-  background-color: #34495E;
+  background-color: #34495e;
   color: #c9d6e4;
 
   display: flex;
@@ -30,7 +30,7 @@ export const AppDescription = styled.div`
 export const Disclaimer = styled.p`
   border-top: 1px solid #c9d6e4;
   padding-top: 22px;
-  ${WIDTH_CONTENT}
+  ${CONTENT_WIDTH}
 `;
 
 export const ColumnsContainer = styled.div`
@@ -50,13 +50,13 @@ export const FlexContainer = styled.div`
   display: flex;
   justify-content: center;
   gap: 90px;
-  ${WIDTH_CONTENT}
+  ${CONTENT_WIDTH}
 `;
 
 export const Copyright = styled.div`
   width: 100%;
-  background-color: #2C3E50;
-  color: #51687F;
+  background-color: #2c3e50;
+  color: #51687f;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -73,5 +73,5 @@ export const CopyrightContent = styled.div`
     gap: 15px;
   }
 
-  ${WIDTH_CONTENT}
+  ${CONTENT_WIDTH}
 `;

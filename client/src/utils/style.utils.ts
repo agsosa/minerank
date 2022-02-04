@@ -1,3 +1,3 @@
-export const WIDTH_CONTENT = `
+export const CONTENT_WIDTH = `
     width: 80%;
 `;

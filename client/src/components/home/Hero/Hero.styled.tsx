@@ -2,7 +2,6 @@ import { CONTENT_WIDTH } from "src/utils/style.utils";
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 100%;
   background-color: #34495e;
   color: white;
   display: flex;
@@ -10,10 +9,14 @@ export const Container = styled.div`
   align-items: center;
 `;
 
-export const HeaderContent = styled.div`
+export const HeroContent = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  padding: 10px 0px;
+  padding: 100px 0px;
   ${CONTENT_WIDTH}
 `;
+
+export const Left = styled.div``;
+
+export const Right = styled.div``;
