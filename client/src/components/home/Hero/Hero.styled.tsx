@@ -7,13 +7,14 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 `;
 
 export const HeroContent = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 100px 0px;
+  padding: 120px 0px;
   ${CONTENT_WIDTH}
 `;
 
