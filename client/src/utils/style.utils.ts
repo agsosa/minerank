@@ -1,3 +1,3 @@
 export const CONTENT_WIDTH = `
-    width: 80%;
+    width: 75%;
 `;
