@@ -3,11 +3,16 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
-  background-color: #34495e;
+  position: fixed;
+  top: 0;
+  z-index: 2;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
+
+/*  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);*/
 `;
 
 export const HeaderContent = styled.div`
@@ -16,4 +21,11 @@ export const HeaderContent = styled.div`
   align-items: center;
   padding: 16px 0px;
   ${CONTENT_WIDTH}
+`;
+
+export const Logo = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 26px;
 `;

@@ -1,10 +1,14 @@
-import { Container, HeaderContent } from "./Header.styled";
+import { Container, HeaderContent, Logo } from "./Header.styled";
+import Image from "next/image";
 
 const Header = () => {
   return (
     <Container>
       <HeaderContent>
-        <p>Telegram Channels</p>
+        <Logo>
+          <Image src="/logo1.png" width="28" height="28" />
+          <span>MCRank</span>
+        </Logo>
         <p>Menu</p>
         <p>Actions</p>
       </HeaderContent>

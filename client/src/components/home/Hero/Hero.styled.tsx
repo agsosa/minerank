@@ -20,7 +20,8 @@ export const HeroContent = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 180px 0px;
+  padding: 100px 0px;
+  padding-top: 140px;
   z-index: 1;
 
   ${CONTENT_WIDTH}
@@ -34,13 +35,47 @@ export const ContentOverlay = styled.div`
   backdrop-filter: blur(3px);
 `;
 
-export const Left = styled.div`
-  background-color: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(8px);
-`;
+export const Left = styled.div``;
 
 export const Right = styled.div`
-  background-color: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(8px);
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
   padding: 20px;
+
+  h1,
+  h3,
+  h2 {
+    display: table;
+    background-color: black;
+    padding: 6px 10px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  h1 {
+    background-color: #158f3e;
+  }
+`;
+
+export const Button = styled.button`
+  background-color: #158f3e;
+  padding: 10px;
+  margin-left: 3.5px;
+  margin-top: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-color: #007527;
+    color: white;
+  }
 `;

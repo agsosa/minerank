@@ -4,9 +4,10 @@ import styled from "styled-components";
 export const Container = styled.div`
   margin-top: auto;
   width: 100%;
+  position: relative;
 
   background-color: #34495e;
-  color: #c9d6e4;
+  color: #dadada;
 
   display: flex;
   flex-direction: column;
@@ -16,20 +17,35 @@ export const Container = styled.div`
 
   font-size: 16px;
   line-height: 1.5;
-  padding-top: 50px;
+  padding-top: 75px;
+
+  background-image: url("/wp5.jpg");
+  background-position: center;
+  background-attachment: fixed;
+`;
+
+export const ContentOverlay = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  // backdrop-filter: blur(0px);
+  background-color: rgba(0, 0, 0, 0.5);
 `;
 
 export const AppDescription = styled.div`
   display: flex;
-  flex-direction: column;
+  // flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 20px;
   width: 40%;
 `;
 
 export const Disclaimer = styled.p`
   border-top: 1px solid #c9d6e4;
   padding-top: 22px;
+  z-index: 1;
   ${CONTENT_WIDTH}
 `;
 
@@ -50,17 +66,21 @@ export const FlexContainer = styled.div`
   display: flex;
   justify-content: center;
   gap: 90px;
+  z-index: 1;
   ${CONTENT_WIDTH}
 `;
 
 export const Copyright = styled.div`
   width: 100%;
-  background-color: #2c3e50;
-  color: #51687f;
+  background-color: black;
+  color: gray;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px;
+  padding: 20px;
+  padding-bottom: 30px;
+  margin-top: 22px;
+  z-index: 1;
 `;
 
 export const CopyrightContent = styled.div`

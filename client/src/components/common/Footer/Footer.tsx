@@ -7,17 +7,23 @@ import {
   FlexContainer,
   Copyright,
   CopyrightContent,
+  ContentOverlay,
 } from "./Footer.styled";
+
+import Image from "next/image";
 
 const Footer = () => {
   return (
     <Container>
+      <ContentOverlay />
+
       <FlexContainer>
         <AppDescription>
-          <b>LOGO</b>
+          <Image src="/logo1.png" width="160" height="140" />
           <p>
             telegramChannels.me is a list of Telegram Channels, Groups and Bots that submitted by
-            the Telegram users. This site is not affiliated with Telegram.
+            the Telegram users. Minecraft is copyright Mojang/Microsoft and is not affiliated with
+            this site.
           </p>
         </AppDescription>
 
