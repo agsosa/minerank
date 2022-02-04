@@ -53,7 +53,6 @@ export const ColumnsContainer = styled.div`
   display: flex;
   width: 60%;
   justify-content: center;
-  align-items: center;
   gap: 80px;
 `;
 
@@ -77,9 +76,10 @@ export const Copyright = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 15px;
   margin-top: 22px;
   z-index: 1;
+  font-size: 14px;
 `;
 
 export const CopyrightContent = styled.div`

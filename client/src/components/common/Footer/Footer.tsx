@@ -11,8 +11,11 @@ import {
 } from "./Footer.styled";
 
 import Image from "next/image";
+import { getAppConfig } from "src/utils/appConfig.utils";
 
 const Footer = () => {
+  const year = new Date().getFullYear();
+
   return (
     <Container>
       <ContentOverlay />
@@ -21,9 +24,9 @@ const Footer = () => {
         <AppDescription>
           <Image src="/logo1.png" width="160" height="140" />
           <p>
-            telegramChannels.me is a list of Telegram Channels, Groups and Bots that submitted by
-            the Telegram users. Minecraft is copyright Mojang/Microsoft and is not affiliated with
-            this site.
+            {getAppConfig().appName} es un directorio de servidores de Minecraft enviados por
+            jugadores de la comunidad o sus respectivos dueños. Promociona tu servidor de Minecraft
+            en nuestro sitio web para que tu comunidad crezca!
           </p>
         </AppDescription>
 
@@ -45,28 +48,30 @@ const Footer = () => {
           </Column>
 
           <Column>
-            <b>About</b>
-            <p>Telegram Channels</p>
-            <p>Telegram Groups</p>
-            <p>Telegram Bots</p>
-            <p>Telegram Stickers</p>
+            <b>Links</b>
+            <p>Agregar servidor</p>
+            <p>Promocionar servidor</p>
+            <p>Preguntas Frecuentes</p>
+            <p>Contáctanos</p>
           </Column>
         </ColumnsContainer>
       </FlexContainer>
 
       <Disclaimer>
-        Disclaimer: All Channels, Groups, Bots, and Stickers are added by users and we are NOT
-        responsible for the content on their media. We are trying to approve useful and clean
-        channels. If you think there is an issue, please contact us from Contact Us page
+        Disclaimer: Todos los servidores de Minecraft en este sitio web son registrados por usuarios
+        y NO somos responsables por el contenido del mismo. Si crees que hay un problema, por favor
+        contáctanos desde la página de contacto. Minecraft es una marca registrada por
+        Mojang/Microsoft y no está asociada con este sitio web.
       </Disclaimer>
 
       <Copyright>
         <CopyrightContent>
-          <p>2022 C Telegram Channels. All rights reserved.</p>
+          <p>
+            {year} (c) {getAppConfig().appName}. Todos los derechos reservados.
+          </p>
 
           <div id="links">
-            <p>Privacy Policy</p>
-            <p>Terms of Service</p>
+            <p>Política de Privacidad</p>|<p>Términos y Condiciones de Servicio</p>
           </div>
         </CopyrightContent>
       </Copyright>
