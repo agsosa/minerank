@@ -3,7 +3,7 @@ import { Container } from "./Filters.styled";
 const Filters = () => {
   return (
     <Container>
-      <p>Filtros</p>
+      <p>Filtros and sorts</p>
     </Container>
   );
 };

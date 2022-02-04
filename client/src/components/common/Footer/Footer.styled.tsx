@@ -7,7 +7,7 @@ export const Container = styled.div`
   position: relative;
 
   background-color: #34495e;
-  color: #dadada;
+  color: #e9e9e9;
 
   display: flex;
   flex-direction: column;
@@ -43,7 +43,7 @@ export const AppDescription = styled.div`
 `;
 
 export const Disclaimer = styled.p`
-  border-top: 1px solid #c9d6e4;
+  border-top: 1px solid gray;
   padding-top: 22px;
   z-index: 1;
   ${CONTENT_WIDTH}
