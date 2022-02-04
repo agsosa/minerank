@@ -7,7 +7,7 @@ export const Container = styled.div`
   gap: 10px;
   background-color: white;
   padding: 15px;
-  width: 400px;
+  width: 100%;
 `;
 
 export const Image = styled(NextImage)`
