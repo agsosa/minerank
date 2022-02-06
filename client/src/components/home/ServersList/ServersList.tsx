@@ -9,6 +9,7 @@ import {
 } from "./ServersList.styled";
 import { FaStar, FaList, FaPlus } from "react-icons/fa";
 import Carousel from "src/components/common/Carousel";
+import Pagination from "@mui/material/Pagination";
 
 const ServersList = () => {
   return (
@@ -35,6 +36,7 @@ const ServersList = () => {
           <FaList />
           <h2>Servidores de Minecraft</h2>
         </FeaturedTitle>
+        <p>Filtros aplicados: Roleplay PVP, 1.8, no premium, "nombre del servidor"</p>
         <Grid>
           <ServerCard />
           <ServerCard />
@@ -45,6 +47,7 @@ const ServersList = () => {
           <ServerCard />
           <ServerCard />
         </Grid>
+        <Pagination sx={{alignSelf: "center"}} count={10} color="primary" />
       </Section>
 
       <Section>
