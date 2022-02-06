@@ -20,9 +20,9 @@ const ServersList = () => {
         </FeaturedTitle>
 
         <FeaturedGrid>
-          <ServerCard />
-          <ServerCard />
-          <ServerCard />
+          <ServerCard isFeatured />
+          <ServerCard isFeatured />
+          <ServerCard isFeatured />
         </FeaturedGrid>
 
         <PromoBox>
@@ -33,7 +33,7 @@ const ServersList = () => {
       <Section>
         <FeaturedTitle>
           <FaList />
-          <h2>Lista de Servidores de Minecraft</h2>
+          <h2>Servidores de Minecraft</h2>
         </FeaturedTitle>
         <Grid>
           <ServerCard />

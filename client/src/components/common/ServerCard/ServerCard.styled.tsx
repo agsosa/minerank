@@ -1,18 +1,36 @@
 import styled from "styled-components";
 import NextImage from "next/image";
 
-export const Container = styled.div`
+export const Container = styled.div<{ isFeatured?: boolean }>`
+  position: relative;
   display: flex;
   align-items: center;
   gap: 12px;
-  background-color: white;
-  padding: 15px;
+  background-color: ${(props) => (props.isFeatured ? "#fff8dc" : "white")};
+  padding: 18px 18px 18px 22px;
   width: 100%;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03) !important;
   scroll-snap-align: start;
+  cursor: pointer;
+  border-left: ${(props) => (props.isFeatured ? `4px solid #ffc037` : "none")};
+  // flex-direction: column; // TODO: For carousel
+`;
 
- // flex-direction: column; // TODO: For carousel
+export const FeaturedText = styled.span`
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: -23px;
+  margin-top: 25px;
+  color: #ffc037;
+  font-weight: bold;
+  font-size: 10px;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
 `;
 
 export const Image = styled(NextImage)`
@@ -34,7 +52,8 @@ export const CopyIP = styled.button`
 `;
 
 export const Name = styled.span`
-  font-size: 17px;
+  font-size: 16px;
+  font-weight: 600;
 `;
 
 export const TitleContainer = styled.div`

@@ -9,6 +9,7 @@ import {
   TitleContainer,
   Tags,
   CopyIP,
+  FeaturedText,
 } from "./ServerCard.styled";
 import {
   FaUserAlt,
@@ -23,11 +24,15 @@ import { ES } from "country-flag-icons/react/3x2";
 import { BiGitBranch } from "react-icons/bi";
 
 // TODO: On mouse hover open description resume
+interface ServerCardProps {
+  isFeatured?: boolean;
+}
 
-const ServerCard = () => {
+const ServerCard: React.FC<ServerCardProps> = ({ isFeatured, ...props }) => {
   return (
-    <Container>
-      <Image src="/cryptosignal-thumb.png" height="85" width="85" />
+    <Container isFeatured={isFeatured} {...props}>
+      {isFeatured && <FeaturedText>DESTACADO</FeaturedText>}
+      <Image src="/cryptosignal-thumb.png" height="80" width="80" />
       <InfoContainer>
         <TitleContainer>
           <NameContainer>
