@@ -32,23 +32,23 @@ const Footer = () => {
 
         <ColumnsContainer>
           <Column>
-            <b>Top Media</b>
-            <p>Telegram Channels</p>
-            <p>Telegram Groups</p>
-            <p>Telegram Bots</p>
-            <p>Telegram Stickers</p>
+            <b>Modos de juego populares</b>
+            <p>Servidores de Minecraft</p>
+            <p>Servidores de Minecraft</p>
+            <p>Servidores de Minecraft</p>
+            <p>Servidores de Minecraft</p>
           </Column>
 
           <Column>
-            <b>Links</b>
-            <p>Telegram Channels</p>
-            <p>Telegram Groups</p>
-            <p>Telegram Bots</p>
-            <p>Telegram Stickers</p>
+            <b>Versiones de Minecraft</b>
+            <p>v1.18</p>
+            <p>Servidores de Minecraft</p>
+            <p>Servidores de Minecraft</p>
+            <p>Servidores de Minecraft</p>
           </Column>
 
           <Column>
-            <b>Links</b>
+            <b>Links importantes</b>
             <p>Agregar servidor</p>
             <p>Promocionar servidor</p>
             <p>Preguntas Frecuentes</p>

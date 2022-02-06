@@ -10,8 +10,9 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
-/*  background-color: rgba(0, 0, 0, 0.7);
+  /* background-color: black;
+  border-bottom: 3px rgba(21, 143, 62, 0.5) solid;
+  background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);*/
 `;
 
@@ -19,7 +20,7 @@ export const HeaderContent = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 0px;
+  padding: 8px 0px;
   ${CONTENT_WIDTH}
 `;
 
@@ -28,4 +29,9 @@ export const Logo = styled.div`
   align-items: center;
   gap: 10px;
   font-size: 26px;
+`;
+
+export const Flex = styled.div`
+  display: flex;
+  gap: 32px;
 `;

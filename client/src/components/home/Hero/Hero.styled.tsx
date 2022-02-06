@@ -9,6 +9,7 @@ export const Container = styled.div`
   align-items: center;
   width: 100%;
   position: relative;
+  height: 100vh;
 
   background-image: url("/wp4.jpg");
   background-position: bottom;
@@ -32,7 +33,8 @@ export const ContentOverlay = styled.div`
   width: 100%;
   height: 100%;
   top: 0;
-  backdrop-filter: blur(3px);
+  backdrop-filter: blur(3.5px);
+  background-color: rgba(0, 0, 0, 0.3);
 `;
 
 export const Left = styled.div``;

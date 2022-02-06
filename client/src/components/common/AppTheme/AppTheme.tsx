@@ -1,8 +1,15 @@
 import { DefaultTheme, ThemeProvider as StyledThemeProvider } from "styled-components";
+import { createTheme, ThemeProvider as MUIThemeProvider } from "@mui/material/styles";
+
+const muiTheme = createTheme({
+  palette: {
+    primary: { main: "#158f3e" },
+  },
+});
 
 // DefaultTheme type definition -> ./AppTheme.d.ts
 
-const AppTheme: DefaultTheme = {
+const styledTheme: DefaultTheme = {
   colors: {
     primary: "#440099",
     primary_light: "#654bb9",
@@ -14,8 +21,8 @@ const AppTheme: DefaultTheme = {
 
 export const AppThemeProvider: React.FC = ({ children, ...props }) => {
   return (
-    <StyledThemeProvider theme={AppTheme} {...props}>
-      {children}
-    </StyledThemeProvider>
+    <MUIThemeProvider theme={muiTheme} {...props}>
+      <StyledThemeProvider theme={styledTheme}>{children}</StyledThemeProvider>
+    </MUIThemeProvider>
   );
 };

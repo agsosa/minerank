@@ -29,7 +29,7 @@ export const ContentOverlay = styled.div`
   width: 100%;
   height: 100%;
   top: 0;
-  // backdrop-filter: blur(0px);
+  //   backdrop-filter: blur(0px);
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
