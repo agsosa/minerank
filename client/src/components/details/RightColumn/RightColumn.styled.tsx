@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { SharedCard } from "../shared/shared.styled";
 
 export const Container = styled.div`
   width: 80%;
@@ -8,7 +9,7 @@ export const Container = styled.div`
   gap: 30px;
 `;
 
-export const ContentCard = styled.div`
+export const ContentCard = styled(SharedCard)`
   background-color: white;
   display: flex;
   flex-direction: column;

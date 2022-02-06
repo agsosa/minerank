@@ -9,8 +9,12 @@ const RightColumn = () => {
       <ContentCard>
         <TitleContainer>
           <h2>(country flag) Cryptosignal MC (#1)</h2>
-          <Button startIcon={<FaFlag />} color="error" size="small">Reportar</Button>
+          <Button startIcon={<FaFlag />} color="error" size="small">
+            Reportar
+          </Button>
         </TitleContainer>
+
+        <p>Videos y fotos</p>
 
         <p id="description">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
@@ -26,12 +30,20 @@ const RightColumn = () => {
           anim id est laborum.
         </p>
 
-        <p>Puesto #1 Click para Votar</p>
+        <p>Click para Votar</p>
 
+        <p>Redes sociales y links:</p>
+        <p>discod etc</p>
+
+        <p>Caracteristicas:</p>
         <p>Modos de juego: Factions, PVP Survival</p>
         <p>Versiones: v1.8, v1.9, v1.5</p>
         <p>No PREMIUM</p>
-        <p>Links: discod etc</p>
+
+        <p>
+          Estadisticas (uptime, grafico usuarios, promedio usuarios, usuarios en los ultimos x
+          horas, etc, max usuarios record
+        </p>
       </ContentCard>
 
       <Comments />

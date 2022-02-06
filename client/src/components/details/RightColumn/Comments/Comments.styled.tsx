@@ -1,36 +1,36 @@
 import styled from "styled-components";
+import { SharedCard } from "../../shared/shared.styled";
 
-export const Container = styled.div`
-    width: 100%;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
+export const Container = styled(SharedCard)`
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
 `;
 
-
 export const CommentEntry = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
-    #date {
-        font-size: 12px;
-    }
+  #date {
+    font-size: 12px;
+  }
 
-    #name {
-        font-weight: bold;
-    }
+  #name {
+    font-weight: bold;
+  }
 
-    #text {
-        font-size: 14px;
-    }
+  #text {
+    font-size: 14px;
+  }
 `;
 
 export const CommentInput = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 20px;
 `;
