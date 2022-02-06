@@ -89,7 +89,8 @@ export const CopyrightContent = styled.div`
 
   #links {
     display: flex;
-    gap: 15px;
+    align-items: center;
+    gap: 10px;
   }
 
   ${CONTENT_WIDTH}

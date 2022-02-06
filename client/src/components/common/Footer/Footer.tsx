@@ -71,7 +71,13 @@ const Footer = () => {
           </p>
 
           <div id="links">
-            <p>Política de Privacidad</p>|<p>Términos y Condiciones de Servicio</p>
+            <p>Política de Privacidad</p>|<p>Términos y Condiciones</p> |
+            <p id="links">
+              Developed by{" "}
+              <a href="https://github.com/agsosa" target="_blank" rel="noreferrer">
+                <Image src="/ags.png" width="24" height="24" />
+              </a>
+            </p>
           </div>
         </CopyrightContent>
       </Copyright>
