@@ -46,8 +46,10 @@ const ServersList = () => {
           <ServerCard />
           <ServerCard />
           <ServerCard />
+          <ServerCard />
+          <ServerCard />
         </Grid>
-        <Pagination sx={{alignSelf: "center"}} count={10} color="primary" />
+        <Pagination sx={{ alignSelf: "center" }} count={10} color="primary" />
       </Section>
 
       <Section>
@@ -56,8 +58,6 @@ const ServersList = () => {
           <h2>Últimos servidores de Minecraft agregados</h2>
         </FeaturedTitle>
         <Carousel>
-          <ServerCard />
-          <ServerCard />
           <ServerCard />
           <ServerCard />
           <ServerCard />

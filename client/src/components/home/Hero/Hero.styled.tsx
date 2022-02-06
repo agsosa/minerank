@@ -41,7 +41,7 @@ export const Left = styled.div``;
 
 export const Right = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 20px;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
