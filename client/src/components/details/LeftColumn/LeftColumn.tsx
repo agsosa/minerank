@@ -16,9 +16,9 @@ import { BiGitBranch } from "react-icons/bi";
 const LeftColumn = () => {
   return (
     <Container>
-      <Card>
-        <Image src="/cryptosignal-thumb.png" width="318" height="318" />
+      <Image src="/cryptosignal-thumb.png" width="318" height="318" />
 
+      <Card>
         <div id="content">
           <Stat>
             <FaCircle color="green" />
@@ -31,7 +31,7 @@ const LeftColumn = () => {
         </div>
       </Card>
 
-      <Card>
+      <Card id="with-margin">
         <Flex id="content">
           <SmallStat>
             <FaSyncAlt />

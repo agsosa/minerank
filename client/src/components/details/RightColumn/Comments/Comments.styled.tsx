@@ -6,6 +6,17 @@ export const Container = styled(SharedCard)`
   background-color: white;
   display: flex;
   flex-direction: column;
+  gap: 20px;
+`;
+
+export const TitleContainer = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
+`;
+
+export const CommentsList = styled.div`
+  display: flex;
 `;
 
 export const CommentEntry = styled.div`
@@ -29,8 +40,13 @@ export const CommentEntry = styled.div`
 export const CommentInput = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   width: 100%;
-  gap: 20px;
+  gap: 10px;
+
+  .comment-input {
+    width: 100%;
+    display: hidden;
+  }
 `;

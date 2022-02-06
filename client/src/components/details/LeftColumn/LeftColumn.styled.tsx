@@ -1,3 +1,4 @@
+import { HEADER_HEIGHT } from "src/components/common/Header/Header.styled";
 import styled from "styled-components";
 import { SharedCard } from "../shared/shared.styled";
 
@@ -7,7 +8,14 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  position: sticky;
+  position: -webkit-sticky;
+  top: ${HEADER_HEIGHT}; /* required */
+
+
+  #with-margin {
+    margin-top: 10px;
+  }
 `;
 
 export const Card = styled(SharedCard)`
@@ -17,10 +25,6 @@ export const Card = styled(SharedCard)`
   align-items: center;
   justify-content: center;
   gap: 5px;
-
-  #content {
-    padding: 10px;
-  }
 `;
 
 export const Stat = styled.div`

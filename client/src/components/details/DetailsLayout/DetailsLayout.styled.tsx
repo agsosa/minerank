@@ -10,6 +10,7 @@ export const Container = styled.div`
   gap: 30px;
   width: 100%;
   gap: 30px;
-  margin-bottom: 30px;
+  margin: 50px 0px;
+
   ${CONTENT_WIDTH}
 `;
