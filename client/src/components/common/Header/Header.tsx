@@ -12,6 +12,7 @@ const Header = () => {
         </Logo>
         <Flex>
           <p>Modos de Juego</p>
+          <p>FAQ</p>
           <p>Blog</p>
           <p>Promocionar</p>
           <p>Agregar Servidor</p>

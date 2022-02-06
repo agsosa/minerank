@@ -1,6 +1,8 @@
 import { CONTENT_WIDTH } from "src/utils/style.utils";
 import styled from "styled-components";
 
+export const HEADER_HEIGHT = "60px";
+
 export const Container = styled.div`
   width: 100%;
   position: fixed;
@@ -10,9 +12,9 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-color: black;
-  border-bottom: 3px rgba(21, 143, 62, 0.5) solid;
-  background-color: rgba(0, 0, 0, 0.5);
+   //background-color: #201f1f;
+  //border-bottom: 3px rgba(21, 143, 62, 1) solid;
+  /*background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);*/
 `;
 
@@ -20,7 +22,7 @@ export const HeaderContent = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 0px;
+  height: ${HEADER_HEIGHT};
   ${CONTENT_WIDTH}
 `;
 
@@ -33,5 +35,5 @@ export const Logo = styled.div`
 
 export const Flex = styled.div`
   display: flex;
-  gap: 32px;
+  gap: 50px;
 `;

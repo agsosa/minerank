@@ -33,18 +33,18 @@ const Footer = () => {
         <ColumnsContainer>
           <Column>
             <b>Modos de juego populares</b>
-            <p>Servidores de Minecraft</p>
-            <p>Servidores de Minecraft</p>
-            <p>Servidores de Minecraft</p>
-            <p>Servidores de Minecraft</p>
+            <p>PVP Survival</p>
+            <p>Factions</p>
+            <p>Squid Game</p>
+            <p>Sky blocks</p>
           </Column>
 
           <Column>
-            <b>Versiones de Minecraft</b>
+            <b>Versiones populares</b>
             <p>v1.18</p>
-            <p>Servidores de Minecraft</p>
-            <p>Servidores de Minecraft</p>
-            <p>Servidores de Minecraft</p>
+            <p>v1.16</p>
+            <p>v1.8.7</p>
+            <p>v1.5</p>
           </Column>
 
           <Column>
@@ -52,7 +52,7 @@ const Footer = () => {
             <p>Agregar servidor</p>
             <p>Promocionar servidor</p>
             <p>Preguntas Frecuentes</p>
-            <p>Contáctanos</p>
+            <p>Contacto</p>
           </Column>
         </ColumnsContainer>
       </FlexContainer>
@@ -73,7 +73,7 @@ const Footer = () => {
           <div id="links">
             <p>Política de Privacidad</p>|<p>Términos y Condiciones</p> |
             <p id="links">
-              Developed by{" "}
+              Desarrollado por{" "}
               <a href="https://github.com/agsosa" target="_blank" rel="noreferrer">
                 <Image src="/ags.png" width="24" height="24" />
               </a>
