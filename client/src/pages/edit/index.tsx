@@ -7,10 +7,10 @@ import DetailsLayout from "src/components/DetailsPage/DetailsLayout";
 import LeftColumn from "src/components/DetailsPage/LeftColumn";
 import RightColumn from "src/components/DetailsPage/RightColumn";
 
-const DetailsPage: NextPage = () => {
+const EditPage: NextPage = () => {
   return (
     <MainLayout>
-      <AppHead title="Servidor Survival Dub - Minerank - Servidores de Minecraft" />
+      <AppHead title="Agregar servidor - Minerank - Servidores de Minecraft" />
 
       <Header fixedBackground />
 
@@ -24,4 +24,4 @@ const DetailsPage: NextPage = () => {
   );
 };
 
-export default DetailsPage;
+export default EditPage;
