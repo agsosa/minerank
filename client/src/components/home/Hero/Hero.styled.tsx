@@ -51,7 +51,7 @@ export const Right = styled.div`
   h3,
   h2 {
     display: table;
-    background-color: black;
+    background-color: #131212;
     padding: 6px 10px;
     border-radius: 5px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);

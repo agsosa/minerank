@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const HEADER_HEIGHT = "60px";
 
-export const Container = styled.div`
+export const Container = styled.div<{ fixedBackground?: boolean }>`
   width: 100%;
   position: fixed;
   top: 0;
@@ -12,7 +12,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-   //background-color: #201f1f;
+  background-color: ${(props) => (props.fixedBackground ? "#131212" : "transparent")};
   //border-bottom: 3px rgba(21, 143, 62, 1) solid;
   /*background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);*/

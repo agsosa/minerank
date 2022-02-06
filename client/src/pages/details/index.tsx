@@ -9,7 +9,7 @@ import RightColumn from "src/components/details/RightColumn";
 const Details: NextPage = () => {
   return (
     <MainLayout>
-      <Header />
+      <Header fixedBackground />
 
       <DetailsLayout>
         <LeftColumn />

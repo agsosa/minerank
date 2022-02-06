@@ -71,7 +71,7 @@ export const FlexContainer = styled.div`
 
 export const Copyright = styled.div`
   width: 100%;
-  background-color: black;
+  background-color: #131212;
   color: gray;
   display: flex;
   align-items: center;
