@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import AppHead from "src/components/common/AppHead";
 import Footer from "src/components/common/Footer";
 import Header from "src/components/common/Header";
 import MainLayout from "src/components/common/MainLayout";
@@ -10,6 +11,8 @@ import ServersList from "src/components/home/ServersList";
 const Home: NextPage = () => {
   return (
     <MainLayout>
+      <AppHead title="Minerank - Los mejores servidores de Minecraft" />
+
       <Header />
 
       <Hero />
