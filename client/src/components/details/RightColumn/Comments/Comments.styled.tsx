@@ -24,7 +24,10 @@ export const CommentEntry = styled.div`
   flex-direction: column;
   justify-content: center;
 
-  #date {
+  #extras {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     font-size: 12px;
   }
 

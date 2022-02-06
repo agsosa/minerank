@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { FaComment, FaComments } from "react-icons/fa";
+import { FaComment, FaComments, FaFlag } from "react-icons/fa";
 import {
   Container,
   CommentEntry,
@@ -24,7 +24,11 @@ const Comments = () => {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
             incididunt ut labore et dolore magna aliqua
           </p>
-          <span id="date">Publicado el 02/13/22 20:33</span>
+
+          <div id="extras">
+            <span>Publicado el 02/13/22 20:33</span>
+            <FaFlag size="10px" color="gray" />
+          </div>
         </CommentEntry>
       </CommentsList>
 

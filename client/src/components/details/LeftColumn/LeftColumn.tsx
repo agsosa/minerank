@@ -12,6 +12,7 @@ import {
   FaUser,
 } from "react-icons/fa";
 import { BiGitBranch } from "react-icons/bi";
+import { formatNumber } from "src/utils/misc.utils";
 
 const LeftColumn = () => {
   return (
@@ -40,7 +41,7 @@ const LeftColumn = () => {
 
           <SmallStat>
             <FaMousePointer />
-            <span>1500</span>
+            <span>{formatNumber(15555555)}</span>
           </SmallStat>
         </Flex>
       </Card>
