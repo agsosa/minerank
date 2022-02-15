@@ -13,7 +13,7 @@ export class ServersService {
   ) {}
 
   create(createServerDto: CreateServerDto) {
-    return 'This action adds a new server';
+    return this.serversRepository.create(createServerDto)
   }
 
   findAll() {
@@ -21,7 +21,7 @@ export class ServersService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} server`;
+    return this.serversRepository.findOne(id);
   }
 
   update(id: number, updateServerDto: UpdateServerDto) {
@@ -29,6 +29,6 @@ export class ServersService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} server`;
+    return this.serversRepository.delete(id);
   }
 }

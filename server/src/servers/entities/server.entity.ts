@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Edition, PremiumType } from '../shared/server.enums';
 
 @Entity()
 export class Server {
@@ -12,29 +13,32 @@ export class Server {
   id: number;
 
   // Server details
-  @Column({
-    length: 36,
-  })
+  @Column()
   name: string;
 
-  @Column({
-    length: 280,
-  })
+  @Column()
   description: string;
 
-  @Column({
-    length: 24,
-  })
+  @Column()
+  youtubeTrailer: string;
+
+  @Column()
   path: string;
 
   @Column()
   ip: string;
 
   @Column()
+  edition: Edition;
+
+  @Column()
+  port: number;
+
+  @Column()
   version: string;
 
   @Column()
-  premiumType: string;
+  premiumType: PremiumType;
 
   @Column()
   countryCode: string;
