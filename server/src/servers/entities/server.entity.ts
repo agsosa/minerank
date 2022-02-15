@@ -28,14 +28,22 @@ export class Server {
   @Column()
   ip: string;
 
-  @Column()
+  @Column({
+    default: Edition.JAVA,
+  })
   edition: Edition;
 
   @Column()
   port: number;
 
   @Column()
-  version: string;
+  version: string; // TODO: Add table+relationship
+
+  @Column()
+  gamemodes: string; // TODO: Add table+relationship?
+
+  @Column()
+  user: string; // TODO: Add relationship
 
   @Column()
   premiumType: PremiumType;
@@ -47,7 +55,7 @@ export class Server {
   @Column({ default: true })
   isActive: boolean;
 
-  @Column()
+  @Column({ default: 0 })
   upvotes: number;
 
   // Social media

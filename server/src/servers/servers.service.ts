@@ -13,7 +13,7 @@ export class ServersService {
   ) {}
 
   create(createServerDto: CreateServerDto) {
-    return this.serversRepository.create(createServerDto)
+    return this.serversRepository.insert(createServerDto);
   }
 
   findAll() {
