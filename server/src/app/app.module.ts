@@ -2,9 +2,12 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigModuleOptions, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
 import { join } from 'path';
-import { CommunityModule } from 'src/community/community.module';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+
+import { CommunityModule } from 'src/community/community.module';
+import { UserModule } from 'src/user/user.module';
 
 const configModuleOptions: ConfigModuleOptions = {
   isGlobal: true,
@@ -31,6 +34,7 @@ const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
     ConfigModule.forRoot(configModuleOptions),
     TypeOrmModule.forRootAsync(typeOrmModuleAsyncOptions),
     CommunityModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
