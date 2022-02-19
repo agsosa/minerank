@@ -1,5 +1,5 @@
 // 1500000 -> 1.5M
-export function formatNumber(num: number, digits = 2) {
+export function formatBigNumber(num: number, digits = 2) {
   const lookup = [
     { value: 1, symbol: "" },
     { value: 1e3, symbol: "k" },

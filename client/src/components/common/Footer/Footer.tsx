@@ -11,7 +11,7 @@ import {
 } from "./Footer.styled";
 
 import Image from "next/image";
-import { getAppConfig } from "src/utils/appConfig.utils";
+import { getAppConfig } from "src/services/config.service";
 
 const Footer = () => {
   const year = new Date().getFullYear();

@@ -1,6 +1,6 @@
 import { Container, HeaderContent, Logo, Flex } from "./Header.styled";
 import Image from "next/image";
-import { getAppConfig } from "src/utils/appConfig.utils";
+import { getAppConfig } from "src/services/config.service";
 
 interface HeaderProps {
   fixedBackground?: boolean;

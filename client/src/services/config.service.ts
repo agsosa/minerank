@@ -10,3 +10,5 @@ interface AppConfig {
 }
 
 export const getAppConfig = (): AppConfig => ({ appName, apiBaseUrl });
+
+// TODO: Fetch config from server
