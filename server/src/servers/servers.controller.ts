@@ -31,17 +31,17 @@ export class ServersController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.serversService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateServerDto: UpdateServerDto) {
+  update(@Param('id') id: number, @Body() updateServerDto: UpdateServerDto) {
     return this.serversService.update(+id, updateServerDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.serversService.remove(+id);
   }
 }

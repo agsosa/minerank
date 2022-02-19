@@ -12,10 +12,7 @@ export class User {
   id: number;
 
   @Column()
-  name: string;
-
-  @Column()
-  ip: string;
+  username: string;
 
   @Column({ default: true })
   isActive: boolean;

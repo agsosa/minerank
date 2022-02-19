@@ -11,9 +11,12 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { Edition, PremiumType } from '../shared/server.enums';
+import { Edition, PremiumType } from 'shared/enums/servers.enums';
+import { ICreateServerDto } from 'shared/interfaces/servers.interface';
 
-export class CreateServerDto {
+export class CreateServerDto implements ICreateServerDto {
+  // TODO: Add version, gamemodes
+
   @IsNotEmpty()
   @MinLength(3)
   @MaxLength(36)

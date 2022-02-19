@@ -5,7 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Edition, PremiumType } from '../shared/server.enums';
+import { Edition, PremiumType } from '@shared/enums/servers.enums';
 
 @Entity()
 export class Server {
