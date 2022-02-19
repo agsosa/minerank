@@ -1,12 +1,10 @@
+import { IEntityBase } from 'src/shared/internal/IEntityBase';
 import { EditionEnum, PremiumTypeEnum } from '../enum/community.enum';
 
-export interface ICommunity {
+export interface ICommunity extends IEntityBase {
   /**
    * Non nullable fields
    */
-  id: number;
-  createdAt: Date;
-  updatedAt: Date;
   name: string;
   description: string;
   shortName: string;

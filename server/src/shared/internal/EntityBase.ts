@@ -1,6 +1,7 @@
 import { CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { IEntityBase } from './IEntityBase';
 
-export class EntityBase {
+export class EntityBase implements IEntityBase {
   @PrimaryGeneratedColumn()
   id: number; // Auto-generated
 
