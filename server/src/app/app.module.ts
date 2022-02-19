@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigModuleOptions, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
+import { join } from 'path';
 import { CommunityModule } from 'src/community/community.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -15,11 +16,11 @@ const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
   useFactory: (configService: ConfigService) => ({
     type: configService.get<any>('DB_TYPE'),
     host: configService.get<string>('DB_HOST'),
-    port: parseInt(configService.get<string>('DB_PORT')),
+    port: parseInt(configService.get<string>('DB_PORT') || ''),
     username: configService.get<string>('DB_USER'),
     password: configService.get<string>('DB_PASS'),
     database: configService.get<string>('DB_NAME'),
-    entities: [__dirname + '/**/*.entity{.ts,.js}'],
+    entities: [join(__dirname, '../', '**', '*.entity.{ts,js}')],
     synchronize: true,
   }),
   inject: [ConfigService],
