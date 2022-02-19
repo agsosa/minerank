@@ -1,27 +1,13 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Entity, Column } from 'typeorm';
 import { ICommunity } from 'src/shared/types/entities/ICommunity';
 import { EditionEnum, PremiumTypeEnum } from 'src/shared/types/enum/community.enum';
+import { EntityBase } from 'src/shared/internal/EntityBase';
 
 @Entity()
-export class Community implements ICommunity {
+export class Community extends EntityBase implements ICommunity {
   /**
    * Non nullable fields
    */
-
-  @PrimaryGeneratedColumn()
-  id: number; // Auto-generated
-
-  @CreateDateColumn()
-  createdAt: Date; // Auto-generated
-
-  @UpdateDateColumn()
-  updatedAt: Date; // Auto-generated
 
   @Column()
   name: string;
