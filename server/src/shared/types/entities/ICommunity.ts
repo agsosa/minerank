@@ -1,4 +1,4 @@
-import { Edition, PremiumType } from '../enums/servers.enums';
+import { EditionEnum, PremiumTypeEnum } from '../enum/community.enum';
 
 export interface ICommunity {
   /**
@@ -11,11 +11,11 @@ export interface ICommunity {
   description: string;
   shortName: string;
   ip: string;
-  edition: Edition;
+  edition: EditionEnum;
   version: string;
   gamemodes: string;
   user: string;
-  premiumType: PremiumType;
+  premiumType: PremiumTypeEnum;
   upvotes: number;
   isActive: boolean;
 

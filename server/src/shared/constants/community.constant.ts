@@ -13,5 +13,9 @@ export const CommunityConstants = Object.freeze({
       minLength: 10,
       maxLength: 280,
     },
+    ip: {
+      minLength: 5,
+      maxLength: 253,
+    },
   },
 });

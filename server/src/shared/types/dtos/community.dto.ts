@@ -1,6 +1,7 @@
 import { ICommunity } from '../entities/ICommunity';
 
-type includedProperties =
+// TODO: Ver tema media
+type CreateCommunityProperties =
   | 'name'
   | 'description'
   | 'shortName'
@@ -21,4 +22,6 @@ type includedProperties =
   | 'instagram'
   | 'teamspeak';
 
-export type ICreateCommunityDto = Pick<ICommunity, includedProperties>;
+export type ICreateCommunityDto = Pick<ICommunity, CreateCommunityProperties>;
+
+export type IUpdateCommunityDto = Partial<ICreateCommunityDto>;

@@ -11,15 +11,13 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { CommunityConstants } from 'src/shared/types/constants/community.constants';
-import { ICreateCommunityDto } from 'src/shared/types/dtos/ICreateCommunityDto';
-import { Edition, PremiumType } from 'src/shared/types/enums/servers.enums';
+import { CommunityConstants } from 'src/shared/constants/community.constant';
+import { ICreateCommunityDto } from 'src/shared/types/dtos/community.dto';
+import { EditionEnum, PremiumTypeEnum } from 'src/shared/types/enum/community.enum';
 
 const { fieldsConstraints: constraints } = CommunityConstants;
 
 export class CreateCommunityDto implements ICreateCommunityDto {
-  // TODO: Add version, gamemodes
-
   @IsNotEmpty()
   @MinLength(constraints.name.minLength)
   @MaxLength(constraints.name.maxLength)
@@ -45,26 +43,33 @@ export class CreateCommunityDto implements ICreateCommunityDto {
   @ApiProperty({
     minLength: constraints.shortName.minLength,
     maxLength: constraints.shortName.maxLength,
-    pattern: '[A-Za-z0-9_-]*',
+    pattern: constraints.shortName.regex.toString(),
   })
   shortName: string;
 
   @IsNotEmpty()
-  @MinLength(5)
-  @MaxLength(253)
+  @MinLength(constraints.ip.minLength)
+  @MaxLength(constraints.ip.maxLength)
   @ApiProperty({
-    minLength: 5,
-    maxLength: 253,
+    minLength: constraints.ip.minLength,
+    maxLength: constraints.ip.maxLength,
   })
   ip: string;
 
   @IsNotEmpty()
-  @IsEnum(PremiumType)
+  @IsEnum(EditionEnum)
   @ApiProperty({
-    example: PremiumType.PREMIUM,
-    enum: PremiumType,
+    enum: EditionEnum,
   })
-  premiumType: PremiumType;
+  edition: EditionEnum;
+
+  @IsNotEmpty()
+  @IsEnum(PremiumTypeEnum)
+  @ApiProperty({
+    example: PremiumTypeEnum.PREMIUM,
+    enum: PremiumTypeEnum,
+  })
+  premiumType: PremiumTypeEnum;
 
   @IsNotEmpty()
   @IsISO31661Alpha2()
@@ -81,6 +86,9 @@ export class CreateCommunityDto implements ICreateCommunityDto {
   })
   youtubeTrailer?: string;
 
+  version: string;
+  gamemodes: string;
+
   @IsOptional()
   @IsNumber()
   @IsPositive()
@@ -91,50 +99,32 @@ export class CreateCommunityDto implements ICreateCommunityDto {
   })
   port?: number;
 
-  @IsOptional()
-  @IsEnum(Edition)
-  @ApiProperty({
-    description: 'The Minecraft edition of the server',
-    example: Edition.BEDROCK,
-    enum: Edition,
-    required: false,
-    default: Edition.JAVA,
-  })
-  edition?: Edition;
-
+  // TODO: Add urls lengths?
   @IsOptional()
   @IsUrl()
   @ApiProperty({
-    description: "The server's website URL",
     required: false,
-    example: 'https://minecraft.com',
   })
   website?: string;
 
   @IsOptional()
   @IsUrl()
   @ApiProperty({
-    description: "The server's Twitter URL",
     required: false,
-    example: 'https://twitter.com/minecraft',
   })
   twitter?: string;
 
   @IsOptional()
   @IsUrl()
   @ApiProperty({
-    description: "The server's Youtube URL",
     required: false,
-    example: 'https://youtube.com/minecraft',
   })
   youtube?: string;
 
   @IsOptional()
   @IsUrl()
   @ApiProperty({
-    description: "The server's Instagram URL",
     required: false,
-    example: 'https://instagram.com/minecraft',
   })
   instagram?: string;
 
@@ -142,27 +132,21 @@ export class CreateCommunityDto implements ICreateCommunityDto {
   @MinLength(5)
   @MaxLength(253)
   @ApiProperty({
-    description: "The server's Teamspeak IP",
     required: false,
-    example: 'ts3.minecraft.com',
   })
   teamspeak?: string;
 
   @IsOptional()
   @IsUrl()
   @ApiProperty({
-    description: "The server's Discord URL",
     required: false,
-    example: 'https://discord.com/minecraft',
   })
   discord?: string;
 
   @IsOptional()
   @IsUrl()
   @ApiProperty({
-    description: "The server's Facebook URL",
     required: false,
-    example: 'https://facebook.com/minecraft',
   })
   facebook?: string;
 
@@ -170,9 +154,7 @@ export class CreateCommunityDto implements ICreateCommunityDto {
   @MinLength(5)
   @MaxLength(253)
   @ApiProperty({
-    description: "The server's Telegram URL",
     required: false,
-    example: 'https://telegram.com/minecraft',
   })
   telegram?: string;
 }

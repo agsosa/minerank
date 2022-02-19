@@ -6,7 +6,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { ICommunity } from 'src/shared/types/entities/ICommunity';
-import { Edition, PremiumType } from 'src/shared/types/enums/servers.enums';
+import { EditionEnum, PremiumTypeEnum } from 'src/shared/types/enum/community.enum';
 
 @Entity()
 export class Community implements ICommunity {
@@ -46,7 +46,7 @@ export class Community implements ICommunity {
   @Column({
     nullable: false,
   })
-  edition: Edition;
+  edition: EditionEnum;
 
   @Column({
     nullable: false,
@@ -66,7 +66,7 @@ export class Community implements ICommunity {
   @Column({
     nullable: false,
   })
-  premiumType: PremiumType;
+  premiumType: PremiumTypeEnum;
 
   @Column({ nullable: false, default: false })
   isActive: boolean;
