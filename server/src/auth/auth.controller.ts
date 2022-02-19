@@ -1,20 +1,25 @@
 import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guard/auth.jwt.guard';
 import { LocalAuthGuard } from './guard/auth.local.guard';
 
-@Controller('auth')
+@ApiTags('auth')
+@Controller({
+  version: '1',
+  path: 'auth',
+})
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   @UseGuards(LocalAuthGuard)
-  @Post('auth/login')
+  @Post('login')
   async login(@Request() req) {
-    return this.authService.login(req.user);
+    return this.authService.generateJWT(req.user);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('auth/profile')
+  @Get('status')
   getProfile(@Request() req) {
     return req.user;
   }

@@ -20,8 +20,8 @@ export class UserService {
     return this.userRepository.find();
   }
 
-  findOne(username: string) {
-    return this.userRepository.findOne({ username });
+  findByEmail(email: string) {
+    return this.userRepository.findOne({ email });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

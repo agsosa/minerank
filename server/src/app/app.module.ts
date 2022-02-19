@@ -8,6 +8,7 @@ import { AppService } from './app.service';
 
 import { CommunityModule } from 'src/community/community.module';
 import { UserModule } from 'src/user/user.module';
+import { AuthModule } from 'src/auth/auth.module';
 
 const configModuleOptions: ConfigModuleOptions = {
   isGlobal: true,
@@ -33,6 +34,7 @@ const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
   imports: [
     ConfigModule.forRoot(configModuleOptions),
     TypeOrmModule.forRootAsync(typeOrmModuleAsyncOptions),
+    AuthModule,
     CommunityModule,
     UserModule,
   ],

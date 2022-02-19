@@ -1,26 +1,30 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { IUser } from 'src/shared/types/entities/Iuser';
 import { UserService } from 'src/user/user.service';
+
+export type JWTUserPayload = Omit<IUser, 'password'>;
 
 @Injectable()
 export class AuthService {
   constructor(private userService: UserService, private jwtService: JwtService) {}
 
-  async validateUser(username: string, pass: string): Promise<any> {
-    const user = await this.userService.findOne(username);
+  // Called before generateJWT
+  // the result object will be passed to generateJWT as payload
+  async validateLocalStrategy(email: string, password: string): Promise<JWTUserPayload | null> {
+    const user = await this.userService.findByEmail(email);
 
-    if (user && user.password === pass) {
+    // TODO: Add bcrypt
+    if (user && user.password === password) {
       const { password, ...result } = user;
-
       return result;
     }
 
     return null;
   }
 
-  async login(user: any) {
-    const payload = { username: user.username, sub: user.userId };
-
+  // Called after validateLocalStrategy
+  async generateJWT(payload: JWTUserPayload) {
     return {
       access_token: this.jwtService.sign(payload),
     };
