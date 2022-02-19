@@ -1,6 +1,9 @@
 {
-  "name": "client",
+  "name": "minerank-client",
   "private": true,
+  "version": "1.0.0",
+  "author": "agsosa",
+  "license": "UNLICENSED",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

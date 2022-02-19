@@ -1,8 +1,7 @@
 {
   "name": "mineranks-server",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "version": "1.0.0",
+  "author": "agsosa",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
