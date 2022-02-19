@@ -70,6 +70,7 @@ public class CommunityModel {
   // TODO: Add reports relations
 
   /* Optional fields */
+  @NotBlank(message = "Test validation exception handler")
   private String countryCode;
   private String port;
 

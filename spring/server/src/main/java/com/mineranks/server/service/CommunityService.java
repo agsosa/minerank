@@ -1,5 +1,6 @@
 package com.mineranks.server.service;
 
+import com.mineranks.server.exception.CommunityNotFoundException;
 import com.mineranks.server.model.CommunityModel;
 import com.mineranks.server.repository.CommunityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,8 @@ public class CommunityService {
   }
 
   public CommunityModel getCommunity(Long id) {
-    return communityRepository.findById(id).get();
+    return communityRepository.findById(id)
+            .orElseThrow(() -> new CommunityNotFoundException(id));
   }
 
   public CommunityModel createCommunity(CommunityModel community) {
