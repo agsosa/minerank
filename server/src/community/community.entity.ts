@@ -17,97 +17,79 @@ export class Community implements ICommunity {
   @PrimaryGeneratedColumn()
   id: number; // Auto-generated
 
-  @CreateDateColumn({ nullable: false })
+  @CreateDateColumn()
   createdAt: Date; // Auto-generated
 
-  @UpdateDateColumn({ nullable: false })
+  @UpdateDateColumn()
   updatedAt: Date; // Auto-generated
 
-  @Column({
-    nullable: false,
-  })
+  @Column()
   name: string;
 
-  @Column({
-    nullable: false,
-  })
+  @Column()
   description: string;
 
-  @Column({
-    nullable: false,
-  })
+  @Column()
   shortName: string;
 
-  @Column({
-    nullable: false,
-  })
+  @Column()
   ip: string;
 
-  @Column({
-    nullable: false,
-  })
+  @Column()
   edition: EditionEnum;
 
-  @Column({
-    nullable: false,
-  })
+  @Column()
   version: string; // TODO: Add table+relationship
 
-  @Column({
-    nullable: false,
-  })
+  @Column()
   gamemodes: string; // TODO: Add table+relationship
 
-  @Column({
-    nullable: false,
-  })
+  @Column()
   user: string; // TODO: Add relationship
 
-  @Column({
-    nullable: false,
-  })
+  @Column()
   premiumType: PremiumTypeEnum;
 
-  @Column({ nullable: false, default: false })
+  @Column({ default: false })
   isActive: boolean;
 
-  @Column({ nullable: false, default: 0 })
+  @Column({ default: 0 })
   upvotes: number;
 
   /**
-   * Nullable fields
+   * Nullable fields (needs explicit type)
    */
 
-  @Column({ nullable: true })
-  countryCode: string;
+  @Column({ type: 'varchar', nullable: true })
+  countryCode: string | null;
 
-  @Column({ nullable: true })
-  port: number;
+  @Column({ type: 'int', nullable: true })
+  port: number | null;
 
-  @Column({ nullable: true })
-  youtubeTrailer: string;
+  @Column({ type: 'varchar', nullable: true })
+  youtubeTrailer: string | null;
 
-  @Column({ nullable: true })
-  website: string;
+  @Column({ type: 'varchar', nullable: true })
+  website: string | null;
 
-  @Column({ nullable: true })
-  youtube: string;
+  @Column({ type: 'varchar', nullable: true })
+  youtube: string | null;
 
-  @Column({ nullable: true })
-  twitter: string;
+  @Column({ type: 'varchar', nullable: true })
+  twitter: string | null;
 
-  @Column({ nullable: true })
-  discord: string;
+  @Column({ type: 'varchar', nullable: true })
+  discord: string | null;
 
-  @Column({ nullable: true })
-  telegram: string;
+  @Column({ type: 'varchar', nullable: true })
+  telegram: string | null;
 
-  @Column({ nullable: true })
-  facebook: string;
+  @Column({ type: 'varchar', nullable: true })
+  facebook: string | null;
 
-  @Column({ nullable: true })
-  instagram: string;
+  @Column({ type: 'varchar', nullable: true })
+  instagram: string | null;
 
-  @Column({ nullable: true })
-  teamspeak: string;
+  @Column({ type: 'varchar', nullable: true })
+  teamspeak: string | null;
 }

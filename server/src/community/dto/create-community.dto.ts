@@ -69,7 +69,6 @@ export class CreateCommunityDto implements ICreateCommunityDto {
   @IsNotEmpty()
   @IsEnum(PremiumTypeEnum)
   @ApiProperty({
-    example: PremiumTypeEnum.PREMIUM,
     enum: PremiumTypeEnum,
   })
   premiumType: PremiumTypeEnum;
@@ -83,12 +82,15 @@ export class CreateCommunityDto implements ICreateCommunityDto {
   countryCode: string;
 
   @IsNotEmpty()
+  @ApiProperty()
   version: string;
 
   @IsNotEmpty()
+  @ApiProperty()
   user: string;
 
   @IsNotEmpty()
+  @ApiProperty()
   gamemodes: string;
 
   /**
@@ -107,7 +109,6 @@ export class CreateCommunityDto implements ICreateCommunityDto {
   @IsPositive()
   @ApiProperty({
     description: 'default: 25565 for Java and 19132 for Bedrock',
-    example: 25523,
     required: false,
   })
   port: number;
