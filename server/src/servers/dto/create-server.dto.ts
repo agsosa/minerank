@@ -94,8 +94,7 @@ export class CreateServerDto implements ICreateServerDto {
   @IsNumber()
   @IsPositive()
   @ApiProperty({
-    description:
-      "The server's port number (default: 25565 for Java and 19132 for Bedrock)",
+    description: "The server's port number (default: 25565 for Java and 19132 for Bedrock)",
     example: 25523,
     required: false,
   })

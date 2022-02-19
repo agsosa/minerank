@@ -5,60 +5,88 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Edition, PremiumType } from '@shared/enums/servers.enums';
+import { ICommunity } from 'src/shared/types/entities/ICommunity';
+import { Edition, PremiumType } from 'src/shared/types/enums/servers.enums';
 
 @Entity()
-export class Server {
-  @PrimaryGeneratedColumn()
-  id: number;
+export class Community implements ICommunity {
+  /**
+   * Required fields
+   */
 
-  // Server details
-  @Column()
+  @PrimaryGeneratedColumn()
+  id: number; // Auto-generated
+
+  @CreateDateColumn()
+  createdAt: Date; // Auto-generated
+
+  @UpdateDateColumn()
+  updatedAt: Date; // Auto-generated
+
+  @Column({
+    nullable: false,
+  })
   name: string;
 
-  @Column()
+  @Column({
+    nullable: false,
+  })
   description: string;
 
-  @Column()
-  youtubeTrailer: string;
+  @Column({
+    nullable: false,
+  })
+  shortName: string;
 
-  @Column()
-  path: string;
-
-  @Column()
+  @Column({
+    nullable: false,
+  })
   ip: string;
 
   @Column({
-    default: Edition.JAVA,
+    nullable: false,
   })
   edition: Edition;
 
-  @Column()
-  port: number;
-
-  @Column()
+  @Column({
+    nullable: false,
+  })
   version: string; // TODO: Add table+relationship
 
-  @Column()
-  gamemodes: string; // TODO: Add table+relationship?
+  @Column({
+    nullable: false,
+  })
+  gamemodes: string; // TODO: Add table+relationship
 
-  @Column()
+  @Column({
+    nullable: false,
+  })
   user: string; // TODO: Add relationship
 
-  @Column()
+  @Column({
+    nullable: false,
+  })
   premiumType: PremiumType;
 
-  @Column()
-  countryCode: string;
-
-  // Server status
-  @Column({ default: true })
+  @Column({ nullable: false, default: false })
   isActive: boolean;
 
   @Column({ default: 0 })
   upvotes: number;
 
-  // Social media
+  /**
+   * Optional fields
+   */
+
+  @Column()
+  countryCode: string;
+
+  @Column()
+  port: number;
+
+  @Column()
+  youtubeTrailer: string;
+
   @Column()
   website?: string;
 
@@ -82,11 +110,4 @@ export class Server {
 
   @Column()
   teamspeak?: string;
-
-  // Timestamps
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
 }
