@@ -1,4 +1,4 @@
-import { Container, ApplyBtn, RandomBtn, Flex } from "./Filters.styled";
+import { Container, Flex } from "./Filters.styled";
 import * as React from "react";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
@@ -37,10 +37,11 @@ const names = [
 const Filters = () => {
   const [personName, setPersonName] = React.useState([]);
 
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value },
     } = event;
+    
     setPersonName(
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
