@@ -1,4 +1,4 @@
-package com.mineranks.server.models;
+package com.mineranks.server.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -9,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -24,28 +25,25 @@ import lombok.Setter;
 @AllArgsConstructor
 @Table(name = "communities")
 public class CommunityModel {
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(unique = true, nullable = false)
-  @JsonProperty("id")
   private Long id;
 
-  @NotBlank(message = "Community name is required")
-  @JsonProperty("name")
+  @Column(nullable = false)
   private String name;
 
-  @JsonProperty("ip")
+  @Column(nullable = false)
   private String ip;
 
-  @JsonProperty("website")
+  @ColumnDefault("false")
+  private boolean isActive;
+
   private String website;
 
   @UpdateTimestamp
-  @JsonProperty("updatedAt")
   private LocalDateTime updatedAt;
 
   @CreationTimestamp
-  @JsonProperty("createdAt")
   private LocalDateTime createdAt;
 }

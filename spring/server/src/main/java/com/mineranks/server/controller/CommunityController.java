@@ -1,7 +1,7 @@
-package com.mineranks.server.controllers;
+package com.mineranks.server.controller;
 
-import com.mineranks.server.models.CommunityModel;
-import com.mineranks.server.services.CommunityService;
+import com.mineranks.server.model.CommunityModel;
+import com.mineranks.server.service.CommunityService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -22,7 +22,7 @@ public class CommunityController {
 
   @PostMapping
   public CommunityModel createCommunity(
-    @Valid @RequestBody CommunityModel community
+          @Valid @RequestBody CommunityModel community
   ) {
     return communityService.createCommunity(community);
   }
