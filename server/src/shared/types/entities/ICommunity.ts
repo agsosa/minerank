@@ -2,7 +2,7 @@ import { EditionEnum, PremiumTypeEnum } from '../enum/community.enum';
 
 export interface ICommunity {
   /**
-   * Required fields
+   * Non nullable fields
    */
   id: number;
   createdAt: Date;
@@ -20,18 +20,18 @@ export interface ICommunity {
   isActive: boolean;
 
   /**
-   * Optional fields
+   * Nullable fields
    */
-  port?: number;
-  countryCode?: string;
-  youtubeTrailer?: string;
+  port: number | null;
+  countryCode: string | null;
+  youtubeTrailer: string | null;
   // TODO: Add images, portait, main photo, etc
-  website?: string;
-  youtube?: string;
-  twitter?: string;
-  discord?: string;
-  telegram?: string;
-  facebook?: string;
-  instagram?: string;
-  teamspeak?: string;
+  website: string | null;
+  youtube: string | null;
+  twitter: string | null;
+  discord: string | null;
+  telegram: string | null;
+  facebook: string | null;
+  instagram: string | null;
+  teamspeak: string | null;
 }

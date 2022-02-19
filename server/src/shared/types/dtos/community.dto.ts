@@ -9,6 +9,7 @@ type CreateCommunityProperties =
   | 'edition'
   | 'version' // TODO: Ver tema relaciones
   | 'gamemodes' // TODO: Ver tema relaciones
+  | 'user' // TODO: Ver tema relaciones/auth
   | 'premiumType'
   | 'port'
   | 'countryCode'

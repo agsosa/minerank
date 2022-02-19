@@ -18,6 +18,9 @@ import { EditionEnum, PremiumTypeEnum } from 'src/shared/types/enum/community.en
 const { fieldsConstraints: constraints } = CommunityConstants;
 
 export class CreateCommunityDto implements ICreateCommunityDto {
+  /**
+   * Non nullable properties
+   */
   @IsNotEmpty()
   @MinLength(constraints.name.minLength)
   @MaxLength(constraints.name.maxLength)
@@ -79,15 +82,25 @@ export class CreateCommunityDto implements ICreateCommunityDto {
   })
   countryCode: string;
 
+  @IsNotEmpty()
+  version: string;
+
+  @IsNotEmpty()
+  user: string;
+
+  @IsNotEmpty()
+  gamemodes: string;
+
+  /**
+   * Nullable properties
+   */
+
   @IsOptional()
   @IsUrl()
   @ApiProperty({
     required: false,
   })
-  youtubeTrailer?: string;
-
-  version: string;
-  gamemodes: string;
+  youtubeTrailer: string;
 
   @IsOptional()
   @IsNumber()
@@ -97,7 +110,7 @@ export class CreateCommunityDto implements ICreateCommunityDto {
     example: 25523,
     required: false,
   })
-  port?: number;
+  port: number;
 
   // TODO: Add urls lengths?
   @IsOptional()
@@ -105,28 +118,28 @@ export class CreateCommunityDto implements ICreateCommunityDto {
   @ApiProperty({
     required: false,
   })
-  website?: string;
+  website: string;
 
   @IsOptional()
   @IsUrl()
   @ApiProperty({
     required: false,
   })
-  twitter?: string;
+  twitter: string;
 
   @IsOptional()
   @IsUrl()
   @ApiProperty({
     required: false,
   })
-  youtube?: string;
+  youtube: string;
 
   @IsOptional()
   @IsUrl()
   @ApiProperty({
     required: false,
   })
-  instagram?: string;
+  instagram: string;
 
   @IsOptional()
   @MinLength(5)
@@ -134,21 +147,21 @@ export class CreateCommunityDto implements ICreateCommunityDto {
   @ApiProperty({
     required: false,
   })
-  teamspeak?: string;
+  teamspeak: string;
 
   @IsOptional()
   @IsUrl()
   @ApiProperty({
     required: false,
   })
-  discord?: string;
+  discord: string;
 
   @IsOptional()
   @IsUrl()
   @ApiProperty({
     required: false,
   })
-  facebook?: string;
+  facebook: string;
 
   @IsOptional()
   @MinLength(5)
@@ -156,5 +169,5 @@ export class CreateCommunityDto implements ICreateCommunityDto {
   @ApiProperty({
     required: false,
   })
-  telegram?: string;
+  telegram: string;
 }

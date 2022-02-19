@@ -11,16 +11,16 @@ import { EditionEnum, PremiumTypeEnum } from 'src/shared/types/enum/community.en
 @Entity()
 export class Community implements ICommunity {
   /**
-   * Required fields
+   * Non nullable fields
    */
 
   @PrimaryGeneratedColumn()
   id: number; // Auto-generated
 
-  @CreateDateColumn()
+  @CreateDateColumn({ nullable: false })
   createdAt: Date; // Auto-generated
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ nullable: false })
   updatedAt: Date; // Auto-generated
 
   @Column({
@@ -71,43 +71,43 @@ export class Community implements ICommunity {
   @Column({ nullable: false, default: false })
   isActive: boolean;
 
-  @Column({ default: 0 })
+  @Column({ nullable: false, default: 0 })
   upvotes: number;
 
   /**
-   * Optional fields
+   * Nullable fields
    */
 
-  @Column()
+  @Column({ nullable: true })
   countryCode: string;
 
-  @Column()
+  @Column({ nullable: true })
   port: number;
 
-  @Column()
+  @Column({ nullable: true })
   youtubeTrailer: string;
 
-  @Column()
-  website?: string;
+  @Column({ nullable: true })
+  website: string;
 
-  @Column()
-  youtube?: string;
+  @Column({ nullable: true })
+  youtube: string;
 
-  @Column()
-  twitter?: string;
+  @Column({ nullable: true })
+  twitter: string;
 
-  @Column()
-  discord?: string;
+  @Column({ nullable: true })
+  discord: string;
 
-  @Column()
-  telegram?: string;
+  @Column({ nullable: true })
+  telegram: string;
 
-  @Column()
-  facebook?: string;
+  @Column({ nullable: true })
+  facebook: string;
 
-  @Column()
-  instagram?: string;
+  @Column({ nullable: true })
+  instagram: string;
 
-  @Column()
-  teamspeak?: string;
+  @Column({ nullable: true })
+  teamspeak: string;
 }
