@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { CommunityService } from './community.service';
-import { CreateServerDto } from './dto/create-server.dto';
+import { CreateCommunityDto } from './dto/create-community.dto';
 import { UpdateServerDto } from './dto/update-server.dto';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -13,7 +13,7 @@ export class CommunityController {
   constructor(private readonly communitySerice: CommunityService) {}
 
   @Post()
-  create(@Body() createCommunityDto: CreateServerDto) {
+  create(@Body() createCommunityDto: CreateCommunityDto) {
     return this.communitySerice.create(createCommunityDto);
   }
 

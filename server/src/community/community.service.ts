@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateServerDto } from './dto/create-server.dto';
+import { CreateCommunityDto } from './dto/create-community.dto';
 import { UpdateServerDto } from './dto/update-server.dto';
-import { Community } from './entities/server.entity';
+import { Community } from './community.entity';
 
 @Injectable()
 export class CommunityService {
@@ -12,7 +12,7 @@ export class CommunityService {
     private communityRepository: Repository<Community>,
   ) {}
 
-  create(createCommunityDto: CreateServerDto) {
+  create(createCommunityDto: CreateCommunityDto) {
     return this.communityRepository.insert(createCommunityDto);
   }
 
