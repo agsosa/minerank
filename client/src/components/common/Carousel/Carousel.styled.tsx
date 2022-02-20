@@ -37,7 +37,7 @@ export const Button = styled.button`
   top: 15%;
   z-index: 5;
   cursor: pointer;
-
+  
   ${bp.down("md")} {
     display: none;
   }

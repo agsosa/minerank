@@ -1,6 +1,7 @@
 import { Container } from "./DetailsLayout.styled";
+import {FC} from "react";
 
-const DetailsLayout: React.FC = ({ children, ...props }) => {
+const DetailsLayout: FC = ({ children, ...props }) => {
   return <Container {...props}>{children}</Container>;
 };
 

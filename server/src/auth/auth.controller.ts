@@ -8,7 +8,7 @@ import { LocalAuthGuard } from './guard/auth.local.guard';
 @ApiTags('auth')
 @Controller({
   version: '1',
-  path: 'auth',
+  path: 'auth'
 })
 export class AuthController {
   constructor(private authService: AuthService) {}
