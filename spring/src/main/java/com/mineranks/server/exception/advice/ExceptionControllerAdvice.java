@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class ExceptionControllerAdvice {
     /**
      * Handles common exceptions
+     *
      * @param ex the exception
      * @return ErrorResponse object
      */
@@ -25,15 +26,15 @@ public class ExceptionControllerAdvice {
     public ErrorResponse handleThrowable(final Throwable ex) {
         log.error("Unexpected error", ex);
 
-        return ErrorResponse
-                .builder()
-                .code("INTERNAL_SERVER_ERROR")
-                .message("An unexpected internal server error occurred")
-                .build();
+        return ErrorResponse.builder()
+                            .code("INTERNAL_SERVER_ERROR")
+                            .message("An unexpected internal server error occurred")
+                            .build();
     }
 
     /**
      * Handles argument validation error exception
+     *
      * @param ex the validation exception
      * @return ValidationErrorResponse object
      */
@@ -44,19 +45,21 @@ public class ExceptionControllerAdvice {
 
         ArrayList<ValidationError> list = new ArrayList<>();
 
-        ex.getBindingResult().getAllErrors().forEach(error -> list.add(ValidationError
-                .builder()
-                .field(error.getObjectName())
-                .type(error.getCode())
-                .message(error.getDefaultMessage())
-                .build()));
+        ex.getBindingResult()
+          .getFieldErrors()
+          .forEach(error -> list.add(ValidationError.builder()
+                                                    .object(error.getObjectName())
+                                                    .field(error.getField())
+                                                    .type(error.getCode())
+                                                    .value(String.valueOf(error.getRejectedValue()))
+                                                    .message(error.getDefaultMessage())
+                                                    .build()));
 
-        return ValidationErrorResponse
-                .builder()
-                .code("VALIDATION_ERROR")
-                .message("An argument validation error occurred")
-                .errors(list)
-                .build();
+        return ValidationErrorResponse.builder()
+                                      .code("VALIDATION_ERROR")
+                                      .message("An argument validation error occurred")
+                                      .errors(list)
+                                      .build();
     }
 
     @Data
@@ -77,8 +80,10 @@ public class ExceptionControllerAdvice {
     @Data
     @Builder
     private static class ValidationError {
+        private final String object;
         private final String field;
         private final String type;
+        private final String value;
         private final String message;
     }
 }
