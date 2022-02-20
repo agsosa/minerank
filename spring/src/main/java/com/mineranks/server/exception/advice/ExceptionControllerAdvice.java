@@ -1,85 +1,84 @@
 package com.mineranks.server.exception.advice;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Builder;
-import lombok.experimental.SuperBuilder;
-import lombok.extern.jackson.Jacksonized;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
+import lombok.*;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.context.request.WebRequest;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import java.util.ArrayList;
 
 @ControllerAdvice
+@Slf4j
 public class ExceptionControllerAdvice {
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> exception(Exception e) {
-        ErrorInfo errorInfo = ErrorInfo.builder()
-                .className(e.getClass().getName())
-                .message(e.getLocalizedMessage())
-                .build();
+    /**
+     * Handles common exceptions
+     * @param ex the exception
+     * @return ErrorResponse object
+     */
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Throwable.class)
+    @ResponseBody
+    public ErrorResponse handleThrowable(final Throwable ex) {
+        log.error("Unexpected error", ex);
 
-        return ResponseEntity.badRequest().body(errorInfo.toJSON());
+        return ErrorResponse
+                .builder()
+                .code("INTERNAL_SERVER_ERROR")
+                .message("An unexpected internal server error occurred")
+                .build();
     }
 
     /**
-     * Handles exception thrown by Bean Validation on controller methods parameter
+     * Handles argument validation error exception
+     * @param ex the validation exception
+     * @return ValidationErrorResponse object
      */
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(code = BAD_REQUEST)
     @ResponseBody
-    public ResponseEntity handleMethodArgumentNotValidException(MethodArgumentNotValidException e, WebRequest request) {
-        BindingErrorsResponse bindingErrors = new BindingErrorsResponse();
-        BindingResult bindingResult = e.getBindingResult();
+    public ValidationErrorResponse handleValidationException(final MethodArgumentNotValidException ex) {
 
-        if (bindingResult.hasErrors()) {
-            bindingErrors.addAllErrors(bindingResult);
-        }
+        ArrayList<ValidationError> list = new ArrayList<>();
 
-        ValidationErrorInfo errorInfo = ValidationErrorInfo.builder()
-                .className(e.getClass().getName())
-                .message("Validation Errors")
-                .validationErrors(bindingErrors)
+        ex.getBindingResult().getAllErrors().forEach(error -> list.add(ValidationError
+                .builder()
+                .field(error.getObjectName())
+                .type(error.getCode())
+                .message(error.getDefaultMessage())
+                .build()));
+
+        return ValidationErrorResponse
+                .builder()
+                .code("VALIDATION_ERROR")
+                .message("An argument validation error occurred")
+                .errors(list)
                 .build();
-
-        return ResponseEntity.badRequest().body(errorInfo.toJSON());
     }
 
-    @Jacksonized
-    @SuperBuilder
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    private static class ErrorInfo {
-        public String className;
-        public String message;
-
-        public String toJSON() {
-            String result = "";
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-
-            try {
-                result = mapper.writeValueAsString(this);
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
-
-            return result;
-        }
+    @Data
+    @Builder
+    private static class ErrorResponse {
+        private final String code;
+        private final String message;
     }
 
-    @Jacksonized
-    @SuperBuilder
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    private static class ValidationErrorInfo extends ErrorInfo {
-        public BindingErrorsResponse validationErrors;
+    @Data
+    @Builder
+    private static class ValidationErrorResponse {
+        private final String code;
+        private final String message;
+        private final ArrayList<ValidationError> errors;
+    }
+
+    @Data
+    @Builder
+    private static class ValidationError {
+        private final String field;
+        private final String type;
+        private final String message;
     }
 }
