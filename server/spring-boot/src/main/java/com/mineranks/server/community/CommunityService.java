@@ -12,19 +12,19 @@ public class CommunityService {
     @Autowired
     private CommunityRepository communityRepository;
 
-    public Iterable<CommunityEntity> getAllCommunities() {
+    public Iterable<Community> getAllCommunities() {
         return communityRepository.findAll();
     }
 
-    public CommunityEntity getCommunity(Long id) {
+    public Community getCommunity(Long id) {
         return communityRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 
-    public CommunityEntity createCommunity(CommunityEntity community) {
+    public Community createCommunity(Community community) {
         return communityRepository.save(community);
     }
 
-    public CommunityEntity updateCommunity(CommunityEntity community) {
+    public Community updateCommunity(Community community) {
         return communityRepository.save(community);
     }
 

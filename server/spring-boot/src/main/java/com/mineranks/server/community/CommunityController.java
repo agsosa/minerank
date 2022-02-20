@@ -1,5 +1,7 @@
 package com.mineranks.server.community;
 
+import com.mineranks.server.community.dto.CommunityDtoMapper;
+import com.mineranks.server.community.dto.CreateCommunityDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -13,19 +15,25 @@ import javax.validation.Valid;
 public class CommunityController {
 
     private final CommunityService communityService;
+    private final CommunityDtoMapper communityDtoMapper;
 
-    public CommunityController(CommunityService communityService) {
+    public CommunityController(CommunityService communityService, CommunityDtoMapper communityDtoMapper) {
+
         this.communityService = communityService;
+        this.communityDtoMapper = communityDtoMapper;
     }
 
     @GetMapping
-    public Iterable<CommunityEntity> getAllCommunities() {
+    public Iterable<Community> getAllCommunities() {
         return communityService.getAllCommunities();
     }
 
     @PostMapping
-    public CommunityEntity createCommunity(@Valid @RequestBody CommunityEntity community) {
-        return communityService.createCommunity(community);
+    public ResponseEntity<Community> createCommunity(@Valid @RequestBody CreateCommunityDto createCommunityDto) {
+        Community input = communityDtoMapper.fromCreateCommunityDto(createCommunityDto);
+        Community result = communityService.createCommunity(input);
+
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
@@ -35,7 +43,7 @@ public class CommunityController {
     }
 
     @GetMapping("/{id}")
-    public CommunityEntity getCommunity(@PathVariable Long id) {
+    public Community getCommunity(@PathVariable Long id) {
         return communityService.getCommunity(id);
     }
 }

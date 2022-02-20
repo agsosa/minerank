@@ -5,4 +5,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CommunityRepository
-  extends CrudRepository<CommunityEntity, Long> {}
+  extends CrudRepository<Community, Long> {}

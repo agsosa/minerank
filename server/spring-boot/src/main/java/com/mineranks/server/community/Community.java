@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "communities")
-public class CommunityEntity extends EntityBase {
+public class Community extends EntityBase {
     /* Required fields */
     @Column(nullable = false)
     private String name;
