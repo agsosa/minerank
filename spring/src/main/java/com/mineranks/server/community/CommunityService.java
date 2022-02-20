@@ -1,7 +1,5 @@
-package com.mineranks.server.service;
+package com.mineranks.server.community;
 
-import com.mineranks.server.entity.CommunityEntity;
-import com.mineranks.server.repository.CommunityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

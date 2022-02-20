@@ -1,4 +1,4 @@
-package com.mineranks.server.exception.advice;
+package com.mineranks.server.shared;
 
 import lombok.Builder;
 import lombok.Data;

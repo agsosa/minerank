@@ -1,4 +1,4 @@
-package com.mineranks.server.entity;
+package com.mineranks.server.shared;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +21,7 @@ public class EntityBase {
     private Long id;
 
     @ColumnDefault("false")
-    private boolean isActive;
+    private boolean isDeleted;
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;

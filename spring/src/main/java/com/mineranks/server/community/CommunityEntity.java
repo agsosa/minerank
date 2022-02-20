@@ -1,12 +1,11 @@
-package com.mineranks.server.entity;
+package com.mineranks.server.community;
 
+import com.mineranks.server.shared.EntityBase;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -28,10 +27,15 @@ public class CommunityEntity extends EntityBase {
 
     @Column(nullable = false)
     @ColumnDefault("0")
-    private Integer upvotes;
+    private Integer votes;
 
     @Column(nullable = false)
-    private String premiumType; // TODO: Create enum
+    @ColumnDefault("false")
+    private Boolean isApproved;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private PremiumType premiumType;
 
     @Column(nullable = false)
     private String submitter; // TODO: Create relation with user model
@@ -48,8 +52,8 @@ public class CommunityEntity extends EntityBase {
     // TODO: Add reports relations
 
     /* Optional fields */
-    private String countryCode;
     private String port;
+    private String countryCode;
     private String website;
     private String youtube;
     private String telegram;

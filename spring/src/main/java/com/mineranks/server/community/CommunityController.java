@@ -1,7 +1,5 @@
-package com.mineranks.server.controller;
+package com.mineranks.server.community;
 
-import com.mineranks.server.entity.CommunityEntity;
-import com.mineranks.server.service.CommunityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,5 @@
-package com.mineranks.server.repository;
+package com.mineranks.server.community;
 
-import com.mineranks.server.entity.CommunityEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
