@@ -1,6 +1,6 @@
 package com.mineranks.server.controller;
 
-import com.mineranks.server.entities.CommunityEntity;
+import com.mineranks.server.entity.CommunityEntity;
 import com.mineranks.server.service.CommunityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/communities")
+@RequestMapping("/v1/communities")
 @Validated
 public class CommunityController {
 
@@ -32,5 +32,10 @@ public class CommunityController {
     public ResponseEntity<HttpStatus> deleteCommunity(@RequestParam Long id) {
         communityService.deleteCommunity(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public CommunityEntity getCommunity(@PathVariable Long id) {
+        return communityService.getCommunity(id);
     }
 }

@@ -1,35 +1,35 @@
 package com.mineranks.server.service;
 
-import com.mineranks.server.entities.CommunityEntity;
-import com.mineranks.server.exception.CommunityNotFoundException;
+import com.mineranks.server.entity.CommunityEntity;
 import com.mineranks.server.repository.CommunityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
+
 @Service
 public class CommunityService {
 
-  @Autowired
-  private CommunityRepository communityRepository;
+    @Autowired
+    private CommunityRepository communityRepository;
 
-  public Iterable<CommunityEntity> getAllCommunities() {
-    return communityRepository.findAll();
-  }
+    public Iterable<CommunityEntity> getAllCommunities() {
+        return communityRepository.findAll();
+    }
 
-  public CommunityEntity getCommunity(Long id) {
-    return communityRepository.findById(id)
-            .orElseThrow(() -> new CommunityNotFoundException(id));
-  }
+    public CommunityEntity getCommunity(Long id) {
+        return communityRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+    }
 
-  public CommunityEntity createCommunity(CommunityEntity community) {
-    return communityRepository.save(community);
-  }
+    public CommunityEntity createCommunity(CommunityEntity community) {
+        return communityRepository.save(community);
+    }
 
-  public CommunityEntity updateCommunity(CommunityEntity community) {
-    return communityRepository.save(community);
-  }
+    public CommunityEntity updateCommunity(CommunityEntity community) {
+        return communityRepository.save(community);
+    }
 
-  public void deleteCommunity(Long id) {
-    communityRepository.deleteById(id);
-  }
+    public void deleteCommunity(Long id) {
+        communityRepository.deleteById(id);
+    }
 }

@@ -1,4 +1,4 @@
-package com.mineranks.server.entities;
+package com.mineranks.server.entity;
 
 import lombok.Getter;
 import lombok.Setter;
