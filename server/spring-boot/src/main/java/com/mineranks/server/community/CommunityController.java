@@ -1,6 +1,5 @@
 package com.mineranks.server.community;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -13,8 +12,11 @@ import javax.validation.Valid;
 @Validated
 public class CommunityController {
 
-    @Autowired
-    private CommunityService communityService;
+    private final CommunityService communityService;
+
+    public CommunityController(CommunityService communityService) {
+        this.communityService = communityService;
+    }
 
     @GetMapping
     public Iterable<CommunityEntity> getAllCommunities() {
