@@ -1,5 +1,7 @@
 package com.mineranks.server.community;
 
+import com.mineranks.server.community.constant.MinecraftEdition;
+import com.mineranks.server.community.constant.PremiumType;
 import com.mineranks.server.shared.EntityBase;
 import lombok.Getter;
 import lombok.Setter;
@@ -46,13 +48,14 @@ public class CommunityEntity extends EntityBase {
     @Column(nullable = false)
     private String version; // TODO: Create relation with versions model
 
-    @Column(nullable = false) // TODO: Ver si hacerlo opcional
-    private String edition; // TODO: Create enum
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private MinecraftEdition edition;
 
     // TODO: Add reports relations
 
     /* Optional fields */
-    private String port;
+    private Integer port;
     private String countryCode;
     private String website;
     private String youtube;

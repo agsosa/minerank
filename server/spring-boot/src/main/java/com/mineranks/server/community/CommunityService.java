@@ -1,6 +1,7 @@
 package com.mineranks.server.community;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -28,6 +29,10 @@ public class CommunityService {
     }
 
     public void deleteCommunity(Long id) {
-        communityRepository.deleteById(id);
+        try {
+            communityRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntityNotFoundException();
+        }
     }
 }

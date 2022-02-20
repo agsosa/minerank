@@ -28,8 +28,8 @@ public class CommunityController {
         return communityService.createCommunity(community);
     }
 
-    @DeleteMapping
-    public ResponseEntity<HttpStatus> deleteCommunity(@RequestParam Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<HttpStatus> deleteCommunity(@PathVariable Long id) {
         communityService.deleteCommunity(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
