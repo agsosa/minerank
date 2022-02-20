@@ -1,37 +1,19 @@
-package com.mineranks.server.model;
+package com.mineranks.server.entities;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "communities")
-public class CommunityModel {
+public class CommunityEntity extends EntityBase {
     /* Required fields */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true, nullable = false)
-    private Long id;
-
     @Column(nullable = false)
     private String name;
 
@@ -43,10 +25,6 @@ public class CommunityModel {
 
     @Column(nullable = false)
     private String description;
-
-    @Column(nullable = false)
-    @ColumnDefault("false")
-    private boolean isActive;
 
     @Column(nullable = false)
     @ColumnDefault("0")
@@ -70,7 +48,6 @@ public class CommunityModel {
     // TODO: Add reports relations
 
     /* Optional fields */
-    @NotBlank(message = "Test validation exception handler")
     private String countryCode;
     private String port;
     private String website;
@@ -80,10 +57,4 @@ public class CommunityModel {
     private String facebook;
     private String teamspeak;
     private String instagram;
-
-    /* Timestamps */
-    @UpdateTimestamp
-    private LocalDateTime updatedAt;
-    @CreationTimestamp
-    private LocalDateTime createdAt;
 }

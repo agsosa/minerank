@@ -1,15 +1,14 @@
 package com.mineranks.server.controller;
 
-import com.mineranks.server.model.CommunityModel;
+import com.mineranks.server.entities.CommunityEntity;
 import com.mineranks.server.service.CommunityService;
-
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/communities")
@@ -20,12 +19,12 @@ public class CommunityController {
     private CommunityService communityService;
 
     @GetMapping
-    public Iterable<CommunityModel> getAllCommunities() {
+    public Iterable<CommunityEntity> getAllCommunities() {
         return communityService.getAllCommunities();
     }
 
     @PostMapping
-    public CommunityModel createCommunity(@Valid @RequestBody CommunityModel community) {
+    public CommunityEntity createCommunity(@Valid @RequestBody CommunityEntity community) {
         return communityService.createCommunity(community);
     }
 
