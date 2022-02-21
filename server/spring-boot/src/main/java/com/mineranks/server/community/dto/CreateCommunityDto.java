@@ -1,5 +1,7 @@
 package com.mineranks.server.community.dto;
 
+import com.mineranks.server.community.constant.PremiumType;
+import com.mineranks.server.shared.validators.EnumValidator;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
@@ -21,7 +23,7 @@ public class CreateCommunityDto {
     @NotEmpty()
     private String description;
 
-    @NotEmpty()
+    @EnumValidator(enumClass = PremiumType.class)
     private String premiumType;
 
     /* To be defined fields */

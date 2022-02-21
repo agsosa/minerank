@@ -1,26 +1,25 @@
 package com.mineranks.server.shared.validators;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
-import java.util.EnumSet;
-import java.util.Set;
-import java.util.stream.Collectors;
+import javax.validation.Constraint;
+import javax.validation.Payload;
+import javax.validation.ReportAsSingleViolation;
+import javax.validation.constraints.NotNull;
+import java.lang.annotation.*;
 
-public class EnumValidator implements ConstraintValidator<ValidateEnum, String> {
-    private Set<String> allowedValues;
+@Documented
+@Constraint(validatedBy = EnumValidatorImpl.class)
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+@NotNull(message = "Value cannot be null")
+@ReportAsSingleViolation
+public @interface EnumValidator {
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    @Override
-    public void initialize(ValidateEnum targetEnum) {
-        Class<? extends Enum> enumSelected = targetEnum.targetClassType();
-        allowedValues = (Set<String>) EnumSet.allOf(enumSelected)
-                                             .stream()
-                                             .map(e -> ((Enum<? extends Enum<?>>) e).name())
-                                             .collect(Collectors.toSet());
-    }
+    Class<? extends Enum<?>> enumClass();
 
-    @Override
-    public boolean isValid(String value, ConstraintValidatorContext context) {
-        return value == null || allowedValues.contains(value);
-    }
+    String message() default "Value is not valid";
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
+
 }
