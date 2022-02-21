@@ -29,11 +29,11 @@ public class Community extends EntityBase {
 
     @Column(nullable = false)
     @ColumnDefault("0")
-    private Integer votes;
+    private Integer votes = 0;
 
     @Column(nullable = false)
     @ColumnDefault("false")
-    private Boolean isApproved;
+    private Boolean isApproved = false;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

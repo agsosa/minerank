@@ -1,7 +1,5 @@
 package com.mineranks.server.community.dto;
 
-import com.mineranks.server.community.constant.MinecraftEdition;
-import com.mineranks.server.community.constant.PremiumType;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
@@ -24,13 +22,15 @@ public class CreateCommunityDto {
     private String description;
 
     @NotEmpty()
-    private PremiumType premiumType;
+    private String premiumType;
 
     /* To be defined fields */
+    @NotEmpty()
+    private String edition;
+
     private String version;
     private String gamemodes;
     private String submitter;
-    private MinecraftEdition edition = MinecraftEdition.JAVA;
 
     /* Optional fields */
     private Integer port;
