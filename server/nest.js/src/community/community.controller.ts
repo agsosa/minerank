@@ -10,30 +10,30 @@ import { ApiTags } from '@nestjs/swagger';
   path: 'communities',
 })
 export class CommunityController {
-  constructor(private readonly communitySerice: CommunityService) {}
+  constructor(private readonly communityService: CommunityService) {}
 
   @Post()
   create(@Body() createCommunityDto: CreateCommunityDto) {
-    return this.communitySerice.create(createCommunityDto);
+    return this.communityService.create(createCommunityDto);
   }
 
   @Get()
   findAll() {
-    return this.communitySerice.findAll();
+    return this.communityService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: number) {
-    return this.communitySerice.findOne(+id);
+    return this.communityService.findOne(+id);
   }
 
   @Patch(':id')
   update(@Param('id') id: number, @Body() updateCommunityDto: UpdateServerDto) {
-    return this.communitySerice.update(+id, updateCommunityDto);
+    return this.communityService.update(+id, updateCommunityDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: number) {
-    return this.communitySerice.remove(+id);
+    return this.communityService.remove(+id);
   }
 }
