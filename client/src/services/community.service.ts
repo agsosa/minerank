@@ -1,6 +1,5 @@
-fetchCommunities.URL = "https://localhost:3030/api/v1/communities";
-fetchCommunities.METHOD = "get";
-
+fetchCommunities.URL = "/api/secure/v1/communities";
+fetchCommunities.METHOD = "GET";
 export function fetchCommunities() {
-    return [];
+  return [];
 }
