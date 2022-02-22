@@ -5,6 +5,11 @@ const muiTheme = createTheme({
   palette: {
     primary: { main: "#158f3e" },
   },
+  typography: {
+    allVariants: {
+      color: "#1E293B",
+    },
+  },
 });
 
 // DefaultTheme type definition -> ./AppTheme.d.ts

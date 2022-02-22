@@ -1,7 +1,6 @@
-import { Container, HeaderContent, Logo, Flex } from "./Header.styled";
-import Image from "next/image";
+import { Container, HeaderContent, Flex } from "./Header.styled";
 import { useUser } from "@auth0/nextjs-auth0";
-import { getAppConfig } from "src/services/config.service";
+import AppLogo from "../AppLogo";
 
 interface HeaderProps {
   fixedBackground?: boolean;
@@ -16,10 +15,7 @@ const Header: React.FC<HeaderProps> = ({ fixedBackground, ...props }) => {
   return (
     <Container fixedBackground={fixedBackground} {...props}>
       <HeaderContent>
-        <Logo>
-          <Image src="/logo1.png" width="28" height="28" />
-          <span>{getAppConfig().appName}</span>
-        </Logo>
+        <AppLogo />
         <Flex>
           <p>Modos de Juego</p>
           <p>FAQ</p>

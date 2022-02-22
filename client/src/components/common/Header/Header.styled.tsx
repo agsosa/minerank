@@ -13,6 +13,7 @@ export const Container = styled.div<{ fixedBackground?: boolean }>`
   justify-content: center;
   align-items: center;
   background-color: ${(props) => (props.fixedBackground ? "#131212" : "transparent")};
+  font-weight: 500;
   //border-bottom: 3px rgba(21, 143, 62, 1) solid;
   /*background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);*/
@@ -24,13 +25,6 @@ export const HeaderContent = styled.div`
   align-items: center;
   height: ${HEADER_HEIGHT};
   ${CONTENT_WIDTH}
-`;
-
-export const Logo = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 26px;
 `;
 
 export const Flex = styled.div`

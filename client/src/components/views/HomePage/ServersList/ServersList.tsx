@@ -1,4 +1,4 @@
-import ServerCard from "../../common/ServerCard";
+import ServerCard from "src/components/common/ServerCard";
 import {
   Grid,
   Container,

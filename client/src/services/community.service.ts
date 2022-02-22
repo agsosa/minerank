@@ -14,7 +14,5 @@ export async function fetchCommunities(/*page: number = 1, featuredFirst: boolea
       method: fetchCommunities.METHOD as Method,
     });
     return result.data;
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
 }

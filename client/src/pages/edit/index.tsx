@@ -3,9 +3,9 @@ import AppHead from "src/components/common/AppHead";
 import Footer from "src/components/common/Footer";
 import Header from "src/components/common/Header";
 import MainLayout from "src/components/common/MainLayout";
-import DetailsLayout from "src/components/DetailsPage/DetailsLayout";
-import LeftColumn from "src/components/DetailsPage/LeftColumn";
-import RightColumn from "src/components/DetailsPage/RightColumn";
+import DetailsLayout from "src/components/views/DetailsPage/DetailsLayout";
+import LeftColumn from "src/components/views/DetailsPage/LeftColumn";
+import RightColumn from "src/components/views/DetailsPage/RightColumn";
 
 const EditPage: NextPage = () => {
   return (

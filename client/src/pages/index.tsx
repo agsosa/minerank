@@ -3,10 +3,10 @@ import AppHead from "src/components/common/AppHead";
 import Footer from "src/components/common/Footer";
 import Header from "src/components/common/Header";
 import MainLayout from "src/components/common/MainLayout";
-import Filters from "src/components/HomePage/Filters";
-import Hero from "src/components/HomePage/Hero";
-import HomeLayout from "src/components/HomePage/HomeLayout";
-import ServersList from "src/components/HomePage/ServersList";
+import Filters from "src/components/views/HomePage/Filters";
+import Hero from "src/components/views/HomePage/Hero";
+import HomeLayout from "src/components/views/HomePage/HomeLayout";
+import ServersList from "src/components/views/HomePage/ServersList";
 import { fetchCommunities } from "src/services/community.service";
 import { ICommunity } from "@shared/types/entities/ICommunity";
 
@@ -41,7 +41,7 @@ export async function getStaticProps() {
   return {
     props: {
       fallback: {
-        "/api/public/v1/communities": communities,
+        "/api/public/v1/communities": communities || null,
       },
     },
   };
