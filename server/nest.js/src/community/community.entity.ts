@@ -37,7 +37,10 @@ export class Community extends EntityBase implements ICommunity {
   premiumType: PremiumTypeEnum;
 
   @Column({ default: false })
-  isActive: boolean;
+  isApproved: boolean;
+
+  @Column({ default: false })
+  isFeatured: boolean;
 
   @Column({ default: 0 })
   upvotes: number;

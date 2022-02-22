@@ -1,4 +1,4 @@
-import { CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { IEntityBase } from './IEntityBase';
 
 export class EntityBase implements IEntityBase {
@@ -10,4 +10,10 @@ export class EntityBase implements IEntityBase {
 
   @UpdateDateColumn()
   updatedAt: Date; // Auto-generated
+
+  @Column({
+    type: 'boolean',
+    default: false,
+  })
+  isDeleted: boolean;
 }

@@ -15,7 +15,8 @@ export interface ICommunity extends IEntityBase {
   user: string;
   premiumType: PremiumTypeEnum;
   upvotes: number;
-  isActive: boolean;
+  isApproved: boolean;
+  isFeatured: boolean;
 
   /**
    * Nullable fields
