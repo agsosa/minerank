@@ -1,20 +1,27 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
-import { authConfig } from '../auth.config';
-import { JWTUserPayload } from '../auth.service';
+import { passportJwtSecret } from 'jwks-rsa';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor() {
+  constructor(private configService: ConfigService) {
     super({
+      secretOrKeyProvider: passportJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        jwksUri: `${configService.get<string>('AUTH0_ISSUER_URL')}.well-known/jwks.json`,
+      }),
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      ignoreExpiration: false,
-      secretOrKey: authConfig.jwtSecret,
+      audience: configService.get<string>('AUTH0_AUDIENCE'),
+      issuer: configService.get<string>('AUTH0_ISSUER_URL'),
+      algorithms: ['RS256'],
     });
   }
 
-  async validate(payload: JWTUserPayload) {
+  validate(payload: unknown): unknown {
     return payload;
   }
 }

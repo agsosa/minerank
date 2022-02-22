@@ -1,14 +1,16 @@
 import { ValidationPipe, VersioningType } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app/app.module';
 
 (async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const configService = app.get(ConfigService);
 
+  // Basic config
   app.setGlobalPrefix('api');
-
-  // Versioning
+  app.enableCors();
   app.enableVersioning({
     type: VersioningType.URI,
   });
@@ -26,10 +28,8 @@ import { AppModule } from './app/app.module';
     .setDescription('The Mineranks API description')
     .setVersion('1.0')
     .build();
-
   const document = SwaggerModule.createDocument(app, config);
-
   SwaggerModule.setup('/api/help', app, document);
 
-  await app.listen(3030);
+  await app.listen(configService.get<number>('SERVER_PORT') || 3030);
 })();
