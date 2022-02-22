@@ -2,16 +2,16 @@ import { getAccessToken, withApiAuthRequired } from "@auth0/nextjs-auth0";
 import axios, { Method } from "axios";
 
 /**
- * Secure (Auth0) proxy to the API server
+ * Private (Auth0) proxy to the API server
  * Catch-all
- * api/secure/{server API request path}
- * Example: GET /api/secure/v1/communities
+ * api/private/{server API request path}
+ * Example: POST /api/private/v1/communities
  */
-export default withApiAuthRequired(async function handleAPI(req, res) {
+export default withApiAuthRequired(async function hadlePrivateAPI(req, res) {
   try {
     const method: Method = (req.method as Method) || "GET";
     const path = req.url?.replace("/api/secure/", "");
-    const url = "http://localhost:3030/api/" + path;
+    const url = `${process.env.API_SERVER_BASE_URL}/api/` + path;
 
     const { accessToken } = await getAccessToken(req, res, {
       scopes: [],

@@ -7,8 +7,14 @@ import Filters from "src/components/HomePage/Filters";
 import Hero from "src/components/HomePage/Hero";
 import HomeLayout from "src/components/HomePage/HomeLayout";
 import ServersList from "src/components/HomePage/ServersList";
+import { fetchCommunities } from "src/services/community.service";
+import { ICommunity } from "@shared/types/entities/ICommunity";
 
-const HomePage: NextPage = () => {
+type IHomePage = { [key: string]: any };
+
+const HomePage: NextPage<IHomePage> = ({ fallback }) => {
+  console.log(fallback);
+
   return (
     <MainLayout>
       <AppHead title="Minerank - Los mejores servidores de Minecraft" />
@@ -28,3 +34,15 @@ const HomePage: NextPage = () => {
 };
 
 export default HomePage;
+
+export async function getStaticProps() {
+  const communities = await fetchCommunities();
+
+  return {
+    props: {
+      fallback: {
+        "/api/public/v1/communities": communities,
+      },
+    },
+  };
+}

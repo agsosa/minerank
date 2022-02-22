@@ -17,7 +17,7 @@
     "incremental": true,
     "baseUrl": "./",
     "paths": {
-      "@shared/*": ["../server/src/shared/*"]
+      "@shared/*": ["../server/nest.js/src/shared/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "../server/src/shared/**/*.ts"],

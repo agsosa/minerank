@@ -30,7 +30,7 @@ export const FeaturedTitle = styled.div`
 `;
 
 export const PromoBox = styled.p`
-  border: 1px solid #ffc037;
+  border: 1px solid #ffcd60;
   background-color: #fff8dc;
   padding: 10px;
   border-radius: 5px;
