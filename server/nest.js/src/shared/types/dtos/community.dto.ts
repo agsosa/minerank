@@ -1,5 +1,7 @@
 import { ICommunity } from '../entities/ICommunity';
 
+// TODO: Separar en archivos, dejar mas claro que son interfaces
+
 // TODO: Ver tema media
 type CreateCommunityProperties =
   | 'name'

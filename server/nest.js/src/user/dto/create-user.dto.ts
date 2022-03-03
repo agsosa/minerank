@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, MaxLength, MinLength } from 'class-validator';
-import { CommunityConstants } from 'src/shared/constants/community.constant';
+import { CommunityConstants } from 'src/shared/constant/community.constant';
 import { ICreateUserDto } from 'src/shared/types/dtos/user.dto';
 
 const { fieldsConstraints: constraints } = CommunityConstants;
