@@ -1,8 +1,8 @@
 export interface IServiceError {
-  originalError?: any;
   get isAxiosError(): boolean;
   get message(): string;
   get statusCode(): number;
+  toJSON(): any;
 }
 
 interface IServiceResponse<TData> {

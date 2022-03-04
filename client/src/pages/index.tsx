@@ -1,5 +1,4 @@
 import type { NextPage } from "next";
-import { useEffect } from "react";
 import AppHead from "src/components/common/AppHead";
 import Footer from "src/components/common/Footer";
 import Header from "src/components/common/Header";
@@ -8,22 +7,10 @@ import Filters from "src/components/views/HomePage/Filters";
 import Hero from "src/components/views/HomePage/Hero";
 import HomeLayout from "src/components/views/HomePage/HomeLayout";
 import ServersList from "src/components/views/HomePage/ServersList";
-import { useCommunities } from "src/hooks/useCommunities";
-import { fetchCommunities } from "src/services/community.service";
+import { getCommunities } from "src/state/community";
+import { storeWrapper } from "../state/store";
 
-type IHomePage = {
-  initialData: {
-    communities: ICommunity[];
-  };
-};
-
-const HomePage: NextPage<IHomePage> = ({ initialData }) => {
-  const { initialize } = useCommunities();
-
-  useEffect(() => {
-    console.log("initialData", initialData);
-  }, [initialData]);
-
+const HomePage: NextPage = () => {
   return (
     <MainLayout>
       <AppHead title="Minerank - Los mejores servidores de Minecraft" />
@@ -43,14 +30,11 @@ const HomePage: NextPage<IHomePage> = ({ initialData }) => {
 
 export default HomePage;
 
-export async function getStaticProps() {
-  const communities = await fetchCommunities();
-
+export const getStaticProps = storeWrapper.getStaticProps((store) => async (_arg) => {
+  const result = await store.dispatch(getCommunities(1));
+console.log(result)
   return {
-    props: {
-      fallback: {
-        "/api/public/v1/communities": communities || null,
-      },
-    },
+    props: {},
+    revalidate: 120,
   };
-}
+});

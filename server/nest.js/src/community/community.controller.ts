@@ -19,7 +19,7 @@ export class CommunityController {
   }
 
   @Get()
-  findAll(@Query() { page, limit }) {
+  findAll(@Query() { page, limit }: { page: number; limit: number }) {
     return this.communityService.findAll(page, limit);
   }
 
