@@ -30,7 +30,7 @@ interface CommunityCardProps {
 }
 
 const CommunityCard: React.FC<CommunityCardProps> = ({ community, ...props }) => {
-  const { isFeatured, name } = community;
+  const { isFeatured, name, ip, upvotes } = community;
 
   return (
     <Container isFeatured={isFeatured} {...props}>
@@ -43,14 +43,14 @@ const CommunityCard: React.FC<CommunityCardProps> = ({ community, ...props }) =>
             <Name>{name}</Name>
           </NameContainer>
           <Stat>
-            <FaArrowUp /> <span>52131</span>
+            <FaArrowUp /> <span>{upvotes}</span>
           </Stat>
         </TitleContainer>
 
         <StatsContainer>
           <Stat>
             <FaCircle style={{ color: "green" }} />
-            <span>mc.survivaldub.es</span>
+            <span>{ip}</span>
           </Stat>
         </StatsContainer>
 
