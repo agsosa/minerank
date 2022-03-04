@@ -6,4 +6,5 @@ export const Logo = styled.div`
   gap: 10px;
   font-size: 26px;
   font-weight: 600;
+  cursor: pointer;
 `;

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { getAppConfig } from "src/services/config.service";
 import { Logo } from "./AppLogo.styled";
 
@@ -8,10 +9,16 @@ interface IAppLogo {
 }
 
 const AppLogo: React.FC<IAppLogo> = ({ width, height, ...props }) => {
+  const router = useRouter();
+
+  const handleLogoClick = () => {
+    router.push("/");
+  };
+
   return (
-    <Logo {...props}>
+    <Logo onClick={handleLogoClick} {...props}>
       <Image src="/logo1.png" width={width || "28"} height={height || "28"} />
-      <span>{getAppConfig().appName}</span>
+      <span>{getAppConfig().appName}</span>{" "}
     </Logo>
   );
 };
