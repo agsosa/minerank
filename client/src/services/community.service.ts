@@ -1,18 +1,25 @@
 import axios, { Method } from "axios";
-import { getAppConfig } from "./config.service";
 
-/**
- * Fetch communities list
- */
+import { ICommunity } from "@shared/types/entities/ICommunity";
+import { AsyncServiceResponse } from "src/types/service.types";
+import { getAppConfig } from "./config.service";
+import { ServiceError } from "./ServiceError";
+
 fetchCommunities.URL = `${getAppConfig().appHomeUrl}/api/public/v1/communities`;
-fetchCommunities.METHOD = "GET";
+fetchCommunities.METHOD = "GET" as Method;
 fetchCommunities.REQUIRES_AUTH = false;
-export async function fetchCommunities(/*page: number = 1, featuredFirst: boolean*/) {
+export async function fetchCommunities(page: number = 1): AsyncServiceResponse<ICommunity[]> {
   try {
     const result = await axios({
       url: fetchCommunities.URL,
-      method: fetchCommunities.METHOD as Method,
+      method: fetchCommunities.METHOD,
+      params: {
+        page,
+      },
     });
-    return result.data;
-  } catch (err) {}
+
+    return { data: result.data as ICommunity[] };
+  } catch (err) {
+    return { error: new ServiceError(err) };
+  }
 }
