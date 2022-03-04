@@ -23,6 +23,7 @@ import { ES } from "country-flag-icons/react/3x2";
 
 import { BiGitBranch } from "react-icons/bi";
 import { ICommunity } from "@shared/types/entities/ICommunity";
+import { IEntityBase } from '@shared/types/entities/IEntityBase'
 
 // TODO: On mouse hover open description resume
 interface CommunityCardProps {
@@ -30,7 +31,7 @@ interface CommunityCardProps {
 }
 
 const CommunityCard: React.FC<CommunityCardProps> = ({ community, ...props }) => {
-  const { isFeatured, name, ip, upvotes } = community;
+  const { isFeatured, name, ip, upvotes, id} = community;
 
   return (
     <Container isFeatured={isFeatured} {...props}>
