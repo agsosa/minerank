@@ -32,7 +32,7 @@ export default HomePage;
 
 export const getStaticProps = storeWrapper.getStaticProps((store) => async (_arg) => {
   const result = await store.dispatch(getCommunities(1));
-console.log(result)
+
   return {
     props: {},
     revalidate: 120,

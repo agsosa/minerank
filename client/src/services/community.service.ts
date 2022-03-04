@@ -1,6 +1,7 @@
-import axios, { Method } from "axios";
+import axios, { Method, AxiosRequestConfig } from "axios";
 
 import { ICommunity } from "@shared/types/entities/ICommunity";
+import { IFindAllCommunitiesDto } from "@shared/types/dtos/community.dto";
 import { IPaginatedDto } from "@shared/types/dtos/paginated.dto";
 import { AsyncServiceResponse } from "src/types/service.types";
 import { getAppConfig } from "./config.service";
@@ -13,17 +14,20 @@ export async function fetchCommunities(
   page: number = 1
 ): AsyncServiceResponse<IPaginatedDto<ICommunity>> {
   try {
-    const { data } = await axios({
+    const params: IFindAllCommunitiesDto = {
+      page,
+    };
+
+    const options: AxiosRequestConfig = {
       url: fetchCommunities.URL,
       method: fetchCommunities.METHOD,
-      params: {
-        page,
-      },
-    });
+      params,
+    };
 
+    const { data } = await axios(options);
     if (!data) throw new Error("NO_DATA");
 
-    return { data };
+    return { data: data as IPaginatedDto<ICommunity> };
   } catch (err) {
     return { error: new ServiceError(err), data: {} as any };
   }

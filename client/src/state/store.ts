@@ -11,4 +11,4 @@ export const makeStore = (context: Context) =>
     reducer: combinedReducers,
   });
 
-export const storeWrapper = createWrapper<Store>(makeStore, { debug: true });
+export const storeWrapper = createWrapper<Store>(makeStore, { debug: false });

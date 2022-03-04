@@ -4,6 +4,7 @@ import { CreateCommunityDto } from './dto/create-community.dto';
 import { UpdateCommunityDto } from './dto/update-community.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { SearchCommunityDto } from './dto/search-community.dto';
+import { FindAllCommunitiesDto } from './dto/find-all-communities.dto';
 
 @ApiTags('communities')
 @Controller({
@@ -19,7 +20,7 @@ export class CommunityController {
   }
 
   @Get()
-  findAll(@Query() { page, limit }: { page: number; limit: number }) {
+  findAll(@Query() { page, limit }: FindAllCommunitiesDto) {
     return this.communityService.findAll(page, limit);
   }
 
