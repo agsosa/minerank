@@ -26,9 +26,9 @@ type CreateCommunityProperties =
   | 'instagram'
   | 'teamspeak';
 
-export type ICreateCommunityDto = Pick<ICommunity, CreateCommunityProperties>;
-export type IUpdateCommunityDto = Partial<ICreateCommunityDto>;
-
 // Keyof ICommunity
 type SearchCommunityProperties = 'isFeatured';
+
+export type ICreateCommunityDto = Pick<ICommunity, CreateCommunityProperties>;
+export type IUpdateCommunityDto = Partial<ICreateCommunityDto>;
 export type ISearchCommunityDto = Pick<ICommunity, SearchCommunityProperties>;

@@ -5,6 +5,8 @@ import { CreateCommunityDto } from './dto/create-community.dto';
 import { UpdateCommunityDto } from './dto/update-community.dto';
 import { Community } from './community.entity';
 import { SearchCommunityDto } from './dto/search-community.dto';
+import { IPaginatedDto } from 'src/shared/types/dtos/paginated.dto';
+import { ICommunity } from 'src/shared/types/entities/ICommunity';
 
 @Injectable()
 export class CommunityService {
@@ -17,11 +19,27 @@ export class CommunityService {
     return this.communityRepository.insert(createCommunityDto);
   }
 
-  findAll(page = 1, limit = 10) {
-    return this.communityRepository.find({
+  async findAll(page = 1, limit = 10): Promise<IPaginatedDto<ICommunity>> {
+    const [items, total] = await this.communityRepository.findAndCount({
+      order: {
+        upvotes: 'DESC',
+      },
+      where: {
+        isFeatured: false,
+      },
       skip: limit * (page - 1),
       take: limit,
     });
+
+    const maxPage = Math.ceil(total / limit);
+
+    return {
+      total,
+      page,
+      perPage: limit,
+      maxPage,
+      items,
+    };
   }
 
   search(searchCommunityDto: SearchCommunityDto) {
