@@ -1,4 +1,4 @@
-import { IEntityBase } from 'src/shared/internal/IEntityBase';
+import { IEntityBase } from 'src/shared/types/entities/IEntityBase';
 import { EditionEnum, PremiumTypeEnum } from '../enum/community.enum';
 
 export interface ICommunity extends IEntityBase {

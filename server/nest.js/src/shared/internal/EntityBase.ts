@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { IEntityBase } from './IEntityBase';
+import { IEntityBase } from '../types/entities/IEntityBase';
 
 export class EntityBase implements IEntityBase {
   @PrimaryGeneratedColumn()

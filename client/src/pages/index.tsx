@@ -6,7 +6,7 @@ import MainLayout from "src/components/common/MainLayout";
 import Filters from "src/components/views/HomePage/Filters";
 import Hero from "src/components/views/HomePage/Hero";
 import HomeLayout from "src/components/views/HomePage/HomeLayout";
-import ServersList from "src/components/views/HomePage/ServersList";
+import ServersList from "src/components/views/HomePage/CommunitiesList";
 import { getCommunities } from "src/state/community";
 import { storeWrapper } from "../state/store";
 

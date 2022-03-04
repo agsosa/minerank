@@ -46,11 +46,8 @@ const communitySlice = createSlice({
     setError: (state, action: PayloadAction<ServiceError>) => {
       state.error = action.payload;
     },
-    reset: (state) => {
-      state.communities = [];
-      state.featured = [];
-      state.loadingState = LoadingState.IDLE;
-      state.error = null;
+    setPage: (state, action: PayloadAction<number>) => {
+      state.page = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -87,7 +84,7 @@ const communitySlice = createSlice({
   },
 });
 
-export const { setCommunities, setFeatured, setLoadingState, setError, reset } =
+export const { setCommunities, setFeatured, setPage, setLoadingState, setError } =
   communitySlice.actions;
 
 export const reducer = communitySlice.reducer;

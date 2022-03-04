@@ -23,12 +23,6 @@ export const FeaturedGrid = styled(Grid)`
   grid-template-columns: repeat(1, 1fr);
 `;
 
-export const FeaturedTitle = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-`;
-
 export const PromoBox = styled.p`
   border: 1px solid #ffcd60;
   background-color: #fff8dc;
@@ -36,6 +30,12 @@ export const PromoBox = styled.p`
   border-radius: 5px;
   text-align: center;
   font-size: 18px;
+`;
+
+export const FeaturedTitle = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
 `;
 
 export const Section = styled.section`

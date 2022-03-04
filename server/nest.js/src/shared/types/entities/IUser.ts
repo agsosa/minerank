@@ -1,4 +1,4 @@
-import { IEntityBase } from 'src/shared/internal/IEntityBase';
+import { IEntityBase } from 'src/shared/types/entities/IEntityBase';
 
 export interface IUser extends IEntityBase {
   /**

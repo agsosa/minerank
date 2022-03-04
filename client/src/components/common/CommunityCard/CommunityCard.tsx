@@ -10,7 +10,7 @@ import {
   Tags,
   CopyIP,
   FeaturedText,
-} from "./ServerCard.styled";
+} from "./CommunityCard.styled";
 import {
   FaUserAlt,
   FaCircle,
@@ -22,13 +22,16 @@ import {
 import { ES } from "country-flag-icons/react/3x2";
 
 import { BiGitBranch } from "react-icons/bi";
+import { ICommunity } from "@shared/types/entities/ICommunity";
 
 // TODO: On mouse hover open description resume
-interface ServerCardProps {
-  isFeatured?: boolean;
+interface CommunityCardProps {
+  community: ICommunity;
 }
 
-const ServerCard: React.FC<ServerCardProps> = ({ isFeatured, ...props }) => {
+const CommunityCard: React.FC<CommunityCardProps> = ({ community, ...props }) => {
+  const { isFeatured, name } = community;
+
   return (
     <Container isFeatured={isFeatured} {...props}>
       {isFeatured && <FeaturedText>DESTACADO</FeaturedText>}
@@ -37,7 +40,7 @@ const ServerCard: React.FC<ServerCardProps> = ({ isFeatured, ...props }) => {
         <TitleContainer>
           <NameContainer>
             <ES />
-            <Name>Survival Rolemine Network 2</Name>
+            <Name>{name}</Name>
           </NameContainer>
           <Stat>
             <FaArrowUp /> <span>52131</span>
@@ -74,4 +77,4 @@ const ServerCard: React.FC<ServerCardProps> = ({ isFeatured, ...props }) => {
   );
 };
 
-export default ServerCard;
+export default CommunityCard;
