@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, HttpCode } from '@nestjs/common';
 import { CommunityService } from './community.service';
 import { CreateCommunityDto } from './dto/create-community.dto';
-import { UpdateServerDto } from './dto/update-server.dto';
+import { UpdateCommunityDto } from './dto/update-community.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { SearchCommunityDto } from './dto/search-community.dto';
 
 @ApiTags('communities')
 @Controller({
@@ -18,8 +19,14 @@ export class CommunityController {
   }
 
   @Get()
-  findAll() {
-    return this.communityService.findAll();
+  findAll(@Query() { page, limit }) {
+    return this.communityService.findAll(page, limit);
+  }
+
+  @Post('/search')
+  @HttpCode(200)
+  search(@Body() searchCommunityDto: SearchCommunityDto) {
+    return this.communityService.search(searchCommunityDto);
   }
 
   @Get(':id')
@@ -28,7 +35,7 @@ export class CommunityController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: number, @Body() updateCommunityDto: UpdateServerDto) {
+  update(@Param('id') id: number, @Body() updateCommunityDto: UpdateCommunityDto) {
     return this.communityService.update(+id, updateCommunityDto);
   }
 

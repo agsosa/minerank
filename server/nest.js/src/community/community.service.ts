@@ -2,8 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateCommunityDto } from './dto/create-community.dto';
-import { UpdateServerDto } from './dto/update-server.dto';
+import { UpdateCommunityDto } from './dto/update-community.dto';
 import { Community } from './community.entity';
+import { SearchCommunityDto } from './dto/search-community.dto';
 
 @Injectable()
 export class CommunityService {
@@ -16,15 +17,25 @@ export class CommunityService {
     return this.communityRepository.insert(createCommunityDto);
   }
 
-  findAll() {
-    return this.communityRepository.find();
+  findAll(page = 1, limit = 10) {
+    return this.communityRepository.find({
+      skip: limit * (page - 1),
+      take: limit,
+    });
+  }
+
+  search(searchCommunityDto: SearchCommunityDto) {
+    // TODO: Add pagination, LIKE parameters, etc.
+    return this.communityRepository.find({
+      where: searchCommunityDto,
+    });
   }
 
   findOne(id: number) {
     return this.communityRepository.findOne(id);
   }
 
-  update(id: number, updateCommunityDto: UpdateServerDto) {
+  update(id: number, updateCommunityDto: UpdateCommunityDto) {
     return `This action updates a #${id} server`;
   }
 

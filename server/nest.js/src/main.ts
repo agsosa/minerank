@@ -19,6 +19,7 @@ import { AppModule } from './app/app.module';
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
+      whitelist: true,
     }),
   );
 

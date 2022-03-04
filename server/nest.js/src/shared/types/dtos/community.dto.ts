@@ -3,6 +3,7 @@ import { ICommunity } from '../entities/ICommunity';
 // TODO: Separar en archivos, dejar mas claro que son interfaces
 
 // TODO: Ver tema media
+// Keyof ICommunity
 type CreateCommunityProperties =
   | 'name'
   | 'description'
@@ -26,5 +27,8 @@ type CreateCommunityProperties =
   | 'teamspeak';
 
 export type ICreateCommunityDto = Pick<ICommunity, CreateCommunityProperties>;
-
 export type IUpdateCommunityDto = Partial<ICreateCommunityDto>;
+
+// Keyof ICommunity
+type SearchCommunityProperties = 'isFeatured';
+export type ISearchCommunityDto = Pick<ICommunity, SearchCommunityProperties>;
