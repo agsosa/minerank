@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import { useEffect } from "react";
 import AppHead from "src/components/common/AppHead";
 import Footer from "src/components/common/Footer";
 import Header from "src/components/common/Header";
@@ -7,20 +8,27 @@ import Filters from "src/components/views/HomePage/Filters";
 import Hero from "src/components/views/HomePage/Hero";
 import HomeLayout from "src/components/views/HomePage/HomeLayout";
 import ServersList from "src/components/views/HomePage/ServersList";
+import { useCommunities } from "src/hooks/useCommunities";
 import { fetchCommunities } from "src/services/community.service";
-import { ICommunity } from "@shared/types/entities/ICommunity";
 
-type IHomePage = { [key: string]: any };
+type IHomePage = {
+  initialData: {
+    communities: ICommunity[];
+  };
+};
 
-const HomePage: NextPage<IHomePage> = ({ fallback }) => {
-  console.log(fallback);
+const HomePage: NextPage<IHomePage> = ({ initialData }) => {
+  const { initialize } = useCommunities();
+
+  useEffect(() => {
+    console.log("initialData", initialData);
+  }, [initialData]);
 
   return (
     <MainLayout>
       <AppHead title="Minerank - Los mejores servidores de Minecraft" />
 
       <Header />
-
       <Hero />
 
       <HomeLayout>

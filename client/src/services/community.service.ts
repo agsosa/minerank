@@ -10,7 +10,7 @@ fetchCommunities.METHOD = "GET" as Method;
 fetchCommunities.REQUIRES_AUTH = false;
 export async function fetchCommunities(page: number = 1): AsyncServiceResponse<ICommunity[]> {
   try {
-    const result = await axios({
+    const { data } = await axios({
       url: fetchCommunities.URL,
       method: fetchCommunities.METHOD,
       params: {
@@ -18,8 +18,10 @@ export async function fetchCommunities(page: number = 1): AsyncServiceResponse<I
       },
     });
 
-    return { data: result.data as ICommunity[] };
+    if (!data) throw new Error("NO_DATA");
+
+    return { data: data as ICommunity[] };
   } catch (err) {
-    return { error: new ServiceError(err) };
+    return { error: new ServiceError(err), data: [] };
   }
 }

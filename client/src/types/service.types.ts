@@ -7,7 +7,14 @@ export interface IServiceError {
 
 interface IServiceResponse<TData> {
   error?: IServiceError;
-  data?: TData;
+  data: TData;
 }
 
 export type AsyncServiceResponse<TData> = Promise<IServiceResponse<TData>>;
+
+export enum LoadingState {
+  PENDING,
+  FAILED,
+  SUCCESS,
+  IDLE,
+}

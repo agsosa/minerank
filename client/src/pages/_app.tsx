@@ -7,6 +7,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 
 import GlobalStyle from "src/components/common/GlobalStyle";
 import { AppThemeProvider } from "src/components/common/AppTheme";
+import { storeWrapper } from "src/state/store";
 
 function App({ Component, pageProps }: AppProps) {
   const { user } = pageProps;
@@ -24,4 +25,4 @@ function App({ Component, pageProps }: AppProps) {
   );
 }
 
-export default App;
+export default storeWrapper.withRedux(App);

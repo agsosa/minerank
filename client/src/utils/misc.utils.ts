@@ -15,9 +15,14 @@ export function formatBigNumber(num: number, digits = 2) {
   var item = lookup
     .slice()
     .reverse()
-    .find(function (item) {
-      return num >= item.value;
+    .find(function (elem) {
+      return num >= elem.value;
     });
 
   return item ? (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol : "0";
 }
+
+// Is server side
+export const isServerSide = () => {
+  return typeof window === "undefined";
+};
