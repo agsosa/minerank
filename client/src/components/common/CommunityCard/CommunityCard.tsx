@@ -1,3 +1,7 @@
+import { FaUserAlt, FaCircle, FaArrowUp, FaTags, FaShieldAlt } from "react-icons/fa";
+import { BiGitBranch } from "react-icons/bi";
+import { useRouter } from "next/router";
+
 import {
   Container,
   Image,
@@ -10,18 +14,8 @@ import {
   Tags,
   FeaturedText,
 } from "./CommunityCard.styled";
-import {
-  FaUserAlt,
-  FaCircle,
-  FaArrowUp,
-  FaTags,
-  FaShieldAlt,
-  //BiGitBranch,
-} from "react-icons/fa";
-import { ES } from "country-flag-icons/react/3x2";
-
-import { BiGitBranch } from "react-icons/bi";
 import { ICommunity } from "@shared/types/entities/ICommunity";
+import { getCountryFlagComponent } from "src/utils/countries.utils";
 
 // TODO: On mouse hover open description resume
 interface CommunityCardProps {
@@ -29,16 +23,25 @@ interface CommunityCardProps {
 }
 
 const CommunityCard: React.FC<CommunityCardProps> = ({ community, ...props }) => {
-  const { isFeatured, name, ip, upvotes, id } = community;
+  const router = useRouter();
+
+  const { isFeatured, name, ip, upvotes, premiumType, countryCode, port, shortName } = community;
+
+  const Flag = getCountryFlagComponent(countryCode);
+  const portStr = port ? `:${port}` : "";
+
+  const handleClick = () => {
+    router.push(`/server/${shortName}`);
+  };
 
   return (
-    <Container isFeatured={isFeatured} {...props}>
+    <Container isFeatured={isFeatured} {...props} onClick={handleClick}>
       {isFeatured && <FeaturedText>DESTACADO</FeaturedText>}
       <Image src="/cryptosignal-thumb.png" height="80" width="80" />
       <InfoContainer>
         <TitleContainer>
           <NameContainer>
-            <ES />
+            {Flag && <Flag />}
             <Name>{name}</Name>
           </NameContainer>
           <Stat>
@@ -49,13 +52,16 @@ const CommunityCard: React.FC<CommunityCardProps> = ({ community, ...props }) =>
         <StatsContainer>
           <Stat>
             <FaCircle style={{ color: "green" }} />
-            <span>{ip}</span>
+            <span>
+              {ip}
+              {portStr}
+            </span>
           </Stat>
         </StatsContainer>
 
         <StatsContainer>
           <Stat>
-            <FaShieldAlt /> <span>NO Premium</span>
+            <FaShieldAlt /> <span>{premiumType}</span>
           </Stat>
           <Stat>
             <BiGitBranch /> <span>1.18 - 1.20</span>
