@@ -26,6 +26,7 @@ const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
     database: configService.get<string>('DB_NAME'),
     entities: [join(__dirname, '../', '**', '*.entity.{ts,js}')],
     synchronize: true,
+    dropSchema: false
   }),
   inject: [ConfigService],
 };

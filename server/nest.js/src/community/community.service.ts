@@ -53,6 +53,12 @@ export class CommunityService {
     return this.communityRepository.findOne({ shortName });
   }
 
+  findAllShortNames() {
+    return this.communityRepository.find({
+      select: ['shortName'],
+    });
+  }
+
   update(id: number, updateCommunityDto: UpdateCommunityDto) {
     return `This action updates a #${id} server`;
   }

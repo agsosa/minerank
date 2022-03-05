@@ -24,6 +24,14 @@ export class CommunityController {
     return this.communityService.findAll(page, limit);
   }
 
+  @Get('/shortnames')
+  async findAllShortNames() {
+    const result = await this.communityService.findAllShortNames();
+    console.log(result);
+    const strArray = Array.isArray(result) ? result.map((elem) => elem.shortName) : [];
+    return strArray;
+  }
+
   @Post('/search')
   @HttpCode(200)
   search(@Body() searchCommunityDto: SearchCommunityDto) {

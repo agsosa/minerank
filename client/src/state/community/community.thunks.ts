@@ -4,11 +4,12 @@ import { ICommunity } from "@shared/types/entities/ICommunity";
 import { fetchCommunities } from "src/services/community.service";
 import { ServiceError } from "src/services/ServiceError";
 
+// Get communities from server by page (excludes featured)
 export const getCommunities = createAsyncThunk<
   IPaginatedDto<ICommunity>,
   number,
   { rejectValue: ServiceError }
->("auth/authenticateMiddleware", async (page, thunkAPI) => {
+>("getCommunities", async (page, thunkAPI) => {
   const { data, error } = await fetchCommunities(page);
 
   if (error) return thunkAPI.rejectWithValue(error);

@@ -1,6 +1,4 @@
-import { IEntityBase } from 'src/shared/types/entities/IEntityBase';
-
-export interface IUser extends IEntityBase {
+export interface IUser {
   /**
    * Non nullable fields
    */
