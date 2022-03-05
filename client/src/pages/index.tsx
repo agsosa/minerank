@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { getCommunities } from "src/state/community";
 import { storeWrapper } from "../state/store";
-import Home from "src/components/views/Home/Home";
+import Home from "src/components/views/Home";
 
 const HomePage: NextPage = () => {
   return <Home />;
