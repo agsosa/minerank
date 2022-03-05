@@ -1,6 +1,6 @@
 import Flags from "country-flag-icons/react/3x2";
 
-export const getCountryFlagComponent = (countryCode: string) => {
+export const getCountryFlagComponent = (countryCode?: string | null) => {
   // @ts-ignore
   return Flags[countryCode];
 };
