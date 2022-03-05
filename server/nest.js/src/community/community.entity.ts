@@ -1,4 +1,4 @@
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, Index } from 'typeorm';
 import { ICommunity } from 'src/shared/types/entities/ICommunity';
 import { EditionEnum, PremiumTypeEnum } from 'src/shared/types/enum/community.enum';
 import { EntityBase } from 'src/shared/internal/EntityBase';
@@ -16,6 +16,7 @@ export class Community extends EntityBase implements ICommunity {
   description: string;
 
   @Column()
+  @Index({ unique: true })
   shortName: string;
 
   @Column()

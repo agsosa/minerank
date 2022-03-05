@@ -49,8 +49,8 @@ export class CommunityService {
     });
   }
 
-  findOne(id: number) {
-    return this.communityRepository.findOne(id);
+  findOne(shortName: string) {
+    return this.communityRepository.findOne({ shortName });
   }
 
   update(id: number, updateCommunityDto: UpdateCommunityDto) {

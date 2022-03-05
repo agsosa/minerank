@@ -30,9 +30,9 @@ export class CommunityController {
     return this.communityService.search(searchCommunityDto);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: number) {
-    return this.communityService.findOne(+id);
+  @Get(':shortName')
+  findOne(@Param('shortName') shortName: string) {
+    return this.communityService.findOne(shortName);
   }
 
   @Patch(':id')
