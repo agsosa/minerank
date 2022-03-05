@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Details from "src/components/views/Details";
-import { fetchShortNames } from "src/services/community.service";
+import communityService from "src/services/community.service";
 import { selectCommunityByShortName } from "src/state/community";
 import { storeWrapper } from "src/state/store";
 
@@ -9,7 +9,7 @@ const DetailsPage: NextPage = () => {
 };
 
 export async function getStaticPaths() {
-  const { data } = await fetchShortNames();
+  const { data } = await communityService.fetchShortNames();
 
   const buildParams = (shortName: string) => ({
     params: {
