@@ -21,6 +21,6 @@
       "@shared/*": ["../server/nest.js/src/shared/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "../server/src/shared/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "../server/nest.js/src/shared/**/*.ts"],
   "exclude": ["node_modules"]
 }
