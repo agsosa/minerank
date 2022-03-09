@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { BsChevronRight } from "react-icons/bs";
+import { getAppConfig } from "src/services/config.service";
 import { Container, Entry } from "./BreadCrumbs.styled";
 
 interface BreadCrumbsLink {
@@ -25,7 +26,7 @@ const BreadCrumb = () => {
   const { asPath } = useRouter();
   const paths = asPath?.split("/") || [];
 
-  const links: BreadCrumbsLink[] = [{ label: "Minerank", url: "/" }];
+  const links: BreadCrumbsLink[] = [{ label: getAppConfig().appName, url: "/" }];
 
   for (let path of paths) {
     const entry = getPathBreadCrumb(path);

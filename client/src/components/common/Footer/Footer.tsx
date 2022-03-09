@@ -17,6 +17,12 @@ import Link from "next/link";
 const Footer = () => {
   const year = new Date().getFullYear();
 
+  const bottomLinks = [
+    { label: "Sitemap", url: "/sitemap" },
+    { label: "Política de Privacidad", url: "/privacy-policy" },
+    { label: "Términos y Condiciones", url: "/terms-and-conditions" },
+  ];
+
   return (
     <Container>
       <ContentOverlay />
@@ -72,12 +78,19 @@ const Footer = () => {
           </p>
 
           <div id="links">
-            <Link href="/privacy-policy">Política de Privacidad</Link>|<p>Términos y Condiciones</p>{" "}
-            |
+            {bottomLinks.map((elem, idx) => (
+              <>
+                <Link href={elem.url} key={idx}>
+                  {elem.label}
+                </Link>{" "}
+                |
+              </>
+            ))}
+
             <p id="links">
               Desarrollado por{" "}
               <a href="https://github.com/agsosa" target="_blank" rel="noreferrer">
-                <Image src="/ags.png" width="24" height="24" />
+                <Image src="/ags.png" width="22" height="22" />
               </a>
             </p>
           </div>
