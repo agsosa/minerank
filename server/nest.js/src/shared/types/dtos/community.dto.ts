@@ -1,4 +1,5 @@
 import { ICommunity } from '../entities/ICommunity';
+import { IPaginatedDto } from './paginated.dto';
 
 // TODO: Separar en archivos, dejar mas claro que son interfaces
 
@@ -32,4 +33,8 @@ type SearchCommunityProperties = 'isFeatured';
 export type ICreateCommunityDto = Pick<ICommunity, CreateCommunityProperties>;
 export type IUpdateCommunityDto = Partial<ICreateCommunityDto>;
 export type ISearchCommunityDto = Pick<ICommunity, SearchCommunityProperties>;
-export type IFindAllCommunitiesDto = { page?: number; limit?: number };
+export type IFindCommunitiesDto = { page?: number; limit?: number };
+export type IFindCommunitiesResponseDto = IPaginatedDto<{
+  featured: ICommunity[];
+  normal: ICommunity[];
+}>;

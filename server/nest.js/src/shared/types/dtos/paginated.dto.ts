@@ -3,5 +3,5 @@ export interface IPaginatedDto<ItemsType> {
   maxPage: number;
   perPage: number;
   total: number;
-  items: ItemsType[];
+  items: ItemsType;
 }

@@ -1,7 +1,7 @@
 import { IsNumber, IsOptional } from 'class-validator';
-import { IFindAllCommunitiesDto } from 'src/shared/types/dtos/community.dto';
+import { IFindCommunitiesDto } from 'src/shared/types/dtos/community.dto';
 
-export class FindAllCommunitiesDto implements IFindAllCommunitiesDto {
+export class FindAllCommunitiesDto implements IFindCommunitiesDto {
   @IsOptional()
   @IsNumber()
   page: number;

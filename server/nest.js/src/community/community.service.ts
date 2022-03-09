@@ -7,6 +7,7 @@ import { Community } from './community.entity';
 import { SearchCommunityDto } from './dto/search-community.dto';
 import { IPaginatedDto } from 'src/shared/types/dtos/paginated.dto';
 import { ICommunity } from 'src/shared/types/entities/ICommunity';
+import { IFindCommunitiesResponseDto } from 'src/shared/types/dtos/community.dto';
 
 @Injectable()
 export class CommunityService {
@@ -19,26 +20,56 @@ export class CommunityService {
     return this.communityRepository.insert(createCommunityDto);
   }
 
-  async findAll(page = 1, limit = 10): Promise<IPaginatedDto<ICommunity>> {
-    const [items, total] = await this.communityRepository.findAndCount({
-      order: {
-        upvotes: 'DESC',
-      },
-      where: {
-        isFeatured: false,
-      },
-      skip: limit * (page - 1),
-      take: limit,
-    });
+  async findAll(page = 1, limit = 10): Promise<IFindCommunitiesResponseDto> {
+    const promises: Promise<any>[] = [];
+
+    let total = 0;
+    let normal: ICommunity[] = [];
+    let featured: ICommunity[] = [];
+
+    // Get communities (excludes featured)
+    promises.push(
+      this.communityRepository
+        .findAndCount({
+          order: {
+            upvotes: 'DESC',
+          },
+          where: {
+            isFeatured: false,
+          },
+          skip: limit * (page - 1),
+          take: limit,
+        })
+        .then(([_items, _total]) => {
+          normal = _items;
+          total = _total;
+        }),
+    );
+
+    // Add featured communities if it's the first page
+    if (page === 1) {
+      promises.push(
+        this.search({
+          isFeatured: true,
+        }).then((res) => {
+          featured = res;
+        }),
+      );
+    }
 
     const maxPage = Math.ceil(total / limit);
+
+    await Promise.all(promises);
 
     return {
       total,
       page,
       perPage: limit,
       maxPage,
-      items,
+      items: {
+        featured,
+        normal,
+      },
     };
   }
 
