@@ -8,7 +8,11 @@ const HomePage: NextPage = () => {
 };
 
 export const getStaticProps = storeWrapper.getStaticProps((store) => async (_arg) => {
-  await store.dispatch(getCommunities(1));
+  const promises = [];
+
+  promises.push(store.dispatch(getCommunities(1)));
+
+  await Promise.allSettled(promises);
 
   return {
     props: {},

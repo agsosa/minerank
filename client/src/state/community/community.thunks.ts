@@ -1,12 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IPaginatedDto } from "@shared/types/dtos/paginated.dto";
-import { ICommunity } from "@shared/types/entities/ICommunity";
+import { IFindCommunitiesResponseDto } from "@shared/types/dtos/community.dto";
 import communityService from "src/services/community.service";
-import { ServiceError } from "src/services/ServiceError";
+import { ServiceError } from "src/services/internal/ServiceError";
 
 // Get communities from server by page (excludes featured)
 export const getCommunities = createAsyncThunk<
-  IPaginatedDto<ICommunity>,
+  IFindCommunitiesResponseDto,
   number,
   { rejectValue: ServiceError }
 >("getCommunities", async (page, thunkAPI) => {

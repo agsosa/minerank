@@ -2,15 +2,18 @@ import { AxiosRequestConfig } from "axios";
 import axios from "src/utils/axios.utils";
 
 import { ICommunity } from "@shared/types/entities/ICommunity";
-import { IFindAllCommunitiesDto, ISearchCommunityDto } from "@shared/types/dtos/community.dto";
-import { IPaginatedDto } from "@shared/types/dtos/paginated.dto";
+import {
+  IFindCommunitiesDto,
+  IFindCommunitiesResponseDto,
+  ISearchCommunityDto,
+} from "@shared/types/dtos/community.dto";
 import { AsyncServiceResponse } from "src/types/service.types";
 import ServiceMethod from "./internal/ServiceMethod";
 
 class CommunityService {
   @ServiceMethod()
-  async fetchCommunities(page: number = 1): AsyncServiceResponse<IPaginatedDto<ICommunity>> {
-    const params: IFindAllCommunitiesDto = {
+  async fetchCommunities(page: number = 1): AsyncServiceResponse<IFindCommunitiesResponseDto> {
+    const params: IFindCommunitiesDto = {
       page,
     };
 
@@ -21,7 +24,7 @@ class CommunityService {
     };
 
     const { data } = await axios(options);
-    return { data: data as IPaginatedDto<ICommunity> };
+    return { data: data as IFindCommunitiesResponseDto };
   }
 
   @ServiceMethod()

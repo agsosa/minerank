@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ICommunity } from "@shared/types/entities/ICommunity";
-import { ServiceError } from "src/services/ServiceError";
+import { ServiceError } from "src/services/internal/ServiceError";
 import { LoadingState } from "src/types/service.types";
 import { hydrate } from "src/types/store.types";
 import { isServerSide } from "src/utils/misc.utils";
@@ -51,12 +51,21 @@ const communitySlice = createSlice({
     });
 
     builder.addCase(getCommunities.fulfilled, (state, { payload }) => {
+      const {
+        items: { featured, normal },
+        total,
+        maxPage,
+        page,
+        perPage,
+      } = payload;
+
+      if (featured.length > 0) state.featured = featured;
+      state.communities = normal;
       state.loadingState = LoadingState.SUCCESS;
-      state.communities = payload.items;
-      state.total = payload.total;
-      state.maxPage = payload.maxPage;
-      state.page = payload.page;
-      state.perPage = payload.perPage;
+      state.total = total;
+      state.maxPage = maxPage;
+      state.page = page;
+      state.perPage = perPage;
       state.error = null;
     });
 

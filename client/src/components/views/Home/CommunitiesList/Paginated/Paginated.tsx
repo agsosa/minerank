@@ -26,13 +26,15 @@ const Paginated = () => {
         ))}
       </Grid>
 
-      <Pagination
-        sx={{ alignSelf: "center" }}
-        page={page}
-        count={maxPage}
-        color="primary"
-        onChange={onPageChange}
-      />
+      {maxPage > 1 && (
+        <Pagination
+          sx={{ alignSelf: "center" }}
+          page={page}
+          count={maxPage}
+          color="primary"
+          onChange={onPageChange}
+        />
+      )}
     </Section>
   );
 };
