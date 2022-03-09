@@ -2,9 +2,9 @@ import AppHead from "src/components/common/AppHead";
 import Footer from "src/components/common/Footer";
 import Header from "src/components/common/Header";
 import MainLayout from "src/components/common/MainLayout";
-import DetailsLayout from "src/components/views/Details/DetailsLayout";
 import LeftColumn from "src/components/views/Details/LeftColumn";
 import RightColumn from "src/components/views/Details/RightColumn";
+import { Container } from "./Details.styled";
 
 const Details = () => {
   return (
@@ -13,10 +13,10 @@ const Details = () => {
 
       <Header fixedBackground />
 
-      <DetailsLayout>
+      <Container>
         <LeftColumn />
         <RightColumn />
-      </DetailsLayout>
+      </Container>
 
       <Footer />
     </MainLayout>
