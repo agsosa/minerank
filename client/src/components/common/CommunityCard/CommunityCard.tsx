@@ -16,6 +16,7 @@ import {
 } from "./CommunityCard.styled";
 import { ICommunity } from "@shared/types/entities/ICommunity";
 import { getCountryFlagComponent } from "src/utils/countries.utils";
+import { getCommunityConnectionString } from "src/utils/misc.utils";
 
 // TODO: On mouse hover open description resume
 interface CommunityCardProps {
@@ -25,10 +26,9 @@ interface CommunityCardProps {
 const CommunityCard: React.FC<CommunityCardProps> = ({ community, ...props }) => {
   const router = useRouter();
 
-  const { isFeatured, name, ip, upvotes, premiumType, countryCode, port, shortName } = community;
+  const { isFeatured, name, upvotes, premiumType, countryCode, shortName } = community;
 
   const Flag = getCountryFlagComponent(countryCode);
-  const portStr = port ? `:${port}` : "";
 
   const handleClick = () => {
     router.push(`/server/${shortName}`);
@@ -52,10 +52,7 @@ const CommunityCard: React.FC<CommunityCardProps> = ({ community, ...props }) =>
         <StatsContainer>
           <Stat>
             <FaCircle style={{ color: "green" }} />
-            <span>
-              {ip}
-              {portStr}
-            </span>
+            <span>{getCommunityConnectionString(community)}</span>
           </Stat>
         </StatsContainer>
 
