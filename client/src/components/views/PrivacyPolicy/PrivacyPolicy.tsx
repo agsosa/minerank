@@ -1,8 +1,10 @@
 import AppHead from "src/components/common/AppHead";
+import BreadCrumbs from "src/components/common/BreadCrumbs";
 import Footer from "src/components/common/Footer";
 import Header from "src/components/common/Header";
+import { HeaderSafeAreaSpacing } from "src/components/common/Header/Header";
 import MainLayout from "src/components/common/MainLayout";
-import { Container } from "./PrivacyPolicy.styled";
+import { Content } from "./PrivacyPolicy.styled";
 
 const PrivacyPolicy = () => {
   return (
@@ -10,8 +12,13 @@ const PrivacyPolicy = () => {
       <AppHead title="Política de Privacidad - Minerank - Servidores de Minecraft" />
 
       <Header fixedBackground />
+      <HeaderSafeAreaSpacing />
+      
+      <BreadCrumbs />
 
-      <Container>
+      <Content>
+        <h1>Política de Privacidad</h1>
+
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas placerat sapien non nisl
           ultrices, vehicula lacinia metus consectetur. Cras cursus nisi eu mauris congue, ut
@@ -78,7 +85,7 @@ const PrivacyPolicy = () => {
           dignissim. Praesent tempor placerat nunc, eget cursus nunc pretium in. In sit amet luctus
           elit. Aliquam convallis vestibulum leo non mattis.
         </p>
-      </Container>
+      </Content>
 
       <Footer />
     </MainLayout>

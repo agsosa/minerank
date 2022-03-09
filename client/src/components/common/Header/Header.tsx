@@ -1,4 +1,4 @@
-import { Container, HeaderContent, Flex } from "./Header.styled";
+import { Container, HeaderContent, Flex, HEADER_HEIGHT } from "./Header.styled";
 import { useUser } from "@auth0/nextjs-auth0";
 import AppLogo from "../AppLogo";
 
@@ -29,6 +29,10 @@ const Header: React.FC<HeaderProps> = ({ fixedBackground, ...props }) => {
       </HeaderContent>
     </Container>
   );
+};
+
+export const HeaderSafeAreaSpacing = () => {
+  return <div style={{ height: HEADER_HEIGHT }} />;
 };
 
 export default Header;

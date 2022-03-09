@@ -2,15 +2,13 @@ import { HEADER_HEIGHT } from "src/components/common/Header/Header.styled";
 import { CONTENT_WIDTH } from "src/utils/style.utils";
 import styled from "styled-components";
 
-export const Container = styled.div`
-  padding-top: ${HEADER_HEIGHT};
+export const Content = styled.main`
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
-  gap: 30px;
+  gap: 15px;
   width: 100%;
-  gap: 30px;
-  margin: 45px 0px;
+  margin-bottom: 45px;
 
   ${CONTENT_WIDTH}
 `;

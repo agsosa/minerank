@@ -12,6 +12,7 @@ import {
 
 import Image from "next/image";
 import { getAppConfig } from "src/services/config.service";
+import Link from "next/link";
 
 const Footer = () => {
   const year = new Date().getFullYear();
@@ -71,7 +72,8 @@ const Footer = () => {
           </p>
 
           <div id="links">
-            <p>Política de Privacidad</p>|<p>Términos y Condiciones</p> |
+            <Link href="/privacy-policy">Política de Privacidad</Link>|<p>Términos y Condiciones</p>{" "}
+            |
             <p id="links">
               Desarrollado por{" "}
               <a href="https://github.com/agsosa" target="_blank" rel="noreferrer">
