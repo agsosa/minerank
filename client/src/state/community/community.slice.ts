@@ -4,12 +4,14 @@ import { ServiceError } from "src/services/internal/ServiceError";
 import { LoadingState } from "src/types/service.types";
 import { hydrate } from "src/types/store.types";
 import { isServerSide } from "src/utils/misc.utils";
+import { getCommunityDetails } from ".";
 import { getCommunities } from "./community.thunks";
 
 interface ICommunityState {
   featured: ICommunity[];
   latest: ICommunity[];
   communities: ICommunity[];
+  communityDetails: ICommunity | null | undefined; // ICommunityDetail with comments etc
   loadingState: LoadingState;
   page: number;
   maxPage: number;
@@ -22,6 +24,7 @@ const initialState = {
   featured: [],
   communities: [],
   latest: [],
+  communityDetails: null,
   total: 0,
   maxPage: 0,
   page: 1,
@@ -70,15 +73,29 @@ const communitySlice = createSlice({
       state.error = null;
     });
 
-    builder.addCase(getCommunities.pending, (state) => {
-      state.loadingState = LoadingState.PENDING;
+    builder.addCase(getCommunityDetails.fulfilled, (state, { payload }) => {
+      state.loadingState = LoadingState.SUCCESS;
+      state.communityDetails = payload;
       state.error = null;
     });
 
-    builder.addCase(getCommunities.rejected, (state, { payload }) => {
-      state.loadingState = LoadingState.FAILED;
-      state.error = isServerSide() ? JSON.stringify(payload) : payload;
-    });
+    // Pending matcher
+    builder.addMatcher(
+      (action) => [getCommunities.pending, getCommunityDetails.pending].includes(action?.type),
+      (state) => {
+        state.loadingState = LoadingState.PENDING;
+        state.error = null;
+      }
+    );
+
+    // Rejected matcher
+    builder.addMatcher(
+      (action) => [getCommunities.rejected, getCommunityDetails.rejected].includes(action?.type),
+      (state, { payload }) => {
+        state.loadingState = LoadingState.FAILED;
+        state.error = isServerSide() ? JSON.stringify(payload) : payload;
+      }
+    );
   },
 });
 

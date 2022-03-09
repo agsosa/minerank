@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Details from "src/components/views/Details";
 import communityService from "src/services/community.service";
-import { selectCommunityByShortName } from "src/state/community";
+import { getCommunityDetails } from "src/state/community";
 import { storeWrapper } from "src/state/store";
 
 const DetailsPage: NextPage = () => {
@@ -27,12 +27,18 @@ export async function getStaticPaths() {
 
 export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ params }) => {
   const shortName = params?.shortName as string;
-  const community = selectCommunityByShortName(store.getState(), shortName);
+  if (!shortName)
+    return {
+      props: {},
+      notFound: true,
+    };
 
-  if (!community) {
-    console.log(`no community with short name ${"pepe"} in state`);
-    // fetch details because the community isn't in state
-  }
+  const result = await store.dispatch(getCommunityDetails(shortName));
+  if (!result.payload)
+    return {
+      props: {},
+      notFound: true,
+    };
 
   return {
     props: {},

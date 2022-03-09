@@ -1,20 +1,19 @@
-import { Container, Card, Flex, Stat, SmallStat, IPAddress } from "./LeftColumn.styled";
 import Image from "next/image";
-import { Button } from "@mui/material";
-import {
-  FaAd,
-  FaAddressCard,
-  FaCircle,
-  FaCopy,
-  FaGlobeAmericas,
-  FaMousePointer,
-  FaSyncAlt,
-  FaUser,
-} from "react-icons/fa";
-import { BiGitBranch } from "react-icons/bi";
+import { useSelector } from "react-redux";
+import dayjs from "dayjs";
+import { FaCircle, FaMousePointer, FaSyncAlt } from "react-icons/fa";
+
 import { formatBigNumber } from "src/utils/misc.utils";
+import { selectCommunityState } from "src/state/community";
+import { Container, Card, Flex, Stat, SmallStat, IPAddress } from "./LeftColumn.styled";
 
 const LeftColumn = () => {
+  const { communityDetails } = useSelector(selectCommunityState);
+  if (!communityDetails) throw new Error("Details view entered with no community loaded");
+
+  const { updatedAt } = communityDetails;
+  const updateDate = dayjs(updatedAt).format("DD/MM/YYYY");
+
   return (
     <Container>
       <Image src="/cryptosignal-thumb.png" width="318" height="318" />
@@ -36,7 +35,7 @@ const LeftColumn = () => {
         <Flex id="content">
           <SmallStat>
             <FaSyncAlt />
-            <span>14/11/2021</span>
+            <span>{updateDate}</span>
           </SmallStat>
 
           <SmallStat>

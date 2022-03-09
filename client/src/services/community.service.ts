@@ -55,14 +55,14 @@ class CommunityService {
   }
 
   @ServiceMethod()
-  async fetchCommunity(shortName: string): AsyncServiceResponse<string[]> {
+  async fetchCommunity(shortName: string): AsyncServiceResponse<ICommunity> {
     const options: AxiosRequestConfig = {
       url: `/api/public/v1/communities/${shortName}`,
       method: "GET",
     };
 
     const { data } = await axios(options);
-    return { data: data as string[] };
+    return { data: data as ICommunity };
   }
 }
 
