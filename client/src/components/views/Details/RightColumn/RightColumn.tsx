@@ -2,14 +2,26 @@ import Comments from "./Comments";
 import { Container, ContentCard, TitleContainer } from "./RightColumn.styled";
 import Button from "@mui/material/Button";
 import { FaFlag } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { selectCommunityState } from "src/state/community";
+import { getCommunityCountryFlagComponent } from "src/utils/community.utils";
 
 const RightColumn = () => {
+  const { communityDetails } = useSelector(selectCommunityState);
+
+  const { name } = communityDetails!;
+  const Flag = getCommunityCountryFlagComponent(communityDetails!);
+
+  const onReportClick = () => {};
+
   return (
     <Container>
       <ContentCard>
         <TitleContainer>
-          <h2>(country flag) Cryptosignal MC (#1)</h2>
-          <Button startIcon={<FaFlag />} color="error" size="small">
+          <h2>
+            {Flag && <Flag width={25} />} {name} (#1)
+          </h2>
+          <Button startIcon={<FaFlag />} color="error" size="small" onClick={onReportClick}>
             Reportar
           </Button>
         </TitleContainer>

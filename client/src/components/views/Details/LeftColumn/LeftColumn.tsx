@@ -6,13 +6,15 @@ import { FaCircle, FaMousePointer, FaSyncAlt } from "react-icons/fa";
 import { formatBigNumber } from "src/utils/misc.utils";
 import { selectCommunityState } from "src/state/community";
 import { Container, Card, Flex, Stat, SmallStat, IPAddress } from "./LeftColumn.styled";
+import { getCommunityConnectionString } from "src/utils/community.utils";
 
 const LeftColumn = () => {
   const { communityDetails } = useSelector(selectCommunityState);
-  if (!communityDetails) throw new Error("Details view entered with no community loaded");
 
-  const { updatedAt } = communityDetails;
+  const { updatedAt } = communityDetails!;
   const updateDate = dayjs(updatedAt).format("DD/MM/YYYY");
+  const connectionStr = getCommunityConnectionString(communityDetails!);
+  const clicks = formatBigNumber(15555555);
 
   return (
     <Container>
@@ -26,7 +28,7 @@ const LeftColumn = () => {
           </Stat>
 
           <IPAddress>
-            <span>3mc.cryptosignal.com</span>
+            <span>{connectionStr}</span>
           </IPAddress>
         </div>
       </Card>
@@ -40,7 +42,7 @@ const LeftColumn = () => {
 
           <SmallStat>
             <FaMousePointer />
-            <span>{formatBigNumber(15555555)}</span>
+            <span>{clicks}</span>
           </SmallStat>
         </Flex>
       </Card>
