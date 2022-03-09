@@ -21,7 +21,6 @@ class CommunityService {
     };
 
     const { data } = await axios(options);
-
     return { data: data as IPaginatedDto<ICommunity> };
   }
 
@@ -38,7 +37,6 @@ class CommunityService {
     };
 
     const { data } = await axios(options);
-
     return { data: data as ICommunity[] };
   }
 
@@ -50,7 +48,6 @@ class CommunityService {
     };
 
     const { data } = await axios(options);
-
     return { data: data as string[] };
   }
 
@@ -62,7 +59,6 @@ class CommunityService {
     };
 
     const { data } = await axios(options);
-
     return { data: data as string[] };
   }
 }

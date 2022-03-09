@@ -1,3 +1,6 @@
+/**
+ * Decorator for service methods to handle exceptions automatically
+ */
 import { ServiceError } from "./ServiceError";
 
 export default function ServiceMethod() {
