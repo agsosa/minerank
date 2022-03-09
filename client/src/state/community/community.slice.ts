@@ -52,7 +52,7 @@ const communitySlice = createSlice({
 
     builder.addCase(getCommunities.fulfilled, (state, { payload }) => {
       const {
-        items: { featured, normal },
+        items: { featured, normal, latest },
         total,
         maxPage,
         page,
@@ -60,6 +60,7 @@ const communitySlice = createSlice({
       } = payload;
 
       if (featured.length > 0) state.featured = featured;
+      if (latest.length > 0) state.latest = latest;
       state.communities = normal;
       state.loadingState = LoadingState.SUCCESS;
       state.total = total;

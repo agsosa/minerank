@@ -36,5 +36,6 @@ export type ISearchCommunityDto = Pick<ICommunity, SearchCommunityProperties>;
 export type IFindCommunitiesDto = { page?: number; limit?: number };
 export type IFindCommunitiesResponseDto = IPaginatedDto<{
   featured: ICommunity[];
+  latest: ICommunity[];
   normal: ICommunity[];
 }>;

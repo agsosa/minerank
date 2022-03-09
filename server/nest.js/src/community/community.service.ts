@@ -5,7 +5,6 @@ import { CreateCommunityDto } from './dto/create-community.dto';
 import { UpdateCommunityDto } from './dto/update-community.dto';
 import { Community } from './community.entity';
 import { SearchCommunityDto } from './dto/search-community.dto';
-import { IPaginatedDto } from 'src/shared/types/dtos/paginated.dto';
 import { ICommunity } from 'src/shared/types/entities/ICommunity';
 import { IFindCommunitiesResponseDto } from 'src/shared/types/dtos/community.dto';
 
@@ -26,6 +25,7 @@ export class CommunityService {
     let total = 0;
     let normal: ICommunity[] = [];
     let featured: ICommunity[] = [];
+    let latest: ICommunity[] = [];
 
     // Get communities (excludes featured)
     promises.push(
@@ -46,14 +46,29 @@ export class CommunityService {
         }),
     );
 
-    // Add featured communities if it's the first page
+    // Add featured & latest communities if it's the first page
     if (page === 1) {
+      // Featured
       promises.push(
         this.search({
           isFeatured: true,
         }).then((res) => {
           featured = res;
         }),
+      );
+
+      // Latest communities
+      promises.push(
+        this.communityRepository
+          .find({
+            order: {
+              createdAt: 'DESC',
+            },
+            take: 7,
+          })
+          .then((res) => {
+            latest = res;
+          }),
       );
     }
 
@@ -68,6 +83,7 @@ export class CommunityService {
       maxPage,
       items: {
         featured,
+        latest,
         normal,
       },
     };

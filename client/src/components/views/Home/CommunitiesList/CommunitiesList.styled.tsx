@@ -20,7 +20,7 @@ export const Grid = styled.div`
 `;
 
 export const FeaturedGrid = styled(Grid)`
-  grid-template-columns: repeat(1, 1fr);
+  grid-template-columns: repeat(2, 1fr);
 `;
 
 export const PromoBox = styled.p`
