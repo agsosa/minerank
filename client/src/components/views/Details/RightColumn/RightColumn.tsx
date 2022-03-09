@@ -1,15 +1,17 @@
 import Comments from "./Comments";
-import { Container, ContentCard, TitleContainer } from "./RightColumn.styled";
+import { Container, ContentCard, NameContainer, TitleContainer, Upvotes } from "./RightColumn.styled";
 import Button from "@mui/material/Button";
-import { FaFlag } from "react-icons/fa";
+import { FaArrowUp, FaFlag } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { selectCommunityState } from "src/state/community";
 import { getCommunityCountryFlagComponent } from "src/utils/community.utils";
+import { formatBigNumber } from "src/utils/misc.utils";
 
 const RightColumn = () => {
   const { communityDetails } = useSelector(selectCommunityState);
 
-  const { name } = communityDetails!;
+  const { name, upvotes } = communityDetails!;
+  const totalVotes = formatBigNumber(upvotes);
   const Flag = getCommunityCountryFlagComponent(communityDetails!);
 
   const onReportClick = () => {};
@@ -18,9 +20,14 @@ const RightColumn = () => {
     <Container>
       <ContentCard>
         <TitleContainer>
-          <h2>
-            {Flag && <Flag width={25} />} {name} (#1)
-          </h2>
+          <NameContainer>
+            <h2>{Flag && <Flag width={25} />} {name}{" "}</h2>
+
+            <Upvotes>
+              <FaArrowUp size={15} /> <span>{totalVotes}</span>
+            </Upvotes>
+          </NameContainer>
+
           <Button startIcon={<FaFlag />} color="error" size="small" onClick={onReportClick}>
             Reportar
           </Button>

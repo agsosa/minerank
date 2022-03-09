@@ -10,6 +10,7 @@ import {
 import TextField from "@mui/material/TextField";
 
 const Comments = () => {
+  // TODO: Add pagination
   return (
     <Container>
       <TitleContainer>

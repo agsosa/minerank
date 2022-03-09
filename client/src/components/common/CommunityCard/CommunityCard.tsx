@@ -19,6 +19,7 @@ import {
   getCommunityConnectionString,
   getCommunityCountryFlagComponent,
 } from "src/utils/community.utils";
+import { formatBigNumber } from "src/utils/misc.utils";
 
 // TODO: On mouse hover open description resume
 interface CommunityCardProps {
@@ -29,6 +30,7 @@ const CommunityCard: React.FC<CommunityCardProps> = ({ community, ...props }) =>
   const router = useRouter();
 
   const { isFeatured, name, upvotes, premiumType, shortName } = community;
+  const totalVotes = formatBigNumber(upvotes);
   const Flag = getCommunityCountryFlagComponent(community);
   const connectionStr = getCommunityConnectionString(community);
 
@@ -47,7 +49,7 @@ const CommunityCard: React.FC<CommunityCardProps> = ({ community, ...props }) =>
             <Name>{name}</Name>
           </NameContainer>
           <Stat>
-            <FaArrowUp /> <span>{upvotes}</span>
+            <FaArrowUp /> <span>{totalVotes}</span>
           </Stat>
         </TitleContainer>
 

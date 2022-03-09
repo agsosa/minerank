@@ -9,9 +9,10 @@ import RightColumn from "src/components/views/Details/RightColumn";
 import { Container } from "./Details.styled";
 
 const Details = () => {
+  // TODO: Reemplazar el appHead title con el nombre del server
   return (
     <MainLayout>
-      <AppHead title="Servidor Survival Dub - Minerank - Servidores de Minecraft" />
+      <AppHead title="Survival Dub - Minerank - Servidores de Minecraft" />
 
       <Header fixedBackground />
       <HeaderSafeAreaSpacing />
