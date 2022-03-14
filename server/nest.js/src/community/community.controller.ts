@@ -26,10 +26,7 @@ export class CommunityController {
 
   @Get('/shortnames')
   async findAllShortNames() {
-    const result = await this.communityService.findAllShortNames();
-    console.log(result);
-    const strArray = Array.isArray(result) ? result.map((elem) => elem.shortName) : [];
-    return strArray;
+    return this.communityService.findAllShortNames();
   }
 
   @Post('/search')

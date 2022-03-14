@@ -7,6 +7,7 @@ import { Community } from './community.entity';
 import { SearchCommunityDto } from './dto/search-community.dto';
 import { ICommunity } from 'src/shared/types/entities/ICommunity';
 import { IFindCommunitiesResponseDto } from 'src/shared/types/dtos/community.dto';
+import { CommunityConstants } from 'src/shared/constant/community.constant';
 
 @Injectable()
 export class CommunityService {
@@ -19,7 +20,10 @@ export class CommunityService {
     return this.communityRepository.insert(createCommunityDto);
   }
 
-  async findAll(page = 1, limit = 10): Promise<IFindCommunitiesResponseDto> {
+  async findAll(
+    page = 1,
+    limit = CommunityConstants.limits.perPageCount,
+  ): Promise<IFindCommunitiesResponseDto> {
     const promises: Promise<any>[] = [];
 
     let total = 0;
@@ -64,7 +68,7 @@ export class CommunityService {
             order: {
               createdAt: 'DESC',
             },
-            take: 7,
+            take: CommunityConstants.limits.latestCount,
           })
           .then((res) => {
             latest = res;
@@ -100,10 +104,12 @@ export class CommunityService {
     return this.communityRepository.findOne({ shortName });
   }
 
-  findAllShortNames() {
-    return this.communityRepository.find({
+  async findAllShortNames() {
+    const result = await this.communityRepository.find({
       select: ['shortName'],
     });
+
+    return Array.isArray(result) ? result.map((elem) => elem.shortName) : [];
   }
 
   update(id: number, updateCommunityDto: UpdateCommunityDto) {

@@ -18,4 +18,8 @@ export const CommunityConstants = Object.freeze({
       maxLength: 253,
     },
   },
+  limits: {
+    perPageCount: 10, // Amount of communities per page
+    latestCount: 7, // Amount of latest communitiest to show
+  }
 });
