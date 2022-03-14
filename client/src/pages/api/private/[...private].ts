@@ -10,6 +10,7 @@ import axios, { Method } from "axios";
 export default withApiAuthRequired(async function hadlePrivateAPI(req, res) {
   try {
     const method: Method = (req.method as Method) || "GET";
+    const body = req.body;
     const path = req.url?.replace("/api/secure/", "");
     const url = `${process.env.API_SERVER_BASE_URL}/api/` + path;
 
@@ -23,6 +24,7 @@ export default withApiAuthRequired(async function hadlePrivateAPI(req, res) {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
+      data: body,
     });
 
     res.status(result.status).json(result.data);
