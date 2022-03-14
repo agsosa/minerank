@@ -4,13 +4,22 @@ import { FaList } from "react-icons/fa";
 import Pagination from "@mui/material/Pagination";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCommunityState, getCommunities } from "src/state/community";
+import { IFindCommunitiesDto } from "@shared/types/dtos/community.dto";
 
 const Paginated = () => {
   const dispatch = useDispatch();
   const { maxPage, page, communities } = useSelector(selectCommunityState);
 
   const onPageChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    dispatch(getCommunities(value));
+    const dto: IFindCommunitiesDto = {
+      page: value,
+      limit: 10,
+      filter: {
+        isFeatured: false,
+      },
+    };
+
+    dispatch(getCommunities(dto));
   };
 
   return (

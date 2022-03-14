@@ -1,71 +1,51 @@
 import { AxiosRequestConfig } from "axios";
 import axios from "src/utils/axios.utils";
 
-import { ICommunity } from "@shared/types/entities/ICommunity";
 import {
   IFindCommunitiesDto,
   IFindCommunitiesResponseDto,
-  ISearchCommunityDto,
+  IFindCommunityResponseDto,
 } from "@shared/types/dtos/community.dto";
 import { AsyncServiceResponse } from "src/types/service.types";
 import ServiceMethod from "./internal/ServiceMethod";
+import { IFindShortNamesResponseDto } from "../../../server/nest.js/src/shared/types/dtos/community.dto";
 
 class CommunityService {
   @ServiceMethod()
-  async fetchCommunities(page: number = 1): AsyncServiceResponse<IFindCommunitiesResponseDto> {
-    const params: IFindCommunitiesDto = {
-      page,
-    };
-
-    const options: AxiosRequestConfig = {
-      url: `/api/public/v1/communities`,
-      method: "GET",
-      params,
-    };
-
-    const { data } = await axios(options);
-    return { data: data as IFindCommunitiesResponseDto };
-  }
-
-  /**
-   * TODO: Not used
-   */
-  @ServiceMethod()
-  async fetchFeaturedCommunities(): AsyncServiceResponse<ICommunity[]> {
-    const params: Partial<ISearchCommunityDto> = {
-      isFeatured: true,
-    };
-
+  async fetchCommunities(
+    findCommunitiesDto: IFindCommunitiesDto
+  ): AsyncServiceResponse<IFindCommunitiesResponseDto> {
     const options: AxiosRequestConfig = {
       url: `/api/public/v1/communities/search`,
       method: "POST",
-      params,
+      data: findCommunitiesDto,
     };
 
     const { data } = await axios(options);
-    return { data: data as ICommunity[] };
+
+    return { data };
   }
 
   @ServiceMethod()
-  async fetchShortNames(): AsyncServiceResponse<string[]> {
+  async fetchShortNames(): AsyncServiceResponse<IFindShortNamesResponseDto> {
     const options: AxiosRequestConfig = {
       url: `/api/public/v1/communities/shortnames`,
       method: "GET",
     };
 
     const { data } = await axios(options);
-    return { data: data as string[] };
+    return { data };
   }
 
   @ServiceMethod()
-  async fetchCommunity(shortName: string): AsyncServiceResponse<ICommunity> {
+  async fetchCommunity(shortName: string): AsyncServiceResponse<IFindCommunityResponseDto> {
     const options: AxiosRequestConfig = {
       url: `/api/public/v1/communities/${shortName}`,
       method: "GET",
     };
 
     const { data } = await axios(options);
-    return { data: data as ICommunity };
+    return { data };
   }
 }
 

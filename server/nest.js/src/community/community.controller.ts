@@ -3,8 +3,7 @@ import { CommunityService } from './community.service';
 import { CreateCommunityDto } from './dto/create-community.dto';
 import { UpdateCommunityDto } from './dto/update-community.dto';
 import { ApiTags } from '@nestjs/swagger';
-import { SearchCommunityDto } from './dto/search-community.dto';
-import { FindAllCommunitiesDto } from './dto/find-all-communities.dto';
+import { FindCommunitiesDto } from './dto/find-communities.dto';
 
 @ApiTags('communities')
 @Controller({
@@ -19,20 +18,26 @@ export class CommunityController {
     return this.communityService.create(createCommunityDto);
   }
 
-  @Get()
-  findAll(@Query() { page, limit }: FindAllCommunitiesDto) {
-    return this.communityService.findAll(page, limit);
+  @Post('/search')
+  @HttpCode(200)
+  findAll(
+    @Body()
+    { page, limit, filter, includeLatest, includeUnapproved, separateFeatured }: FindCommunitiesDto,
+  ) {
+    console.log({ page, limit, filter, includeLatest, includeUnapproved, separateFeatured })
+    return this.communityService.find({
+      page,
+      limit,
+      filter,
+      includeLatest,
+      includeUnapproved,
+      separateFeatured,
+    });
   }
 
   @Get('/shortnames')
   async findAllShortNames() {
-    return this.communityService.findAllShortNames();
-  }
-
-  @Post('/search')
-  @HttpCode(200)
-  search(@Body() searchCommunityDto: SearchCommunityDto) {
-    return this.communityService.search(searchCommunityDto);
+    return this.communityService.findShortNames();
   }
 
   @Get(':shortName')

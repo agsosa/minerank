@@ -2,12 +2,16 @@ import { EditionEnum, PremiumTypeEnum } from '../enum/community.enum';
 
 export interface ICommunity {
   /**
-   * Non nullable fields
+   * Entity Base fields
    */
   id: number;
   createdAt: Date;
   updatedAt: Date;
   isDeleted: boolean;
+
+  /**
+   * Non nullable fields
+   */
   name: string;
   description: string;
   shortName: string;
@@ -37,3 +41,20 @@ export interface ICommunity {
   instagram: string | null;
   teamspeak: string | null;
 }
+
+export const ListCommunityOmittedKeys = [
+  'description',
+  'youtubeTrailer',
+  'facebook',
+  'twitter',
+  'youtube',
+  'discord',
+  'facebook',
+  'telegram',
+  'teamspeak',
+  'instagram',
+  'website',
+] as const;
+
+// Interface returned on list endpoints
+export type IListCommunity = Omit<ICommunity, typeof ListCommunityOmittedKeys[number]>;

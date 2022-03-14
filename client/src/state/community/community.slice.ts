@@ -1,23 +1,22 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ICommunity } from "@shared/types/entities/ICommunity";
-import { ServiceError } from "src/services/internal/ServiceError";
-import { LoadingState } from "src/types/service.types";
+import { ICommunity, IListCommunity } from "@shared/types/entities/ICommunity";
+import { IServiceError, LoadingState } from "src/types/service.types";
 import { hydrate } from "src/types/store.types";
 import { isServerSide } from "src/utils/misc.utils";
 import { getCommunityDetails } from ".";
 import { getCommunities } from "./community.thunks";
 
 interface ICommunityState {
-  featured: ICommunity[];
-  latest: ICommunity[];
-  communities: ICommunity[];
+  featured: IListCommunity[];
+  latest: IListCommunity[];
+  communities: IListCommunity[];
   communityDetails: ICommunity | null | undefined; // ICommunityDetail with comments etc
   loadingState: LoadingState;
   page: number;
   maxPage: number;
   perPage: number;
   total: number;
-  error?: ServiceError | string | null;
+  error: IServiceError | null;
 }
 
 const initialState = {
@@ -43,13 +42,9 @@ const communitySlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(hydrate, (state, { payload: { community } }) => {
-      const error =
-        typeof community.error === "string" ? JSON.parse(community.error) : community.error;
-
       return {
         ...state,
         ...community,
-        error,
       };
     });
 
@@ -93,7 +88,7 @@ const communitySlice = createSlice({
       (action) => [getCommunities.rejected, getCommunityDetails.rejected].includes(action?.type),
       (state, { payload }) => {
         state.loadingState = LoadingState.FAILED;
-        state.error = isServerSide() ? JSON.stringify(payload) : payload;
+        state.error = payload;
       }
     );
   },

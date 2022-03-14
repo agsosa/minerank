@@ -10,12 +10,14 @@ import { NextApiRequest, NextApiResponse } from "next";
 export default async function handlePublicAPI(req: NextApiRequest, res: NextApiResponse) {
   try {
     const method: Method = (req.method as Method) || "GET";
+    const body: any = req.body;
     const path = req.url?.replace("/api/public/", "");
     const url = `${process.env.API_SERVER_BASE_URL}/api/` + path;
 
     const result = await axios({
       url,
       method,
+      data: body,
     });
 
     res.status(result.status).json(result.data);

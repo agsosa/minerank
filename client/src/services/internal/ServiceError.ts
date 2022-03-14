@@ -3,30 +3,12 @@
 import axios from "axios";
 import { IServiceError } from "src/types/service.types";
 
-export class ServiceError implements IServiceError {
-  private readonly originalError?: any;
+export function buildServiceError(error: any) {
+  const result: IServiceError = {
+    isAxiosError: axios.isAxiosError(error),
+    message: error?.response?.data?.message || error?.message || "Internal Error",
+    statusCode: error?.response?.status || 500,
+  };
 
-  constructor(error: unknown) {
-    this.originalError = error;
-  }
-
-  get isAxiosError(): boolean {
-    return axios.isAxiosError(this.originalError);
-  }
-
-  get message(): string {
-    return this.originalError?.response?.data?.message || this.originalError.message;
-  }
-
-  get statusCode(): number {
-    return this.originalError?.response?.status || 500;
-  }
-
-  toJSON() {
-    return {
-      statusCode: this.statusCode,
-      message: this.message,
-      isAxiosError: this.isAxiosError,
-    };
-  }
+  return result;
 }

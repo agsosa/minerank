@@ -1,5 +1,9 @@
 import { Entity, Column, Index } from 'typeorm';
-import { ICommunity } from 'src/shared/types/entities/ICommunity';
+import {
+  ICommunity,
+  IListCommunity,
+  ListCommunityOmittedKeys,
+} from 'src/shared/types/entities/ICommunity';
 import { EditionEnum, PremiumTypeEnum } from 'src/shared/types/enum/community.enum';
 import { EntityBase } from 'src/shared/internal/EntityBase';
 
@@ -82,4 +86,12 @@ export class Community extends EntityBase implements ICommunity {
 
   @Column({ type: 'varchar', nullable: true })
   teamspeak: string | null;
+
+  toListMember(): IListCommunity {
+    for (const key of ListCommunityOmittedKeys) {
+      this[key] = '';
+    }
+
+    return this;
+  }
 }

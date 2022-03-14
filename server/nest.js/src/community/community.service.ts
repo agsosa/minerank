@@ -4,10 +4,14 @@ import { Repository } from 'typeorm';
 import { CreateCommunityDto } from './dto/create-community.dto';
 import { UpdateCommunityDto } from './dto/update-community.dto';
 import { Community } from './community.entity';
-import { SearchCommunityDto } from './dto/search-community.dto';
-import { ICommunity } from 'src/shared/types/entities/ICommunity';
-import { IFindCommunitiesResponseDto } from 'src/shared/types/dtos/community.dto';
+import { IListCommunity } from 'src/shared/types/entities/ICommunity';
+import {
+  IFindShortNamesResponseDto,
+  IFindCommunitiesResponseDto,
+  IFindCommunityResponseDto,
+} from 'src/shared/types/dtos/community.dto';
 import { CommunityConstants } from 'src/shared/constant/community.constant';
+import { FindCommunitiesDto } from './dto/find-communities.dto';
 
 @Injectable()
 export class CommunityService {
@@ -20,16 +24,24 @@ export class CommunityService {
     return this.communityRepository.insert(createCommunityDto);
   }
 
-  async findAll(
-    page = 1,
-    limit = CommunityConstants.limits.perPageCount,
-  ): Promise<IFindCommunitiesResponseDto> {
+  async find({
+    page,
+    limit,
+    filter,
+    separateFeatured,
+    includeUnapproved,
+    includeLatest,
+  }: FindCommunitiesDto): Promise<IFindCommunitiesResponseDto> {
     const promises: Promise<any>[] = [];
 
     let total = 0;
-    let normal: ICommunity[] = [];
-    let featured: ICommunity[] = [];
-    let latest: ICommunity[] = [];
+    let normal: IListCommunity[] = [];
+    let featured: IListCommunity[] = [];
+    let latest: IListCommunity[] = [];
+
+    const where: any = { ...filter };
+    if (separateFeatured) where.isFeatured = false;
+    if (!includeUnapproved) where.isApproved = true;
 
     // Get communities (excludes featured)
     promises.push(
@@ -38,30 +50,30 @@ export class CommunityService {
           order: {
             upvotes: 'DESC',
           },
-          where: {
-            isFeatured: false,
-          },
+          where,
           skip: limit * (page - 1),
           take: limit,
         })
         .then(([_items, _total]) => {
-          normal = _items;
+          normal = _items.map((elem) => elem.toListMember());
           total = _total;
         }),
     );
 
-    // Add featured & latest communities if it's the first page
-    if (page === 1) {
-      // Featured
+    // Find featured communities
+    if (separateFeatured)
       promises.push(
-        this.search({
-          isFeatured: true,
-        }).then((res) => {
-          featured = res;
-        }),
+        this.communityRepository
+          .find({
+            where: { isFeatured: true },
+          })
+          .then((res) => {
+            featured = res;
+          }),
       );
 
-      // Latest communities
+    // Find latest communities
+    if (includeLatest)
       promises.push(
         this.communityRepository
           .find({
@@ -71,10 +83,9 @@ export class CommunityService {
             take: CommunityConstants.limits.latestCount,
           })
           .then((res) => {
-            latest = res;
+            latest = res.map((elem) => elem.toListMember());
           }),
       );
-    }
 
     const maxPage = Math.ceil(total / limit);
 
@@ -93,18 +104,11 @@ export class CommunityService {
     };
   }
 
-  search(searchCommunityDto: SearchCommunityDto) {
-    // TODO: Add pagination, LIKE parameters, etc.
-    return this.communityRepository.find({
-      where: searchCommunityDto,
-    });
-  }
-
-  findOne(shortName: string) {
+  findOne(shortName: string): Promise<IFindCommunityResponseDto> {
     return this.communityRepository.findOne({ shortName });
   }
 
-  async findAllShortNames() {
+  async findShortNames(): Promise<IFindShortNamesResponseDto> {
     const result = await this.communityRepository.find({
       select: ['shortName'],
     });

@@ -14,7 +14,7 @@ import {
   Tags,
   FeaturedText,
 } from "./CommunityCard.styled";
-import { ICommunity } from "@shared/types/entities/ICommunity";
+import { IListCommunity } from "@shared/types/entities/ICommunity";
 import {
   getCommunityConnectionString,
   getCommunityCountryFlagComponent,
@@ -23,7 +23,7 @@ import { formatBigNumber } from "src/utils/misc.utils";
 
 // TODO: On mouse hover open description resume
 interface CommunityCardProps {
-  community: ICommunity;
+  community: IListCommunity;
 }
 
 const CommunityCard: React.FC<CommunityCardProps> = ({ community, ...props }) => {

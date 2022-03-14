@@ -27,6 +27,11 @@ const columnDefs: IColumn[] = [
     filter: true,
   },
   {
+    field: "isApproved",
+    sortable: true,
+    filter: true,
+  },
+  {
     field: "isFeatured",
     sortable: true,
     filter: true,

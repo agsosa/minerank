@@ -1,16 +1,19 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IFindCommunitiesResponseDto } from "@shared/types/dtos/community.dto";
-import { ICommunity } from "@shared/types/entities/ICommunity";
+import {
+  IFindCommunitiesDto,
+  IFindCommunitiesResponseDto,
+  IFindCommunityResponseDto,
+} from "@shared/types/dtos/community.dto";
 import communityService from "src/services/community.service";
-import { ServiceError } from "src/services/internal/ServiceError";
+import { IServiceError } from "src/types/service.types";
 
 // Get communities from server by page (excludes featured)
 export const getCommunities = createAsyncThunk<
   IFindCommunitiesResponseDto,
-  number,
-  { rejectValue: ServiceError }
->("getCommunities", async (page, thunkAPI) => {
-  const { data, error } = await communityService.fetchCommunities(page);
+  IFindCommunitiesDto,
+  { rejectValue: IServiceError }
+>("getCommunities", async (findCommunitiesDto, thunkAPI) => {
+  const { data, error } = await communityService.fetchCommunities(findCommunitiesDto);
 
   if (error) return thunkAPI.rejectWithValue(error);
   else return data;
@@ -18,9 +21,9 @@ export const getCommunities = createAsyncThunk<
 
 // Get community details by short name from server
 export const getCommunityDetails = createAsyncThunk<
-  ICommunity,
+  IFindCommunityResponseDto,
   string,
-  { rejectValue: ServiceError }
+  { rejectValue: IServiceError }
 >("getCommunityDetails", async (shortName, thunkAPI) => {
   const { data, error } = await communityService.fetchCommunity(shortName);
 

@@ -1,11 +1,11 @@
-import { ICommunity } from '../entities/ICommunity';
+import { ICommunity, IListCommunity } from '../entities/ICommunity';
 import { IPaginatedDto } from './paginated.dto';
 
-// TODO: Separar en archivos, dejar mas claro que son interfaces
-
-// TODO: Ver tema media
-// Keyof ICommunity
-type CreateCommunityProperties =
+/**
+ * Input DTOs
+ */
+export type ICreateCommunityDto = Pick<
+  ICommunity,
   | 'name'
   | 'description'
   | 'shortName'
@@ -25,17 +25,31 @@ type CreateCommunityProperties =
   | 'telegram'
   | 'facebook'
   | 'instagram'
-  | 'teamspeak';
+  | 'teamspeak'
+>;
 
-// Keyof ICommunity
-type SearchCommunityProperties = 'isFeatured';
-
-export type ICreateCommunityDto = Pick<ICommunity, CreateCommunityProperties>;
 export type IUpdateCommunityDto = Partial<ICreateCommunityDto>;
-export type ISearchCommunityDto = Pick<ICommunity, SearchCommunityProperties>;
-export type IFindCommunitiesDto = { page?: number; limit?: number };
+
+export type ICommunityFilters = Pick<ICommunity, 'isFeatured'>;
+
+export type IFindCommunitiesDto = {
+  page: number;
+  limit: number;
+  filter?: ICommunityFilters;
+  includeLatest?: boolean;
+  separateFeatured?: boolean;
+  includeUnapproved?: boolean;
+};
+
+/**
+ * Output DTOs
+ */
+export type IFindShortNamesResponseDto = Array<string>;
+
 export type IFindCommunitiesResponseDto = IPaginatedDto<{
-  featured: ICommunity[];
-  latest: ICommunity[];
-  normal: ICommunity[];
+  featured: Array<IListCommunity>;
+  latest: Array<IListCommunity>;
+  normal: Array<IListCommunity>;
 }>;
+
+export type IFindCommunityResponseDto = ICommunity | undefined | null;
