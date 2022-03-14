@@ -5,4 +5,5 @@ export const Container = styled.div`
   margin-top: auto;
   background-color: white;
   width: 100%;
+  border-top: 1px #E2E8F0 solid;
 `;

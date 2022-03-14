@@ -18,6 +18,8 @@
     "@fontsource/roboto": "^4.5.2",
     "@mui/material": "^5.4.0",
     "@reduxjs/toolkit": "^1.8.0",
+    "ag-grid-community": "^27.0.1",
+    "ag-grid-react": "^27.0.1",
     "axios": "^0.26.0",
     "country-flag-icons": "^1.4.20",
     "dayjs": "^1.10.8",

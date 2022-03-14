@@ -1,6 +1,8 @@
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
+import 'ag-grid-community/dist/styles/ag-grid.css';
+import 'ag-grid-community/dist/styles/ag-theme-material.css';
 import type { AppProps } from "next/app";
 import { UserProvider } from "@auth0/nextjs-auth0";
 import CssBaseline from "@mui/material/CssBaseline";
