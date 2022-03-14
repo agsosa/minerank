@@ -32,7 +32,7 @@ export type IUpdateCommunityDto = Partial<ICreateCommunityDto>;
 
 export type ICommunityFilters = Pick<ICommunity, 'isFeatured'>;
 
-export type IFindCommunitiesDto = {
+export type ISearchCommunitiesDto = {
   page: number;
   limit: number;
   filter?: ICommunityFilters;
@@ -46,10 +46,18 @@ export type IFindCommunitiesDto = {
  */
 export type IFindShortNamesResponseDto = Array<string>;
 
-export type IFindCommunitiesResponseDto = IPaginatedDto<{
+export type ISearchCommunitiesResponseDto = IPaginatedDto<{
   featured: Array<IListCommunity>;
   latest: Array<IListCommunity>;
   normal: Array<IListCommunity>;
 }>;
 
 export type IFindCommunityResponseDto = ICommunity | undefined | null;
+
+export type IFindAllCommunitiesResponseDto = {
+  items: Array<IListCommunity>;
+  total: number;
+  featured: number;
+  approved: number;
+  unapproved: number;
+};

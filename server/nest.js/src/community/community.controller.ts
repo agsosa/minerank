@@ -20,12 +20,11 @@ export class CommunityController {
 
   @Post('/search')
   @HttpCode(200)
-  findAll(
+  search(
     @Body()
     { page, limit, filter, includeLatest, includeUnapproved, separateFeatured }: FindCommunitiesDto,
   ) {
-    console.log({ page, limit, filter, includeLatest, includeUnapproved, separateFeatured })
-    return this.communityService.find({
+    return this.communityService.search({
       page,
       limit,
       filter,
@@ -33,6 +32,11 @@ export class CommunityController {
       includeUnapproved,
       separateFeatured,
     });
+  }
+
+  @Get()
+  findAll() {
+    return this.communityService.findAll();
   }
 
   @Get('/shortnames')

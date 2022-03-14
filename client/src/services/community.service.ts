@@ -2,8 +2,9 @@ import { AxiosRequestConfig } from "axios";
 import axios from "src/utils/axios.utils";
 
 import {
-  IFindCommunitiesDto,
-  IFindCommunitiesResponseDto,
+  IFindAllCommunitiesResponseDto,
+  ISearchCommunitiesDto,
+  ISearchCommunitiesResponseDto,
   IFindCommunityResponseDto,
 } from "@shared/types/dtos/community.dto";
 import { AsyncServiceResponse } from "src/types/service.types";
@@ -12,9 +13,9 @@ import { IFindShortNamesResponseDto } from "../../../server/nest.js/src/shared/t
 
 class CommunityService {
   @ServiceMethod()
-  async fetchCommunities(
-    findCommunitiesDto: IFindCommunitiesDto
-  ): AsyncServiceResponse<IFindCommunitiesResponseDto> {
+  async searchCommunities(
+    findCommunitiesDto: ISearchCommunitiesDto
+  ): AsyncServiceResponse<ISearchCommunitiesResponseDto> {
     const options: AxiosRequestConfig = {
       url: `/api/public/v1/communities/search`,
       method: "POST",
@@ -41,6 +42,17 @@ class CommunityService {
   async fetchCommunity(shortName: string): AsyncServiceResponse<IFindCommunityResponseDto> {
     const options: AxiosRequestConfig = {
       url: `/api/public/v1/communities/${shortName}`,
+      method: "GET",
+    };
+
+    const { data } = await axios(options);
+    return { data };
+  }
+
+  @ServiceMethod()
+  async fetchAllCommunities(): AsyncServiceResponse<IFindAllCommunitiesResponseDto> {
+    const options: AxiosRequestConfig = {
+      url: "/api/public/v1/communities",
       method: "GET",
     };
 

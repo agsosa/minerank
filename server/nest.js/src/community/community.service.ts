@@ -7,8 +7,9 @@ import { Community } from './community.entity';
 import { IListCommunity } from 'src/shared/types/entities/ICommunity';
 import {
   IFindShortNamesResponseDto,
-  IFindCommunitiesResponseDto,
+  ISearchCommunitiesResponseDto,
   IFindCommunityResponseDto,
+  IFindAllCommunitiesResponseDto,
 } from 'src/shared/types/dtos/community.dto';
 import { CommunityConstants } from 'src/shared/constant/community.constant';
 import { FindCommunitiesDto } from './dto/find-communities.dto';
@@ -24,14 +25,36 @@ export class CommunityService {
     return this.communityRepository.insert(createCommunityDto);
   }
 
-  async find({
+  async findAll(): Promise<IFindAllCommunitiesResponseDto> {
+    const [items, total] = await this.communityRepository.findAndCount({
+      isDeleted: false,
+    });
+
+    let featured = 0,
+      approved = 0;
+
+    for (const item of items) {
+      if (item.isFeatured) featured++;
+      if (item.isApproved) approved++;
+    }
+
+    return {
+      items,
+      total,
+      featured,
+      approved,
+      unapproved: total - approved,
+    };
+  }
+
+  async search({
     page,
     limit,
     filter,
     separateFeatured,
     includeUnapproved,
     includeLatest,
-  }: FindCommunitiesDto): Promise<IFindCommunitiesResponseDto> {
+  }: FindCommunitiesDto): Promise<ISearchCommunitiesResponseDto> {
     const promises: Promise<any>[] = [];
 
     let total = 0;
@@ -42,6 +65,7 @@ export class CommunityService {
     const where: any = { ...filter };
     if (separateFeatured) where.isFeatured = false;
     if (!includeUnapproved) where.isApproved = true;
+    where.isDeleted = false;
 
     // Get communities (excludes featured)
     promises.push(
