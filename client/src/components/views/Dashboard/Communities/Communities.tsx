@@ -3,19 +3,18 @@ import MainLayout from "src/components/common/MainLayout";
 import DashboardFooter from "src/components/views/Dashboard/common/DashboardFooter";
 import DashboardNav from "src/components/views/Dashboard/common/DashboardNav";
 
-//http://angular-material.fusetheme.com/dashboards/project modern layout
-const Dashboard = () => {
+const Communities = () => {
   return (
     <MainLayout>
-      <AppHead title="Dashboard - Minerank - Servidores de Minecraft" />
+      <AppHead title="Communities - Dashboard - Minerank" />
 
       <DashboardNav />
 
-      <div>hola</div>
+      <div>Comunidades</div>
 
       <DashboardFooter />
     </MainLayout>
   );
 };
 
-export default Dashboard;
+export default Communities;

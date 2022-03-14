@@ -27,6 +27,9 @@ class CommunityService {
     return { data: data as IFindCommunitiesResponseDto };
   }
 
+  /**
+   * TODO: Not used
+   */
   @ServiceMethod()
   async fetchFeaturedCommunities(): AsyncServiceResponse<ICommunity[]> {
     const params: Partial<ISearchCommunityDto> = {

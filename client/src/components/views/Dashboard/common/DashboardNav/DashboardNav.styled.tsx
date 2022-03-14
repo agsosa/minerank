@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -32,4 +33,5 @@ export const NavLink = styled.a`
   gap: 8px;
   padding: 10px;
   font-size: 14px;
+  cursor: pointer;
 `;

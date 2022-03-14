@@ -8,7 +8,9 @@ const DetailsPage: NextPage = () => {
   return <Details />;
 };
 
+// Build path for every community by shortName
 export async function getStaticPaths() {
+  // TODO: Check inactive community cases
   const { data } = await communityService.fetchShortNames();
 
   const buildParams = (shortName: string) => ({
@@ -25,20 +27,18 @@ export async function getStaticPaths() {
   };
 }
 
+// Get community details for the given shortName
 export const getStaticProps = storeWrapper.getStaticProps((store) => async ({ params }) => {
+  const notFoundResult = {
+    props: {},
+    notFound: true,
+  };
+
   const shortName = params?.shortName as string;
-  if (!shortName)
-    return {
-      props: {},
-      notFound: true,
-    };
+  if (!shortName) return notFoundResult;
 
   const result = await store.dispatch(getCommunityDetails(shortName));
-  if (!result.payload)
-    return {
-      props: {},
-      notFound: true,
-    };
+  if (!result.payload) return notFoundResult;
 
   return {
     props: {},

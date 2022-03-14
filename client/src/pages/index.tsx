@@ -7,6 +7,7 @@ const HomePage: NextPage = () => {
   return <Home />;
 };
 
+// Get communities (it will include featured and latest)
 export const getStaticProps = storeWrapper.getStaticProps((store) => async (_arg) => {
   const promises = [];
 

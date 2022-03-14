@@ -3,7 +3,7 @@ import { StoreState } from "src/types/store.types";
 
 export const selectCommunityState = (state: StoreState) => state.community;
 
-// Get all communities (even featured and latest) deduped
+// Get all communities (it will also get featured and latest if page = 1)
 export const selectAllCommunities = createSelector(
   selectCommunityState,
   ({ communities, featured, latest }) => {

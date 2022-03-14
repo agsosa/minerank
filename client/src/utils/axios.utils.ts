@@ -1,6 +1,8 @@
 import _axios from "axios";
 import { getAppConfig } from "src/services/config.service";
 
+// TODO: Add retry
+
 const axios = _axios.create({ baseURL: getAppConfig().appHomeUrl });
 
 axios.interceptors.response.use(
