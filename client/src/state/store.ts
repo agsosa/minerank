@@ -1,10 +1,12 @@
 import { createWrapper, Context } from "next-redux-wrapper";
 import { combineReducers } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
-import { reducer as community } from "./community";
-import { Store } from "src/types/store.types";
 
-const combinedReducers = combineReducers({ community });
+import { Store } from "src/types/store.types";
+import { reducer as community } from "./community";
+import { reducer as gamemode } from "./gamemode";
+
+const combinedReducers = combineReducers({ community, gamemode });
 
 export const makeStore = (context: Context) =>
   configureStore({

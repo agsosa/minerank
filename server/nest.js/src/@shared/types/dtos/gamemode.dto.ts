@@ -5,6 +5,7 @@ import { IGameMode } from '../entities/IGameMode';
  * Input DTOs
  */
 export type ICreateGameModeDto = Pick<IGameMode, 'label_en' | 'label_es' | 'shortName'>;
+export type IUpdateGamemodeDto = Partial<ICreateGameModeDto>;
 
 /**
  * Output DTOs
