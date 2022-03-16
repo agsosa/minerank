@@ -9,7 +9,7 @@ import {
 } from "@shared/types/dtos/community.dto";
 import { AsyncServiceResponse } from "src/types/service.types";
 import ServiceMethod from "./internal/ServiceMethod";
-import { IFindShortNamesResponseDto } from "../../../server/nest.js/src/shared/types/dtos/community.dto";
+import { IFindShortNamesResponseDto } from "@shared/types/dtos/community.dto";
 
 class CommunityService {
   @ServiceMethod()

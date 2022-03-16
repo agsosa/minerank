@@ -1,6 +1,6 @@
 import { Entity, Column } from 'typeorm';
-import { IUser } from 'src/shared/types/entities/Iuser';
-import { EntityBase } from 'src/shared/internal/EntityBase';
+import { IUser } from 'src/@shared/types/entities/Iuser';
+import { EntityBase } from 'src/@shared/internal/EntityBase';
 
 @Entity()
 export class User extends EntityBase implements IUser {

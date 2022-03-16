@@ -4,14 +4,14 @@ import { Repository } from 'typeorm';
 import { CreateCommunityDto } from './dto/create-community.dto';
 import { UpdateCommunityDto } from './dto/update-community.dto';
 import { Community } from './community.entity';
-import { IListCommunity } from 'src/shared/types/entities/ICommunity';
+import { IListCommunity } from 'src/@shared/types/entities/ICommunity';
 import {
   IFindShortNamesResponseDto,
   ISearchCommunitiesResponseDto,
   IFindCommunityResponseDto,
   IFindAllCommunitiesResponseDto,
-} from 'src/shared/types/dtos/community.dto';
-import { CommunityConstants } from 'src/shared/constant/community.constant';
+} from 'src/@shared/types/dtos/community.dto';
+import { CommunityConstants } from 'src/@shared/constant/community.constant';
 import { FindCommunitiesDto } from './dto/find-communities.dto';
 
 @Injectable()

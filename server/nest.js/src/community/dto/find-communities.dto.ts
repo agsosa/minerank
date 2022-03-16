@@ -1,5 +1,5 @@
 import { IsNumber, IsObject, IsOptional, IsPositive, Max } from 'class-validator';
-import { ICommunityFilters, ISearchCommunitiesDto } from 'src/shared/types/dtos/community.dto';
+import { ICommunityFilters, ISearchCommunitiesDto } from 'src/@shared/types/dtos/community.dto';
 
 export class FindCommunitiesDto implements ISearchCommunitiesDto {
   @IsNumber()

@@ -3,9 +3,9 @@ import {
   ICommunity,
   IListCommunity,
   ListCommunityOmittedKeys,
-} from 'src/shared/types/entities/ICommunity';
-import { EditionEnum, PremiumTypeEnum } from 'src/shared/types/enum/community.enum';
-import { EntityBase } from 'src/shared/internal/EntityBase';
+} from 'src/@shared/types/entities/ICommunity';
+import { EditionEnum, PremiumTypeEnum } from 'src/@shared/types/enum/community.enum';
+import { EntityBase } from 'src/@shared/internal/EntityBase';
 
 @Entity()
 export class Community extends EntityBase implements ICommunity {

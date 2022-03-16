@@ -11,9 +11,9 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { CommunityConstants } from 'src/shared/constant/community.constant';
-import { ICreateCommunityDto } from 'src/shared/types/dtos/community.dto';
-import { EditionEnum, PremiumTypeEnum } from 'src/shared/types/enum/community.enum';
+import { CommunityConstants } from 'src/@shared/constant/community.constant';
+import { ICreateCommunityDto } from 'src/@shared/types/dtos/community.dto';
+import { EditionEnum, PremiumTypeEnum } from 'src/@shared/types/enum/community.enum';
 
 const { fieldsConstraints: constraints } = CommunityConstants;
 
