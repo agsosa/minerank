@@ -1,3 +1,4 @@
+import { InsertResult, UpdateResult } from 'typeorm';
 import { ICommunity, IListCommunity } from '../entities/ICommunity';
 import { IPaginatedDto } from './paginated.dto';
 
@@ -45,15 +46,15 @@ export type ISearchCommunitiesDto = {
  * Output DTOs
  */
 export type IFindShortNamesResponseDto = Array<string>;
-
+export type ICreateCommunityResponseDto = InsertResult;
+export type IUpdateCommunityResponseDto = UpdateResult;
+export type IRemoveCommunityResponseDto = UpdateResult;
+export type IFindCommunityResponseDto = ICommunity | undefined | null;
 export type ISearchCommunitiesResponseDto = IPaginatedDto<{
   featured: Array<IListCommunity>;
   latest: Array<IListCommunity>;
   normal: Array<IListCommunity>;
 }>;
-
-export type IFindCommunityResponseDto = ICommunity | undefined | null;
-
 export type IFindAllCommunitiesResponseDto = {
   items: Array<IListCommunity>;
   total: number;

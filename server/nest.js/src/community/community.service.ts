@@ -10,6 +10,9 @@ import {
   ISearchCommunitiesResponseDto,
   IFindCommunityResponseDto,
   IFindAllCommunitiesResponseDto,
+  IRemoveCommunityResponseDto,
+  IUpdateCommunityResponseDto,
+  ICreateCommunityResponseDto,
 } from 'src/@shared/types/dtos/community.dto';
 import { CommunityConstants } from 'src/@shared/constant/community.constant';
 import { FindCommunitiesDto } from './dto/find-communities.dto';
@@ -21,7 +24,7 @@ export class CommunityService {
     private communityRepository: Repository<Community>,
   ) {}
 
-  create(createCommunityDto: CreateCommunityDto) {
+  create(createCommunityDto: CreateCommunityDto): Promise<ICreateCommunityResponseDto> {
     return this.communityRepository.insert(createCommunityDto);
   }
 
@@ -140,11 +143,11 @@ export class CommunityService {
     return Array.isArray(result) ? result.map((elem) => elem.shortName) : [];
   }
 
-  update(id: number, updateCommunityDto: UpdateCommunityDto) {
-    return `This action updates a #${id} server`;
+  update(id: number, updateCommunityDto: UpdateCommunityDto): Promise<IUpdateCommunityResponseDto> {
+    return this.communityRepository.update(id, updateCommunityDto);
   }
 
-  remove(id: number) {
-    return this.communityRepository.delete(id);
+  remove(id: number): Promise<IRemoveCommunityResponseDto> {
+    return this.communityRepository.update(id, { isDeleted: true });
   }
 }

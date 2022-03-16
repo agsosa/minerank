@@ -1,5 +1,5 @@
 import { ICommunity, IListCommunity } from "@shared/types/entities/ICommunity";
-import { getCountryFlagComponent } from "./countries.utils";
+import { getCountryFlagComponent } from "./country.utils";
 
 /**
  * Returns the connection string (ip:port) of a community

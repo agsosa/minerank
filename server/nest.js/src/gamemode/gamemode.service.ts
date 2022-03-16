@@ -1,0 +1,43 @@
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import {
+  ICreateGameModeResponseDto,
+  IFindGameModeResponseDto,
+  IFindGameModesResponseDto,
+  IRemoveGameModeResponseDto,
+  IUpdateGameModeResponseDto,
+} from 'src/@shared/types/dtos/gamemode.dto';
+import { Repository } from 'typeorm';
+import { CreateGamemodeDto } from './dto/create-gamemode.dto';
+import { UpdateGamemodeDto } from './dto/update-gamemode.dto';
+import { GameMode } from './gamemode.entity';
+
+@Injectable()
+export class GamemodeService {
+  constructor(
+    @InjectRepository(GameMode)
+    private gamemodeRepository: Repository<GameMode>,
+  ) {}
+
+  create(createGamemodeDto: CreateGamemodeDto): Promise<ICreateGameModeResponseDto> {
+    return this.gamemodeRepository.insert(createGamemodeDto);
+  }
+
+  findAll(): Promise<IFindGameModesResponseDto> {
+    return this.gamemodeRepository.find({
+      isDeleted: false,
+    });
+  }
+
+  findOne(shortName: string): Promise<IFindGameModeResponseDto> {
+    return this.gamemodeRepository.findOne({ shortName, isDeleted: false });
+  }
+
+  update(id: number, updateGamemodeDto: UpdateGamemodeDto): Promise<IUpdateGameModeResponseDto> {
+    return this.gamemodeRepository.update(id, updateGamemodeDto);
+  }
+
+  remove(id: number): Promise<IRemoveGameModeResponseDto> {
+    return this.gamemodeRepository.update(id, { isDeleted: true });
+  }
+}

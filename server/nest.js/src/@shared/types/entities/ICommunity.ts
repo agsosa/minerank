@@ -1,5 +1,6 @@
 import { EditionEnum, PremiumTypeEnum } from '../enum/community.enum';
 
+// TODO: Ver tema multilanguage
 export interface ICommunity {
   /**
    * Entity Base fields

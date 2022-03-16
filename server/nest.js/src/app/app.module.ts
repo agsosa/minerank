@@ -9,6 +9,7 @@ import { AppService } from './app.service';
 import { CommunityModule } from 'src/community/community.module';
 import { UserModule } from 'src/user/user.module';
 import { AuthModule } from 'src/auth/auth.module';
+import { GamemodeModule } from 'src/gamemode/gamemode.module';
 
 const configModuleOptions: ConfigModuleOptions = {
   isGlobal: true,
@@ -38,6 +39,7 @@ const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
     AuthModule,
     CommunityModule,
     UserModule,
+    GamemodeModule,
   ],
   controllers: [AppController],
   providers: [AppService],
