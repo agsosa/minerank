@@ -13,7 +13,7 @@ import { IFindShortNamesResponseDto } from "../../../server/nest.js/src/shared/t
 
 class CommunityService {
   @ServiceMethod()
-  async searchCommunities(
+  async fetchCommunities(
     findCommunitiesDto: ISearchCommunitiesDto
   ): AsyncServiceResponse<ISearchCommunitiesResponseDto> {
     const options: AxiosRequestConfig = {

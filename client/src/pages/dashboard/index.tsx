@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
-import Dashboard from "src/components/views/Dashboard";
+import Communities from "src/components/views/Dashboard/Communities";
 
-const DashboardPage: NextPage = () => {
-  return <Dashboard />;
+const CommunitiesPage: NextPage = () => {
+  return <Communities />;
 };
 
-export default DashboardPage;
+export default CommunitiesPage;

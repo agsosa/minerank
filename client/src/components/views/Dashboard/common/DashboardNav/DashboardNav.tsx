@@ -10,13 +10,8 @@ import Link from "next/link";
 
 const links = [
   {
-    label: "Dashboard",
-    url: "/dashboard",
-    icon: <AiOutlineHome size="22" />,
-  },
-  {
     label: "Communities",
-    url: "/dashboard/communities",
+    url: "/dashboard",
     icon: <AiOutlineAppstore size="22" />,
   },
   {

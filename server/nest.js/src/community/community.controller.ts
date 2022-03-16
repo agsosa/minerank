@@ -34,6 +34,7 @@ export class CommunityController {
     });
   }
 
+  // TODO: Protect for admins only?
   @Get()
   findAll() {
     return this.communityService.findAll();

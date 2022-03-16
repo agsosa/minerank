@@ -13,7 +13,7 @@ export const getCommunities = createAsyncThunk<
   ISearchCommunitiesDto,
   { rejectValue: IServiceError }
 >("getCommunities", async (findCommunitiesDto, thunkAPI) => {
-  const { data, error } = await communityService.searchCommunities(findCommunitiesDto);
+  const { data, error } = await communityService.fetchCommunities(findCommunitiesDto);
 
   if (error) return thunkAPI.rejectWithValue(error);
   else return data;
