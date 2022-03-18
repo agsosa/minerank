@@ -4,6 +4,7 @@ import { storeWrapper } from "../state/store";
 import Home from "src/components/views/Home";
 import { getAppConfig } from "src/services/config.service";
 import { getGameModes } from "src/state/gamemode";
+import { getVersions } from "src/state/version";
 
 const HomePage: NextPage = () => {
   return <Home />;
@@ -21,8 +22,12 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async (_arg
         separateFeatured: true,
       })
     ),
+    
     // Get gamemodes action promise
     store.dispatch(getGameModes()),
+
+    // Get versions action promise
+    store.dispatch(getVersions()),
   ];
 
   await Promise.allSettled(promises);
