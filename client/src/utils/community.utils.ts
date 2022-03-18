@@ -41,3 +41,12 @@ export function getCommunityCountryFlagComponent(
 export function getCommunityGameModesString(community: ICommunity | IListCommunity): string {
   return community?.gamemodes?.map((elem) => elem.label_es).join(", ") || "Sin definir";
 }
+
+/**
+ * getCommunityVersionsString
+ * @param community the community object
+ * @returns the versions list (string) of a community
+ */
+export function getCommunityVersionsString(community: ICommunity | IListCommunity): string {
+  return community?.versions?.map((elem) => elem.label).join("- ") || "Sin definir";
+}

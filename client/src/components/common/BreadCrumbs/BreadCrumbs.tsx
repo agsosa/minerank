@@ -17,6 +17,14 @@ const getPathBreadCrumb = (path: string) => {
       return { label: "Servidor" };
     case "privacy-policy":
       return { label: "Política de Privacidad" };
+    case "terms-and-conditions":
+      return { label: "Términos y Condiciones" };
+    case "faq":
+      return { label: "Preguntas Frecuentes" };
+    case "promote-server":
+      return { label: "Promocionar Servidor" };
+    case "add-server":
+      return { label: "Agregar Servidor" };
     default:
       return { label: path };
   }

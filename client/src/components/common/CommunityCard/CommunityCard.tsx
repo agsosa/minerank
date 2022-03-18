@@ -19,6 +19,7 @@ import {
   getCommunityConnectionString,
   getCommunityCountryFlagComponent,
   getCommunityGameModesString,
+  getCommunityVersionsString,
 } from "src/utils/community.utils";
 import { formatBigNumber } from "src/utils/misc.utils";
 
@@ -35,6 +36,7 @@ const CommunityCard: React.FC<CommunityCardProps> = ({ community, ...props }) =>
   const Flag = getCommunityCountryFlagComponent(community);
   const connectionStr = getCommunityConnectionString(community);
   const gamemodesStr = getCommunityGameModesString(community);
+  const versionsStr = getCommunityVersionsString(community);
 
   const handleClick = () => {
     router.push(`/server/${shortName}`);
@@ -67,7 +69,7 @@ const CommunityCard: React.FC<CommunityCardProps> = ({ community, ...props }) =>
             <FaShieldAlt /> <span>{premiumType}</span>
           </Stat>
           <Stat>
-            <BiGitBranch /> <span>1.18 - 1.20</span>
+            <BiGitBranch /> <span>{versionsStr}</span>
           </Stat>
           <Stat>
             <FaUserAlt /> <span>200/1000</span>
