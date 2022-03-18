@@ -13,4 +13,5 @@ export interface IGameMode {
   label_en: string;
   label_es: string;
   shortName: string;
+  communityCount: number;
 }

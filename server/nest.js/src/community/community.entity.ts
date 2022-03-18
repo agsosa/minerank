@@ -33,7 +33,7 @@ export class Community extends EntityBase implements ICommunity {
   @Column()
   version: string; // TODO: Add table+relationship
 
-  @ManyToMany(() => GameMode, {
+  @ManyToMany(() => GameMode, (gamemode) => gamemode.communities, {
     cascade: true,
     eager: true,
   })

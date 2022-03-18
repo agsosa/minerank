@@ -23,10 +23,12 @@ export class GamemodeService {
     return this.gamemodeRepository.insert(createGamemodeDto);
   }
 
-  findAll(): Promise<IFindGameModesResponseDto> {
-    return this.gamemodeRepository.find({
-      isDeleted: false,
-    });
+  async findAll(): Promise<IFindGameModesResponseDto> {
+    return this.gamemodeRepository
+      .createQueryBuilder('gamemode')
+      .loadRelationCountAndMap('gamemode.communityCount', 'gamemode.communities')
+      .where('gamemode.isDeleted = :isDeleted', { isDeleted: false })
+      .getMany();
   }
 
   findOne(shortName: string): Promise<IFindGameModeResponseDto> {

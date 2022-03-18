@@ -1,7 +1,7 @@
 import { EntityBase } from 'src/@shared/internal/EntityBase';
 import { IGameMode } from 'src/@shared/types/entities/IGameMode';
 import { Community } from 'src/community/community.entity';
-import { Column, Entity, Index, JoinTable, ManyToMany } from 'typeorm';
+import { Column, Entity, Index, ManyToMany } from 'typeorm';
 
 @Entity()
 export class GameMode extends EntityBase implements IGameMode {
@@ -15,7 +15,8 @@ export class GameMode extends EntityBase implements IGameMode {
   @Index({ unique: true })
   shortName: string;
 
- /* @ManyToMany(() => Community)
-  @JoinTable()
-  communities: Community[];*/
+  @ManyToMany(() => Community, (community) => community.gamemodes)
+  communities: Community[];
+
+  communityCount: number;
 }
