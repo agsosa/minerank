@@ -11,6 +11,7 @@ import { Button, TextField } from "@mui/material";
 import { FaRandom, FaSearch } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { selectGameModeState } from "src/state/gamemode";
+import { selectVersionState } from "src/state/version";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -38,6 +39,7 @@ const names = [
 
 const Filters = () => {
   const { gamemodes } = useSelector(selectGameModeState);
+  const { versions } = useSelector(selectVersionState);
 
   const [personName, setPersonName] = React.useState([]);
 
@@ -73,8 +75,8 @@ const Filters = () => {
             renderValue={(selected) => selected.join(", ")}
             MenuProps={MenuProps}
           >
-            {gamemodes.map(({label_es, shortName}) => (
-              <MenuItem key={shortName} value={label_es}>
+            {gamemodes.map(({ label_es, id }) => (
+              <MenuItem key={id} value={label_es}>
                 <Checkbox checked={personName.indexOf(label_es) > -1} />
                 <ListItemText primary={label_es} />
               </MenuItem>
@@ -111,10 +113,10 @@ const Filters = () => {
             renderValue={(selected) => selected.join(", ")}
             MenuProps={MenuProps}
           >
-            {names.map((name) => (
-              <MenuItem key={name} value={name}>
-                <Checkbox checked={personName.indexOf(name) > -1} />
-                <ListItemText primary={name} />
+            {versions.map(({ label, id }) => (
+              <MenuItem key={id} value={label}>
+                <Checkbox checked={personName.indexOf(label) > -1} />
+                <ListItemText primary={label} />
               </MenuItem>
             ))}
           </Select>

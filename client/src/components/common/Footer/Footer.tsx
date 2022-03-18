@@ -15,9 +15,12 @@ import { getAppConfig } from "src/services/config.service";
 import Link from "next/link";
 import { selectPopularGameModes } from "src/state/gamemode";
 import { useAppSelector } from "src/hooks/useAppSelector";
+import { selectPopularVersions } from "src/state/version";
 
 const Footer = () => {
   const popularGameModes = useAppSelector((state) => selectPopularGameModes(state, 4));
+  const popularVersions = useAppSelector((state) => selectPopularVersions(state, 4));
+
   const year = new Date().getFullYear();
 
   const bottomLinks = [
@@ -44,18 +47,15 @@ const Footer = () => {
           <Column>
             <b>Modos de juego populares</b>
             {popularGameModes.map(({ id, label_es, communityCount }) => (
-              <p key={id}>
-                {label_es} ({communityCount})
-              </p>
+              <p key={id}>{label_es}</p>
             ))}
           </Column>
 
           <Column>
             <b>Versiones populares</b>
-            <p>v1.18</p>
-            <p>v1.16</p>
-            <p>v1.8.7</p>
-            <p>v1.5</p>
+            {popularVersions.map(({ id, label, communityCount }) => (
+              <p key={id}>v{label}</p>
+            ))}
           </Column>
 
           <Column>
