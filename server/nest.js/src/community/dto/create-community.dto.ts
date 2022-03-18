@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  IsArray,
   IsEnum,
   IsISO31661Alpha2,
   IsNotEmpty,
@@ -15,47 +16,47 @@ import { CommunityConstants } from 'src/@shared/constant/community.constant';
 import { ICreateCommunityDto } from 'src/@shared/types/dtos/community.dto';
 import { EditionEnum, PremiumTypeEnum } from 'src/@shared/types/enum/community.enum';
 
-const { fieldsConstraints: constraints } = CommunityConstants;
+const { fieldsConstraints: limits } = CommunityConstants;
 
 export class CreateCommunityDto implements ICreateCommunityDto {
   /**
    * Non nullable properties
    */
   @IsNotEmpty()
-  @MinLength(constraints.name.minLength)
-  @MaxLength(constraints.name.maxLength)
+  @MinLength(limits.name.minLength)
+  @MaxLength(limits.name.maxLength)
   @ApiProperty({
-    minLength: constraints.name.minLength,
-    maxLength: constraints.name.maxLength,
+    minLength: limits.name.minLength,
+    maxLength: limits.name.maxLength,
   })
   name: string;
 
   @IsNotEmpty()
-  @MinLength(constraints.description.minLength)
-  @MaxLength(constraints.description.maxLength)
+  @MinLength(limits.description.minLength)
+  @MaxLength(limits.description.maxLength)
   @ApiProperty({
-    minLength: constraints.description.minLength,
-    maxLength: constraints.description.maxLength,
+    minLength: limits.description.minLength,
+    maxLength: limits.description.maxLength,
   })
   description: string;
 
   @IsNotEmpty()
-  @MinLength(constraints.shortName.minLength)
-  @MaxLength(constraints.shortName.maxLength)
-  @Matches(constraints.shortName.regex)
+  @MinLength(limits.shortName.minLength)
+  @MaxLength(limits.shortName.maxLength)
+  @Matches(limits.shortName.regex)
   @ApiProperty({
-    minLength: constraints.shortName.minLength,
-    maxLength: constraints.shortName.maxLength,
-    pattern: constraints.shortName.regex.toString(),
+    minLength: limits.shortName.minLength,
+    maxLength: limits.shortName.maxLength,
+    pattern: limits.shortName.regex.toString(),
   })
   shortName: string;
 
   @IsNotEmpty()
-  @MinLength(constraints.ip.minLength)
-  @MaxLength(constraints.ip.maxLength)
+  @MinLength(limits.ip.minLength)
+  @MaxLength(limits.ip.maxLength)
   @ApiProperty({
-    minLength: constraints.ip.minLength,
-    maxLength: constraints.ip.maxLength,
+    minLength: limits.ip.minLength,
+    maxLength: limits.ip.maxLength,
   })
   ip: string;
 
@@ -89,9 +90,10 @@ export class CreateCommunityDto implements ICreateCommunityDto {
   @ApiProperty()
   user: string;
 
+  @IsNumber({}, { each: true })
   @IsNotEmpty()
   @ApiProperty()
-  gamemodes: string;
+  gamemodes: number[];
 
   /**
    * Nullable properties

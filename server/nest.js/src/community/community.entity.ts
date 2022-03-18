@@ -1,4 +1,4 @@
-import { Entity, Column, Index } from 'typeorm';
+import { Entity, Column, Index, ManyToMany, JoinTable } from 'typeorm';
 import {
   ICommunity,
   IListCommunity,
@@ -6,6 +6,7 @@ import {
 } from 'src/@shared/types/entities/ICommunity';
 import { EditionEnum, PremiumTypeEnum } from 'src/@shared/types/enum/community.enum';
 import { EntityBase } from 'src/@shared/internal/EntityBase';
+import { GameMode } from 'src/gamemode/gamemode.entity';
 
 @Entity()
 export class Community extends EntityBase implements ICommunity {
@@ -32,8 +33,12 @@ export class Community extends EntityBase implements ICommunity {
   @Column()
   version: string; // TODO: Add table+relationship
 
-  @Column()
-  gamemodes: string; // TODO: Add table+relationship
+  @ManyToMany(() => GameMode, {
+    cascade: true,
+    eager: true,
+  })
+  @JoinTable()
+  gamemodes: GameMode[];
 
   @Column()
   user: string; // TODO: Add relationship

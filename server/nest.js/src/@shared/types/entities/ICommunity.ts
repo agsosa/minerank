@@ -1,4 +1,5 @@
 import { EditionEnum, PremiumTypeEnum } from '../enum/community.enum';
+import { IGameMode } from './IGameMode';
 
 // TODO: Ver tema multilanguage
 export interface ICommunity {
@@ -19,7 +20,7 @@ export interface ICommunity {
   ip: string;
   edition: EditionEnum;
   version: string;
-  gamemodes: string;
+  gamemodes: IGameMode[];
   user: string;
   premiumType: PremiumTypeEnum;
   upvotes: number;

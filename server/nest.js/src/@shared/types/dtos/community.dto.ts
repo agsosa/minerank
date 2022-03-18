@@ -13,7 +13,6 @@ export type ICreateCommunityDto = Pick<
   | 'ip'
   | 'edition'
   | 'version' // TODO: Ver tema relaciones
-  | 'gamemodes' // TODO: Ver tema relaciones
   | 'user' // TODO: Ver tema relaciones/auth
   | 'premiumType'
   | 'port'
@@ -27,7 +26,9 @@ export type ICreateCommunityDto = Pick<
   | 'facebook'
   | 'instagram'
   | 'teamspeak'
->;
+> & {
+  gamemodes: number[];
+};
 
 export type IUpdateCommunityDto = Partial<ICreateCommunityDto>;
 
@@ -46,7 +47,7 @@ export type ISearchCommunitiesDto = {
  * Output DTOs
  */
 export type IFindShortNamesResponseDto = Array<string>;
-export type ICreateCommunityResponseDto = InsertResult;
+export type ICreateCommunityResponseDto = ICommunity;
 export type IUpdateCommunityResponseDto = UpdateResult;
 export type IRemoveCommunityResponseDto = UpdateResult;
 export type IFindCommunityResponseDto = ICommunity | undefined | null;

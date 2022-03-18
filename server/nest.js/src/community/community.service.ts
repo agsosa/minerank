@@ -16,16 +16,27 @@ import {
 } from 'src/@shared/types/dtos/community.dto';
 import { CommunityConstants } from 'src/@shared/constant/community.constant';
 import { FindCommunitiesDto } from './dto/find-communities.dto';
+import { GameMode } from 'src/gamemode/gamemode.entity';
 
 @Injectable()
 export class CommunityService {
   constructor(
     @InjectRepository(Community)
     private communityRepository: Repository<Community>,
+    @InjectRepository(GameMode)
+    private gamemodeRepository: Repository<GameMode>,
   ) {}
 
-  create(createCommunityDto: CreateCommunityDto): Promise<ICreateCommunityResponseDto> {
-    return this.communityRepository.insert(createCommunityDto);
+  async create(createCommunityDto: CreateCommunityDto): Promise<ICreateCommunityResponseDto> {
+    const community = new Community();
+
+    for (const key of Object.keys(createCommunityDto)) {
+      community[key] = createCommunityDto[key];
+    }
+
+    community.gamemodes = await this.gamemodeRepository.findByIds(createCommunityDto.gamemodes);
+
+    return this.communityRepository.save(community) as any;
   }
 
   async findAll(): Promise<IFindAllCommunitiesResponseDto> {
@@ -143,8 +154,19 @@ export class CommunityService {
     return Array.isArray(result) ? result.map((elem) => elem.shortName) : [];
   }
 
-  update(id: number, updateCommunityDto: UpdateCommunityDto): Promise<IUpdateCommunityResponseDto> {
-    return this.communityRepository.update(id, updateCommunityDto);
+  async update(
+    id: number,
+    updateCommunityDto: UpdateCommunityDto,
+  ): Promise<IUpdateCommunityResponseDto> {
+    // TODO: Update gamemodes relations may not working !important
+    // SEE CREATE METHOD
+    let gamemodes: GameMode[] | undefined = undefined;
+
+    if (updateCommunityDto.gamemodes) {
+      gamemodes = await this.gamemodeRepository.findByIds(updateCommunityDto.gamemodes);
+    }
+
+    return this.communityRepository.update(id, { ...updateCommunityDto, gamemodes });
   }
 
   remove(id: number): Promise<IRemoveCommunityResponseDto> {
