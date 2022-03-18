@@ -1,8 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ICommunity, IListCommunity } from "@shared/types/entities/ICommunity";
 import { IServiceError, LoadingState } from "src/types/service.types";
-import { hydrate } from "src/types/store.types";
-import { isServerSide } from "src/utils/misc.utils";
+import { hydrateAction } from "src/types/store.types";
 import { getCommunityDetails } from ".";
 import { getCommunities } from "./community.thunks";
 
@@ -41,7 +40,7 @@ const communitySlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(hydrate, (state, { payload: { community } }) => {
+    builder.addCase(hydrateAction, (state, { payload: { community } }) => {
       return {
         ...state,
         ...community,

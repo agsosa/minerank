@@ -1,8 +1,14 @@
+/**
+ * Community helper functions
+ */
+
 import { ICommunity, IListCommunity } from "@shared/types/entities/ICommunity";
 import { getCountryFlagComponent } from "./country.utils";
 
 /**
- * Returns the connection string (ip:port) of a community
+ * getCommunityConnectionString
+ * @param community the community object
+ * @returns the connection string (ip:port) of a community
  */
 export function getCommunityConnectionString(community: ICommunity | IListCommunity): string {
   if (!community) return "";
@@ -14,7 +20,9 @@ export function getCommunityConnectionString(community: ICommunity | IListCommun
 }
 
 /**
- * Returns the country flag component for a community
+ * getCommunityFlagComponent
+ * @param community the community object
+ * @returns the country flag component for a community
  */
 export function getCommunityCountryFlagComponent(
   community: ICommunity | IListCommunity

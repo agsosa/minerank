@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IGameMode } from "@shared/types/entities/IGameMode";
 import { IServiceError, LoadingState } from "src/types/service.types";
-import { hydrate } from "src/types/store.types";
+import { hydrateAction } from "src/types/store.types";
 import { getGameModes } from "./gamemode.thunks";
 
 interface IGameModeState {
@@ -21,7 +21,7 @@ const gamemodeSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(hydrate, (state, { payload: { gamemode } }) => {
+    builder.addCase(hydrateAction, (state, { payload: { gamemode } }) => {
       return {
         ...state,
         ...gamemode,

@@ -7,7 +7,7 @@ import {
 import communityService from "src/services/community.service";
 import { IServiceError } from "src/types/service.types";
 
-// Get communities from server by page (excludes featured)
+// Get communities from server by page
 export const getCommunities = createAsyncThunk<
   ISearchCommunitiesResponseDto,
   ISearchCommunitiesDto,

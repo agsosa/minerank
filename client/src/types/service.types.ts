@@ -1,8 +1,6 @@
-export interface IServiceError {
-  message: string | string[];
-  statusCode: number;
-  isAxiosError: boolean;
-}
+/**
+ * Types related to the services layer
+ */
 
 interface IServiceResponse<TData> {
   error?: IServiceError;
@@ -10,6 +8,12 @@ interface IServiceResponse<TData> {
 }
 
 export type AsyncServiceResponse<TData> = Promise<IServiceResponse<TData>>;
+
+export interface IServiceError {
+  message: string | string[];
+  statusCode: number;
+  isAxiosError: boolean;
+}
 
 export enum LoadingState {
   PENDING,

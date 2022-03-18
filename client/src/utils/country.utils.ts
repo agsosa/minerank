@@ -1,5 +1,14 @@
+/**
+ * Country helper functions
+ */
+
 import Flags from "country-flag-icons/react/3x2";
 
+/**
+ * getCountryFlagComponent
+ * @param countryCode the country code
+ * @returns a React component to display the country flag
+ */
 export const getCountryFlagComponent = (countryCode?: string | null) => {
   // @ts-ignore
   return Flags[countryCode];

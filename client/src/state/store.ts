@@ -8,7 +8,7 @@ import { reducer as gamemode } from "./gamemode";
 
 const combinedReducers = combineReducers({ community, gamemode });
 
-export const makeStore = (context: Context) =>
+export const makeStore = (_context: Context) =>
   configureStore({
     reducer: combinedReducers,
   });

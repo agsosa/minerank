@@ -1,3 +1,7 @@
+/**
+ * Axios HTTP client
+ */
+
 import _axios from "axios";
 import { getAppConfig } from "src/services/config.service";
 

@@ -1,4 +1,14 @@
-// 1500000 -> 1.5M
+/**
+ * Misc helper functions
+ */
+
+/**
+ * formatBigNumber
+ * @param num the number to format
+ * @param digits the amount of digits (default: 2)
+ * @returns a string with the number formatted
+ * @example formatBigNumber(1_000_000, 2) // "1M"
+ */
 export function formatBigNumber(num: number, digits = 2) {
   const lookup = [
     { value: 1, symbol: "" },
@@ -22,7 +32,10 @@ export function formatBigNumber(num: number, digits = 2) {
   return item ? (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol : "0";
 }
 
-// Is server side
+/**
+ * isServerSide
+ * @returns true if the code is running server-side
+ */
 export const isServerSide = () => {
   return typeof window === "undefined";
 };
