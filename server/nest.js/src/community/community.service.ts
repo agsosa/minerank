@@ -17,6 +17,7 @@ import {
 import { CommunityConstants } from 'src/@shared/constant/community.constant';
 import { FindCommunitiesDto } from './dto/find-communities.dto';
 import { GameMode } from 'src/gamemode/gamemode.entity';
+import { Version } from 'src/version/version.entity';
 
 @Injectable()
 export class CommunityService {
@@ -25,6 +26,8 @@ export class CommunityService {
     private communityRepository: Repository<Community>,
     @InjectRepository(GameMode)
     private gamemodeRepository: Repository<GameMode>,
+    @InjectRepository(Version)
+    private versionRepository: Repository<Version>,
   ) {}
 
   async create(createCommunityDto: CreateCommunityDto): Promise<ICreateCommunityResponseDto> {
@@ -35,7 +38,8 @@ export class CommunityService {
     }
 
     community.gamemodes = await this.gamemodeRepository.findByIds(createCommunityDto.gamemodes);
-
+    community.versions = await this.versionRepository.findByIds(createCommunityDto.versions);
+    
     return this.communityRepository.save(community) as any;
   }
 
@@ -161,12 +165,17 @@ export class CommunityService {
     // TODO: Update gamemodes relations may not working !important
     // SEE CREATE METHOD
     let gamemodes: GameMode[] | undefined = undefined;
+    let versions: Version[] | undefined = undefined;
 
     if (updateCommunityDto.gamemodes) {
       gamemodes = await this.gamemodeRepository.findByIds(updateCommunityDto.gamemodes);
     }
 
-    return this.communityRepository.update(id, { ...updateCommunityDto, gamemodes });
+    if (updateCommunityDto.versions) {
+      versions = await this.versionRepository.findByIds(updateCommunityDto.versions);
+    }
+
+    return this.communityRepository.update(id, { ...updateCommunityDto, gamemodes, versions });
   }
 
   remove(id: number): Promise<IRemoveCommunityResponseDto> {

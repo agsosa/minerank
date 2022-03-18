@@ -1,5 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  ArrayMaxSize,
+  ArrayMinSize,
+  ArrayNotEmpty,
   IsArray,
   IsEnum,
   IsISO31661Alpha2,
@@ -82,16 +85,21 @@ export class CreateCommunityDto implements ICreateCommunityDto {
   })
   countryCode: string;
 
-  @IsNotEmpty()
+  @IsArray()
+  @ArrayNotEmpty()
+  @ArrayMinSize(1)
+  @ArrayMaxSize(2)
+  @IsNumber({}, { each: true })
   @ApiProperty()
-  version: string;
+  versions: number[];
 
   @IsNotEmpty()
   @ApiProperty()
   user: string;
 
+  @IsArray()
+  @ArrayNotEmpty()
   @IsNumber({}, { each: true })
-  @IsNotEmpty()
   @ApiProperty()
   gamemodes: number[];
 

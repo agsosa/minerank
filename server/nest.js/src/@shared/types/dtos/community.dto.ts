@@ -12,7 +12,6 @@ export type ICreateCommunityDto = Pick<
   | 'shortName'
   | 'ip'
   | 'edition'
-  | 'version' // TODO: Ver tema relaciones
   | 'user' // TODO: Ver tema relaciones/auth
   | 'premiumType'
   | 'port'
@@ -28,6 +27,7 @@ export type ICreateCommunityDto = Pick<
   | 'teamspeak'
 > & {
   gamemodes: number[];
+  versions: number[];
 };
 
 export type IUpdateCommunityDto = Partial<ICreateCommunityDto>;

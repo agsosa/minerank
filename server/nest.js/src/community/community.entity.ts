@@ -7,6 +7,7 @@ import {
 import { EditionEnum, PremiumTypeEnum } from 'src/@shared/types/enum/community.enum';
 import { EntityBase } from 'src/@shared/internal/EntityBase';
 import { GameMode } from 'src/gamemode/gamemode.entity';
+import { Version } from 'src/version/version.entity';
 
 @Entity()
 export class Community extends EntityBase implements ICommunity {
@@ -30,12 +31,18 @@ export class Community extends EntityBase implements ICommunity {
   @Column()
   edition: EditionEnum;
 
-  @Column()
-  version: string; // TODO: Add table+relationship
+  @ManyToMany(() => Version, (version) => version.communities, {
+    cascade: true,
+    eager: true,
+    nullable: false,
+  })
+  @JoinTable()
+  versions: Version[];
 
   @ManyToMany(() => GameMode, (gamemode) => gamemode.communities, {
     cascade: true,
     eager: true,
+    nullable: false,
   })
   @JoinTable()
   gamemodes: GameMode[];

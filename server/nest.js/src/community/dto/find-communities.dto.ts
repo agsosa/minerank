@@ -12,7 +12,7 @@ export class FindCommunitiesDto implements ISearchCommunitiesDto {
   limit: number;
 
   @IsOptional()
-  filter: ICommunityFilters;
+  filter: ICommunityFilters; // TODO: Create class to validate & add validate nested
 
   @IsOptional()
   separateFeatured?: boolean;
