@@ -24,12 +24,11 @@ export class VersionService {
   }
 
   async findAll(): Promise<IFindVersionsResponseDto> {
-    /*return this.versionRepository
-      .createQueryBuilder('gamemode')
-      .loadRelationCountAndMap('gamemode.communityCount', 'gamemode.communities')
-      .where('gamemode.isDeleted = :isDeleted', { isDeleted: false })
-      .getMany();*/
-    return [];
+    return this.versionRepository
+      .createQueryBuilder('version')
+      .loadRelationCountAndMap('version.communityCount', 'version.communities')
+      .where('version.isDeleted = :isDeleted', { isDeleted: false })
+      .getMany();
   }
 
   findOne(label: string): Promise<IFindVersionResponseDto> {
