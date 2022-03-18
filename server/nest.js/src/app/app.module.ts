@@ -10,6 +10,7 @@ import { CommunityModule } from 'src/community/community.module';
 import { UserModule } from 'src/user/user.module';
 import { AuthModule } from 'src/auth/auth.module';
 import { GamemodeModule } from 'src/gamemode/gamemode.module';
+import { VersionModule } from 'src/version/version.module';
 
 const configModuleOptions: ConfigModuleOptions = {
   isGlobal: true,
@@ -27,7 +28,7 @@ const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
     database: configService.get<string>('DB_NAME'),
     entities: [join(__dirname, '../', '**', '*.entity.{ts,js}')],
     synchronize: true,
-    dropSchema: false
+    dropSchema: false,
   }),
   inject: [ConfigService],
 };
@@ -40,6 +41,7 @@ const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
     CommunityModule,
     UserModule,
     GamemodeModule,
+    VersionModule,
   ],
   controllers: [AppController],
   providers: [AppService],
