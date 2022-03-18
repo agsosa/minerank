@@ -30,4 +30,11 @@ export const HeaderContent = styled.div`
 export const Flex = styled.div`
   display: flex;
   gap: 50px;
+  cursor: pointer;
+`;
+
+export const GameModesContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
 `;

@@ -6,7 +6,7 @@ import { IServiceError } from "src/types/service.types";
 // Get gamemodes from server
 export const getGameModes = createAsyncThunk<
   IFindGameModesResponseDto,
-  null,
+  undefined,
   { rejectValue: IServiceError }
 >("getGameModes", async (_, thunkAPI) => {
   const { data, error } = await gamemodeService.fetchGameModes();

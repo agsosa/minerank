@@ -79,12 +79,9 @@ const Footer = () => {
 
           <div id="links">
             {bottomLinks.map((elem, idx) => (
-              <>
-                <Link href={elem.url} key={idx}>
-                  {elem.label}
-                </Link>{" "}
-                |
-              </>
+              <div key={idx}>
+                <Link href={elem.url}>{elem.label}</Link> |
+              </div>
             ))}
 
             <p id="links">

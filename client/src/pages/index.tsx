@@ -3,16 +3,16 @@ import { getCommunities } from "src/state/community";
 import { storeWrapper } from "../state/store";
 import Home from "src/components/views/Home";
 import { getAppConfig } from "src/services/config.service";
+import { getGameModes } from "src/state/gamemode";
 
 const HomePage: NextPage = () => {
   return <Home />;
 };
 
-// Get communities (it will include featured and latest)
+// Get server data
 export const getStaticProps = storeWrapper.getStaticProps((store) => async (_arg) => {
-  const promises = [];
-
-  promises.push(
+  const promises = [
+    // Get communities action promise
     store.dispatch(
       getCommunities({
         page: 1,
@@ -20,8 +20,10 @@ export const getStaticProps = storeWrapper.getStaticProps((store) => async (_arg
         includeLatest: true,
         separateFeatured: true,
       })
-    )
-  );
+    ),
+    // Get gamemodes action promise
+    store.dispatch(getGameModes()),
+  ];
 
   await Promise.allSettled(promises);
 

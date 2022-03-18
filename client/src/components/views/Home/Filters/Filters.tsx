@@ -9,6 +9,8 @@ import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
 import { Button, TextField } from "@mui/material";
 import { FaRandom, FaSearch } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { selectGameModeState } from "src/state/gamemode";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -35,13 +37,15 @@ const names = [
 ];
 
 const Filters = () => {
+  const { gamemodes } = useSelector(selectGameModeState);
+
   const [personName, setPersonName] = React.useState([]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value },
     } = event;
-    
+
     setPersonName(
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
@@ -69,10 +73,10 @@ const Filters = () => {
             renderValue={(selected) => selected.join(", ")}
             MenuProps={MenuProps}
           >
-            {names.map((name) => (
-              <MenuItem key={name} value={name}>
-                <Checkbox checked={personName.indexOf(name) > -1} />
-                <ListItemText primary={name} />
+            {gamemodes.map(({label_es, shortName}) => (
+              <MenuItem key={shortName} value={label_es}>
+                <Checkbox checked={personName.indexOf(label_es) > -1} />
+                <ListItemText primary={label_es} />
               </MenuItem>
             ))}
           </Select>
