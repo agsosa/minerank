@@ -13,8 +13,11 @@ import {
 import Image from "next/image";
 import { getAppConfig } from "src/services/config.service";
 import Link from "next/link";
+import { selectPopularGameModes } from "src/state/gamemode";
+import { useAppSelector } from "src/hooks/useAppSelector";
 
 const Footer = () => {
+  const popularGameModes = useAppSelector((state) => selectPopularGameModes(state, 4));
   const year = new Date().getFullYear();
 
   const bottomLinks = [
@@ -40,10 +43,11 @@ const Footer = () => {
         <ColumnsContainer>
           <Column>
             <b>Modos de juego populares</b>
-            <p>PVP Survival</p>
-            <p>Factions</p>
-            <p>Squid Game</p>
-            <p>Sky blocks</p>
+            {popularGameModes.map(({ id, label_es, communityCount }) => (
+              <p key={id}>
+                {label_es} ({communityCount})
+              </p>
+            ))}
           </Column>
 
           <Column>

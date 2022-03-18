@@ -18,6 +18,7 @@ import { IListCommunity } from "@shared/types/entities/ICommunity";
 import {
   getCommunityConnectionString,
   getCommunityCountryFlagComponent,
+  getCommunityGameModesString,
 } from "src/utils/community.utils";
 import { formatBigNumber } from "src/utils/misc.utils";
 
@@ -33,6 +34,7 @@ const CommunityCard: React.FC<CommunityCardProps> = ({ community, ...props }) =>
   const totalVotes = formatBigNumber(upvotes);
   const Flag = getCommunityCountryFlagComponent(community);
   const connectionStr = getCommunityConnectionString(community);
+  const gamemodesStr = getCommunityGameModesString(community);
 
   const handleClick = () => {
     router.push(`/server/${shortName}`);
@@ -75,7 +77,7 @@ const CommunityCard: React.FC<CommunityCardProps> = ({ community, ...props }) =>
         <StatsContainer>
           <Stat>
             <FaTags />
-            <Tags>Roleplay, Survival PVP, Juegos del Hambre, Factions, Squid Game</Tags>
+            <Tags>{gamemodesStr}</Tags>
           </Stat>
         </StatsContainer>
       </InfoContainer>

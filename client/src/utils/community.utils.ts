@@ -1,5 +1,6 @@
 /**
  * Community helper functions
+ * TODO: Cast communities object to a class instance and move the methods to the class
  */
 
 import { ICommunity, IListCommunity } from "@shared/types/entities/ICommunity";
@@ -30,4 +31,13 @@ export function getCommunityCountryFlagComponent(
   if (!community) return null;
 
   return getCountryFlagComponent(community.countryCode);
+}
+
+/**
+ * getCommunityGameModesString
+ * @param community the community object
+ * @returns the game modes list (string) of a community
+ */
+export function getCommunityGameModesString(community: ICommunity | IListCommunity): string {
+  return community?.gamemodes?.map((elem) => elem.label_es).join(", ") || "Sin definir";
 }

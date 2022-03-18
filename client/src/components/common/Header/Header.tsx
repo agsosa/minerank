@@ -33,7 +33,7 @@ const Header: React.FC<HeaderProps> = ({ fixedBackground, ...props }) => {
     <Container fixedBackground={fixedBackground} {...props}>
       <HeaderContent>
         <AppLogo />
-        
+
         <Flex>
           <p onClick={handleGameModesClick}>Modos de Juego</p>
           <p>FAQ</p>
@@ -82,8 +82,10 @@ const Header: React.FC<HeaderProps> = ({ fixedBackground, ...props }) => {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <GameModesContainer>
-          {gamemodes.map((elem) => (
-            <MenuItem key={elem.id}>{elem.label_es}</MenuItem>
+          {gamemodes.map(({ id, label_es, communityCount }) => (
+            <MenuItem key={id}>
+              {label_es} ({communityCount})
+            </MenuItem>
           ))}
         </GameModesContainer>
       </Menu>
