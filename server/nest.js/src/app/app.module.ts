@@ -31,6 +31,7 @@ const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
     entities: [join(__dirname, '../', '**', '*.entity.{ts,js}')],
     synchronize: true,
     dropSchema: false,
+    autoLoadEntities: true,
   }),
   inject: [ConfigService],
 };

@@ -19,8 +19,24 @@ export class GamemodeService {
     private gamemodeRepository: Repository<GameMode>,
   ) {}
 
-  create(createGamemodeDto: CreateGamemodeDto): Promise<ICreateGameModeResponseDto> {
+  create(
+    createGamemodeDto: CreateGamemodeDto | CreateGamemodeDto[],
+  ): Promise<ICreateGameModeResponseDto> {
     return this.gamemodeRepository.insert(createGamemodeDto);
+  }
+
+  createIgnoreDuplicates(
+    createGamemodeDto: CreateGamemodeDto | CreateGamemodeDto[],
+  ): Promise<ICreateGameModeResponseDto> {
+    const input = Array.isArray(createGamemodeDto) ? createGamemodeDto : [createGamemodeDto];
+
+    return this.gamemodeRepository
+      .createQueryBuilder()
+      .insert()
+      .into(GameMode)
+      .values(input)
+      .orIgnore()
+      .execute();
   }
 
   async findAll(): Promise<IFindGameModesResponseDto> {
