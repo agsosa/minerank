@@ -19,8 +19,24 @@ export class VersionService {
     private versionRepository: Repository<Version>,
   ) {}
 
-  create(createGamemodeDto: CreateVersionDto): Promise<ICreateVersionResponseDto> {
-    return this.versionRepository.insert(createGamemodeDto);
+  create(
+    createVersionDto: CreateVersionDto | CreateVersionDto[],
+  ): Promise<ICreateVersionResponseDto> {
+    return this.versionRepository.insert(createVersionDto);
+  }
+
+  createIgnoreDuplicates(
+    createVersionDto: CreateVersionDto | CreateVersionDto[],
+  ): Promise<ICreateVersionResponseDto> {
+    const input = Array.isArray(createVersionDto) ? createVersionDto : [createVersionDto];
+
+    return this.versionRepository
+      .createQueryBuilder()
+      .insert()
+      .into(Version)
+      .values(input)
+      .orIgnore()
+      .execute();
   }
 
   async findAll(): Promise<IFindVersionsResponseDto> {

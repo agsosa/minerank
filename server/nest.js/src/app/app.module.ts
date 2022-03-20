@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigModuleOptions, ConfigService } from '@nestjs/config';
+import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
 import { join } from 'path';
 
@@ -11,6 +12,7 @@ import { UserModule } from 'src/user/user.module';
 import { AuthModule } from 'src/auth/auth.module';
 import { GamemodeModule } from 'src/gamemode/gamemode.module';
 import { VersionModule } from 'src/version/version.module';
+import { TaskModule } from 'src/task/task.module';
 
 const configModuleOptions: ConfigModuleOptions = {
   isGlobal: true,
@@ -35,6 +37,7 @@ const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     ConfigModule.forRoot(configModuleOptions),
     TypeOrmModule.forRootAsync(typeOrmModuleAsyncOptions),
     AuthModule,
@@ -42,6 +45,7 @@ const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
     UserModule,
     GamemodeModule,
     VersionModule,
+    TaskModule,
   ],
   controllers: [AppController],
   providers: [AppService],
