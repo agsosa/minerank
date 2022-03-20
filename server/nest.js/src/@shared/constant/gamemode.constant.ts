@@ -1,11 +1,7 @@
 export const GameModeConstants = Object.freeze({
   fieldsConstraints: {
-    label_es: {
+    label: {
       minLength: 3,
-      maxLength: 50,
-    },
-    label_en: {
-      minLength: 10,
       maxLength: 50,
     },
     shortName: {

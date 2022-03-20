@@ -46,14 +46,14 @@ const Footer = () => {
         <ColumnsContainer>
           <Column>
             <b>Modos de juego populares</b>
-            {popularGameModes.map(({ id, label_es, communityCount }) => (
-              <p key={id}>{label_es}</p>
+            {popularGameModes.map(({ id, label }) => (
+              <p key={id}>{label}</p>
             ))}
           </Column>
 
           <Column>
             <b>Versiones populares</b>
-            {popularVersions.map(({ id, label, communityCount }) => (
+            {popularVersions.map(({ id, label }) => (
               <p key={id}>v{label}</p>
             ))}
           </Column>

@@ -39,7 +39,7 @@ export function getCommunityCountryFlagComponent(
  * @returns the game modes list (string) of a community
  */
 export function getCommunityGameModesString(community: ICommunity | IListCommunity): string {
-  return community?.gamemodes?.map((elem) => elem.label_es).join(", ") || "Sin definir";
+  return community?.gamemodes?.map((elem) => elem.label).join(", ") || "Sin definir";
 }
 
 /**

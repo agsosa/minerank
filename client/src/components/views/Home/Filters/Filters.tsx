@@ -75,10 +75,10 @@ const Filters = () => {
             renderValue={(selected) => selected.join(", ")}
             MenuProps={MenuProps}
           >
-            {gamemodes.map(({ label_es, id }) => (
-              <MenuItem key={id} value={label_es}>
-                <Checkbox checked={personName.indexOf(label_es) > -1} />
-                <ListItemText primary={label_es} />
+            {gamemodes.map(({ label, id }) => (
+              <MenuItem key={id} value={label}>
+                <Checkbox checked={personName.indexOf(label) > -1} />
+                <ListItemText primary={label} />
               </MenuItem>
             ))}
           </Select>

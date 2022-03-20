@@ -10,8 +10,7 @@ export interface IGameMode {
   /**
    * Non nullable fields
    */
-  label_en: string;
-  label_es: string;
+  label: string;
   shortName: string;
   communityCount: number;
 }

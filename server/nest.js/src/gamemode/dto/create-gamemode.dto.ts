@@ -10,22 +10,13 @@ export class CreateGamemodeDto implements ICreateGameModeDto {
    * Non nullable properties
    */
   @IsNotEmpty()
-  @MinLength(limits.label_es.minLength)
-  @MaxLength(limits.label_es.maxLength)
+  @MinLength(limits.label.minLength)
+  @MaxLength(limits.label.maxLength)
   @ApiProperty({
-    minLength: limits.label_es.minLength,
-    maxLength: limits.label_es.maxLength,
+    minLength: limits.label.minLength,
+    maxLength: limits.label.maxLength,
   })
-  label_es: string;
-
-  @IsNotEmpty()
-  @MinLength(limits.label_en.minLength)
-  @MaxLength(limits.label_en.maxLength)
-  @ApiProperty({
-    minLength: limits.label_en.minLength,
-    maxLength: limits.label_en.maxLength,
-  })
-  label_en: string;
+  label: string;
 
   @IsNotEmpty()
   @MinLength(limits.shortName.minLength)

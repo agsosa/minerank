@@ -6,10 +6,7 @@ import { Column, Entity, Index, ManyToMany } from 'typeorm';
 @Entity()
 export class GameMode extends EntityBase implements IGameMode {
   @Column()
-  label_es: string;
-
-  @Column()
-  label_en: string;
+  label: string;
 
   @Column()
   @Index({ unique: true })

@@ -82,9 +82,9 @@ const Header: React.FC<HeaderProps> = ({ fixedBackground, ...props }) => {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <GameModesContainer>
-          {gamemodes.map(({ id, label_es, communityCount }) => (
+          {gamemodes.map(({ id, label, communityCount }) => (
             <MenuItem key={id}>
-              {label_es} ({communityCount})
+              {label} ({communityCount})
             </MenuItem>
           ))}
         </GameModesContainer>
