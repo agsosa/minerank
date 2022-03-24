@@ -5,6 +5,7 @@ import { GamemodeService } from 'src/gamemode/gamemode.service';
 import { CreateVersionDto } from 'src/version/dto/create-version.dto';
 import { VersionService } from 'src/version/version.service';
 import { scrapeGameModes } from './task/scrape-gamemodes.task';
+import { scrapeServers } from './task/scrape-servers.task';
 import { scrapeVersions } from './task/scrape-versions.task';
 
 @Injectable()
@@ -47,5 +48,21 @@ export class TaskService {
     }));
 
     await this.gamemodeService.createIgnoreDuplicates(dto);
+  }
+
+  @Timeout(500)
+  async scrapeServersTask() {
+    this.logger.debug('Executing scrapeServersTask()');
+
+    const servers = await scrapeServers();
+
+    this.logger.debug(`Total servers scraped: ${servers.length}`);
+
+    /*const dto: CreateGamemodeDto[] = gamemodes.map((gm) => ({
+      label: gm,
+      shortName: gm.toLowerCase().replaceAll(' ', '-'),
+    }));
+
+    await this.gamemodeService.createIgnoreDuplicates(dto);*/
   }
 }
