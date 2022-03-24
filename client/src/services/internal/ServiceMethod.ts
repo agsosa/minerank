@@ -2,7 +2,7 @@
  * Decorator for service methods to handle exceptions automatically
  */
 
-import { buildServiceError } from "./ServiceError";
+import { getServiceError } from "./ServiceError";
 
 export default function ServiceMethod() {
   return function (target: any, key: string, descriptor: PropertyDescriptor) {
@@ -13,7 +13,7 @@ export default function ServiceMethod() {
         return await originalMethod.apply(this, args);
       } catch (err: any) {
         console.error(err, err?.response?.data);
-        return { error: buildServiceError(err), data: {} as any };
+        return { error: getServiceError(err), data: {} as any };
       }
     };
 
