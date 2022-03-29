@@ -15,8 +15,9 @@ export function getCommunityConnectionString(community: ICommunity | IListCommun
   if (!community) return "";
 
   const { port, ip } = community;
-  const portStr = port ? `:${port}` : "";
+  if (port === 25565) return ip;
 
+  const portStr = port ? `:${port}` : "";
   return `${ip}${portStr}`;
 }
 
@@ -48,5 +49,5 @@ export function getCommunityGameModesString(community: ICommunity | IListCommuni
  * @returns the versions list (string) of a community
  */
 export function getCommunityVersionsString(community: ICommunity | IListCommunity): string {
-  return community?.versions?.map((elem) => elem.label).join("- ") || "Sin definir";
+  return community?.versions?.map((elem) => elem.label).join(" - ") || "Sin definir";
 }

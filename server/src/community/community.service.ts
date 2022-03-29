@@ -50,7 +50,7 @@ export class CommunityService {
   async createIgnoreDuplicate(
     createCommunityDto: CreateCommunityDto,
     forceApprove?: boolean,
-  ): Promise<InsertResult> {
+  ): Promise<Community | null> {
     const community = new Community();
 
     for (const key of Object.keys(createCommunityDto)) {
@@ -61,13 +61,12 @@ export class CommunityService {
     community.gamemodes = await this.gamemodeRepository.findByIds(createCommunityDto.gamemodes);
     community.versions = await this.versionRepository.findByIds(createCommunityDto.versions);
 
-    return this.communityRepository
-      .createQueryBuilder()
-      .insert()
-      .into(Community)
-      .values([community])
-      .orIgnore()
-      .execute();
+    try {
+      const res = await this.communityRepository.save(community, {});
+      return res;
+    } catch (err) {
+      return null;
+    }
   }
 
   async findAll(): Promise<IFindAllCommunitiesResponseDto> {

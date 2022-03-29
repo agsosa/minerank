@@ -23,6 +23,11 @@ export class TaskService {
   ) {}
 
   @Timeout(500)
+  async initializeTasks() {
+    await Promise.all([this.scrapeGameModesTask(), this.scrapeVersionsTask()]);
+    this.scrapeServersTask();
+  }
+
   @Cron(CronExpression.EVERY_8_HOURS)
   async scrapeVersionsTask() {
     this.logger.debug('Executing scrapeVersionsTask()');
@@ -38,7 +43,6 @@ export class TaskService {
     await this.versionService.createIgnoreDuplicates(dto);
   }
 
-  @Timeout(500)
   @Cron(CronExpression.EVERY_8_HOURS)
   async scrapeGameModesTask() {
     this.logger.debug('Executing scrapeGameModesTask()');
@@ -55,8 +59,6 @@ export class TaskService {
     await this.gamemodeService.createIgnoreDuplicates(dto);
   }
 
-  // TODO: Manually execute this task!!
-  @Timeout(500)
   async scrapeServersTask() {
     this.logger.debug('Executing scrapeServersTask()');
 
