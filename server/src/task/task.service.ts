@@ -122,7 +122,7 @@ export class TaskService {
             throw new Error('DTO Validation Error');
           }
 
-          await this.communityService.createIgnoreDuplicate(dto);
+          await this.communityService.createIgnoreDuplicate(dto, true);
 
           resolve(null);
         }),

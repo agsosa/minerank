@@ -84,7 +84,7 @@ const scrapeList = async (url: string) => {
             },
             versions: {
               selector: '.celda-version',
-              convert: (elem) => elem?.split('-'),
+              convert: (elem) => elem?.replace("Versión", "").split('-'),
             },
             players: '.celda-jugadores',
             countryCode: {

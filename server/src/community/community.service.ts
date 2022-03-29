@@ -30,26 +30,34 @@ export class CommunityService {
     private versionRepository: Repository<Version>,
   ) {}
 
-  async create(createCommunityDto: CreateCommunityDto): Promise<ICreateCommunityResponseDto> {
+  async create(
+    createCommunityDto: CreateCommunityDto,
+    forceApprove?: boolean,
+  ): Promise<ICreateCommunityResponseDto> {
     const community = new Community();
 
     for (const key of Object.keys(createCommunityDto)) {
       community[key] = createCommunityDto[key];
     }
 
+    if (forceApprove) community.isApproved = true;
     community.gamemodes = await this.gamemodeRepository.findByIds(createCommunityDto.gamemodes);
     community.versions = await this.versionRepository.findByIds(createCommunityDto.versions);
 
     return this.communityRepository.save(community, {}) as any;
   }
 
-  async createIgnoreDuplicate(createCommunityDto: CreateCommunityDto): Promise<InsertResult> {
+  async createIgnoreDuplicate(
+    createCommunityDto: CreateCommunityDto,
+    forceApprove?: boolean,
+  ): Promise<InsertResult> {
     const community = new Community();
 
     for (const key of Object.keys(createCommunityDto)) {
       community[key] = createCommunityDto[key];
     }
 
+    if (forceApprove) community.isApproved = true;
     community.gamemodes = await this.gamemodeRepository.findByIds(createCommunityDto.gamemodes);
     community.versions = await this.versionRepository.findByIds(createCommunityDto.versions);
 
@@ -142,6 +150,9 @@ export class CommunityService {
               createdAt: 'DESC',
             },
             take: CommunityConstants.limits.latestCount,
+            where: {
+              isApproved: true,
+            },
           })
           .then((res) => {
             latest = res.map((elem) => elem.toListMember());
