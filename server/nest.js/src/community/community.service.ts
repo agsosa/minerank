@@ -40,7 +40,26 @@ export class CommunityService {
     community.gamemodes = await this.gamemodeRepository.findByIds(createCommunityDto.gamemodes);
     community.versions = await this.versionRepository.findByIds(createCommunityDto.versions);
 
-    return this.communityRepository.save(community) as any;
+    return this.communityRepository.save(community, {}) as any;
+  }
+
+  async createIgnoreDuplicate(createCommunityDto: CreateCommunityDto): Promise<InsertResult> {
+    const community = new Community();
+
+    for (const key of Object.keys(createCommunityDto)) {
+      community[key] = createCommunityDto[key];
+    }
+
+    community.gamemodes = await this.gamemodeRepository.findByIds(createCommunityDto.gamemodes);
+    community.versions = await this.versionRepository.findByIds(createCommunityDto.versions);
+
+    return this.communityRepository
+      .createQueryBuilder()
+      .insert()
+      .into(Community)
+      .values([community])
+      .orIgnore()
+      .execute();
   }
 
   async findAll(): Promise<IFindAllCommunitiesResponseDto> {

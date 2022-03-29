@@ -1,6 +1,8 @@
 import scrapeIt from 'scrape-it';
 import fs from 'fs';
+import countryLookup from 'country-code-lookup';
 import { Logger } from '@nestjs/common';
+import { PremiumTypeEnum } from 'src/@shared/types/enum/community.enum';
 
 const CACHE_FILE = 'scraped-servers.json';
 const TOP_40_URL = 'https://www.40servidoresmc.es/';
@@ -31,10 +33,11 @@ interface IScrapedServer {
   name: string;
   shortName: string;
   ip: string;
-  version: string;
+  port: number;
+  versions: string[];
   players: string;
-  country: string;
-  gamemodes: string;
+  countryCode: string;
+  gamemodes: string[];
   socialLinks: ISocialMediaLink[];
 }
 
@@ -72,18 +75,29 @@ const scrapeList = async (url: string) => {
             ip: {
               selector: '.celda-ip > input',
               attr: 'value',
+              convert: (elem) => elem?.split(':')[0],
             },
-            version: '.celda-version',
+            port: {
+              selector: '.celda-ip > input',
+              attr: 'value',
+              convert: (elem) => elem?.split(':')[1] || 25565,
+            },
+            versions: {
+              selector: '.celda-version',
+              convert: (elem) => elem?.split('-'),
+            },
             players: '.celda-jugadores',
-            country: {
+            countryCode: {
               selector: '.celda-nombre > div > img',
               attr: 'title',
-              convert: (elem) => elem?.trim().replace('Servidor de: ', ''),
+              convert: (elem) => {
+                const trim = elem?.trim().replace('Servidor de: ', '');
+                return countryLookup.byCountry(trim)?.iso2 || 'ES';
+              },
             },
             gamemodes: {
               selector: '.submodos',
-              convert: (elem) =>
-                elem?.trim().replace('Modos: ', '').replaceAll(' ', ', ').toLowerCase(),
+              convert: (elem) => elem?.trim().replace('Modos: ', '').toLowerCase().split(' '),
             },
             socialLinks: {
               listItem: '.enlaces-mas > a',
@@ -123,7 +137,7 @@ const scrapeList = async (url: string) => {
 interface IScrapeDetailsData {
   description: string;
   imageUrl: string;
-  premiumType: string;
+  premiumType: PremiumTypeEnum;
 }
 
 /**
@@ -151,13 +165,13 @@ const scrapeServerDetails = async (shortName: string) => {
           case 'semipremium':
           case 'semi premium':
           case 'semi-premium':
-            return 'SEMI-PREMIUM';
+            return PremiumTypeEnum.SEMI_PREMIUM;
           case 'premium':
-            return 'PREMIUM';
+            return PremiumTypeEnum.PREMIUM;
           case 'no premium':
           case 'no-premium':
           case 'nopremium':
-            return 'NO-PREMIUM';
+            return PremiumTypeEnum.NO_PREMIUM;
           default:
             return elem;
         }
@@ -231,7 +245,7 @@ async function getServersFromJsonOrScrape(): Promise<FinalScrapedServer[]> {
 
 export const scrapeServers = async () => {
   try {
-    return getServersFromJsonOrScrape();
+    return await getServersFromJsonOrScrape();
   } catch (err) {
     console.error(err);
     return [];

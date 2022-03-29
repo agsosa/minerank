@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression, Timeout } from '@nestjs/schedule';
-import { EditionEnum, PremiumTypeEnum } from 'src/@shared/types/enum/community.enum';
+import { EditionEnum } from 'src/@shared/types/enum/community.enum';
 import { CommunityService } from 'src/community/community.service';
 import { CreateCommunityDto } from 'src/community/dto/create-community.dto';
 import { CreateGamemodeDto } from 'src/gamemode/dto/create-gamemode.dto';
@@ -10,8 +10,6 @@ import { VersionService } from 'src/version/version.service';
 import { scrapeGameModes } from './task/scrape-gamemodes.task';
 import { scrapeServers } from './task/scrape-servers.task';
 import { scrapeVersions } from './task/scrape-versions.task';
-import countryLookup from 'country-code-lookup';
-import { ICreateCommunityDto } from 'src/@shared/types/dtos/community.dto';
 import { validate } from 'class-validator';
 
 @Injectable()
@@ -57,6 +55,7 @@ export class TaskService {
     await this.gamemodeService.createIgnoreDuplicates(dto);
   }
 
+  // TODO: Manually execute this task!!
   @Timeout(500)
   async scrapeServersTask() {
     this.logger.debug('Executing scrapeServersTask()');
@@ -65,86 +64,75 @@ export class TaskService {
 
     this.logger.debug(`Total servers scraped: ${servers.length}`);
 
+    // We use this array to batch insert the servers
+    const promises: Promise<any>[] = [];
+
+    // Get all gamemodes & versions
     const gamemodeEntities = await this.gamemodeService.findAll();
     const versionEntities = await this.versionService.findAll();
 
     for (const server of servers) {
-      const splits = {
-        versions: server.version.split('-'),
-        gamemodes: server.gamemodes.split(', '),
-        ip: server.ip.split(':'),
-      };
+      // Get versions ids by label
+      const versions = versionEntities
+        .filter((v) => server.versions.includes(v.label))
+        .map((v) => v.id);
 
-      const relations = {
-        versions: versionEntities.filter((v) => splits.versions.includes(v.label)).map((v) => v.id),
-        gamemodes: gamemodeEntities
-          .filter((g) => splits.gamemodes.includes(g.shortName))
-          .map((g) => g.id),
-      };
+      // Get gamemodes ids by shortName
+      const gamemodes = gamemodeEntities
+        .filter((g) => server.gamemodes.includes(g.shortName))
+        .map((g) => g.id);
 
-      let website = '',
-        discord = '',
-        twitter = '',
-        facebook = '',
-        youtube = '',
-        instagram = '',
-        teamspeak = '',
-        telegram = '';
+      // Optimize social links lookup
+      const socialMap = new Map();
+      server.socialLinks.forEach((link) => {
+        socialMap.set(link.type, link.url);
+      });
 
-      for (const link of server.socialLinks) {
-        if (link.type === 'website') website = link.url;
-        if (link.type === 'discord') discord = link.url;
-        if (link.type === 'facebook') facebook = link.url;
-        if (link.type === 'twitter') twitter = link.url;
-        if (link.type === 'youtube') youtube = link.url;
-        if (link.type === 'instagram') instagram = link.url;
-        if (link.type === 'teamspeak') teamspeak = link.url;
-        if (link.type === 'telegram') telegram = link.url;
-      }
-
-      const name = server.name;
-      const shortName = server.shortName;
-      const versions = relations.versions;
-      const gamemodes = relations.gamemodes;
-      const description = server.description;
-      const ip = splits.ip[0];
-      const port = parseInt(splits.ip[1]) || 25565;
-      const premiumType = server.premiumType as PremiumTypeEnum;
-      const countryCode = countryLookup.byCountry(server.country)?.iso2 || 'ES';
-
+      // Create input dto
       const dto: CreateCommunityDto = {
         versions,
         gamemodes,
-        shortName,
-        name,
-        website,
-        discord,
-        twitter,
-        facebook,
-        youtube,
-        telegram,
-        instagram,
-        teamspeak,
-        description,
-        ip,
-        port,
-        premiumType,
-        countryCode,
+        shortName: server.shortName,
+        name: server.name,
+        website: socialMap.get('website'),
+        discord: socialMap.get('discord'),
+        twitter: socialMap.get('twitter'),
+        facebook: socialMap.get('facebook'),
+        youtube: socialMap.get('youtube'),
+        telegram: socialMap.get('telegram'),
+        instagram: socialMap.get('instagram'),
+        teamspeak: socialMap.get('teamspeak'),
+        description: server.description,
+        ip: server.ip,
+        port: server.port,
+        premiumType: server.premiumType,
+        countryCode: server.countryCode,
         user: '',
         youtubeTrailer: '',
         edition: EditionEnum.JAVA,
       };
 
-      const errors = await validate(dto);
+      // Async validate dto & create the community
+      promises.push(
+        new Promise(async (resolve) => {
+          const errors = await validate(dto);
 
-      if (errors.length > 0) {
-        this.logger.error('DTO Validation failed. errors: ', errors);
-        throw new Error('DTO Validation Error');
-      }
+          if (errors.length > 0) {
+            this.logger.error('DTO Validation failed. errors: ', errors);
+            throw new Error('DTO Validation Error');
+          }
 
-      console.log('Server:', server, 'DTO:', dto);
+          await this.communityService.createIgnoreDuplicate(dto);
 
-      //  await this.communityService.create(dto);
+          resolve(null);
+        }),
+      );
     }
+
+    this.logger.debug('Waiting for ScrapeServersTask() to finish...');
+
+    await Promise.all(promises);
+
+    this.logger.debug('ScrapeServersTask() finished');
   }
 }
