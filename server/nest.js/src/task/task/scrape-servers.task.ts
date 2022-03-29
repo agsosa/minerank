@@ -145,7 +145,7 @@ const scrapeServerDetails = async (shortName: string) => {
     },
     premiumType: {
       selector: '.info-r',
-      closest: 'span',
+      // closest: 'span',
       convert: (elem) => {
         switch (elem?.trim().toLowerCase()) {
           case 'semipremium':

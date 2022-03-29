@@ -10,5 +10,6 @@ import { Version } from 'src/version/version.entity';
   imports: [TypeOrmModule.forFeature([Community, GameMode, Version])],
   controllers: [CommunityController],
   providers: [CommunityService],
+  exports: [CommunityService],
 })
 export class CommunityModule {}
