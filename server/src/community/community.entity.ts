@@ -4,7 +4,11 @@ import {
   IListCommunity,
   ListCommunityOmittedKeys,
 } from 'src/@shared/types/entities/ICommunity';
-import { EditionEnum, PremiumTypeEnum } from 'src/@shared/types/enum/community.enum';
+import {
+  EditionEnum,
+  PremiumTypeEnum,
+  ServerStatusEnum,
+} from 'src/@shared/types/enum/community.enum';
 import { EntityBase } from 'src/@shared/internal/EntityBase';
 import { GameMode } from 'src/gamemode/gamemode.entity';
 import { Version } from 'src/version/version.entity';
@@ -61,6 +65,15 @@ export class Community extends EntityBase implements ICommunity {
 
   @Column({ default: 0 })
   upvotes: number;
+
+  @Column({ default: 0 })
+  maxPlayers: number;
+
+  @Column({ default: 0 })
+  players: number;
+
+  @Column({ default: ServerStatusEnum.ONLINE })
+  serverStatus: ServerStatusEnum;
 
   /**
    * Nullable fields (needs explicit type)

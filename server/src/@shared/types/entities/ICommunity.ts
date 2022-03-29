@@ -1,4 +1,4 @@
-import { EditionEnum, PremiumTypeEnum } from '../enum/community.enum';
+import { EditionEnum, PremiumTypeEnum, ServerStatusEnum } from '../enum/community.enum';
 import { IGameMode } from './IGameMode';
 import { IVersion } from './IVersion';
 
@@ -27,6 +27,9 @@ export interface ICommunity {
   upvotes: number;
   isApproved: boolean;
   isFeatured: boolean;
+  serverStatus: ServerStatusEnum;
+  maxPlayers: number;
+  players: number;
 
   /**
    * Nullable fields

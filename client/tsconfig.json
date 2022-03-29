@@ -22,6 +22,6 @@
       "@shared/*": ["../server/src/@shared/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "../server/src/@shared/**/*.tss"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "../server/src/@shared/**/*.ts"],
   "exclude": ["node_modules"]
 }

@@ -31,7 +31,9 @@ interface CommunityCardProps {
 const CommunityCard: React.FC<CommunityCardProps> = ({ community, ...props }) => {
   const router = useRouter();
 
-  const { isFeatured, name, upvotes, premiumType, shortName } = community;
+  const { isFeatured, name, upvotes, premiumType, shortName, players, maxPlayers, serverStatus } =
+    community;
+  const statusColor = serverStatus ? "green" : "red";
   const totalVotes = formatBigNumber(upvotes);
   const Flag = getCommunityCountryFlagComponent(community);
   const connectionStr = getCommunityConnectionString(community);
@@ -59,7 +61,7 @@ const CommunityCard: React.FC<CommunityCardProps> = ({ community, ...props }) =>
 
         <StatsContainer>
           <Stat>
-            <FaCircle style={{ color: "green" }} />
+            <FaCircle style={{ color: statusColor }} />
             <span>{connectionStr}</span>
           </Stat>
         </StatsContainer>
@@ -72,7 +74,10 @@ const CommunityCard: React.FC<CommunityCardProps> = ({ community, ...props }) =>
             <BiGitBranch /> <span>{versionsStr}</span>
           </Stat>
           <Stat>
-            <FaUserAlt /> <span>200/1000</span>
+            <FaUserAlt />{" "}
+            <span>
+              {players}/{maxPlayers}
+            </span>
           </Stat>
         </StatsContainer>
 
