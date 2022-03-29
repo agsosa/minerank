@@ -4,7 +4,7 @@ import { InsertResult, Repository } from 'typeorm';
 import { CreateCommunityDto } from './dto/create-community.dto';
 import { UpdateCommunityDto } from './dto/update-community.dto';
 import { Community } from './community.entity';
-import { IListCommunity } from 'src/@shared/types/entities/ICommunity';
+import { ICommunity, IListCommunity } from 'src/@shared/types/entities/ICommunity';
 import {
   IFindShortNamesResponseDto,
   ISearchCommunitiesResponseDto,
@@ -48,7 +48,7 @@ export class CommunityService {
   }
 
   async createIgnoreDuplicate(
-    createCommunityDto: CreateCommunityDto,
+    createCommunityDto: Partial<ICommunity>,
     forceApprove?: boolean,
   ): Promise<Community | null> {
     const community = new Community();
@@ -57,9 +57,8 @@ export class CommunityService {
       community[key] = createCommunityDto[key];
     }
 
-    if (forceApprove) community.isApproved = true;
-    community.gamemodes = await this.gamemodeRepository.findByIds(createCommunityDto.gamemodes);
-    community.versions = await this.versionRepository.findByIds(createCommunityDto.versions);
+    // community.gamemodes = await this.gamemodeRepository.findByIds(createCommunityDto.gamemodes);
+    // community.versions = await this.versionRepository.findByIds(createCommunityDto.versions);
 
     try {
       const res = await this.communityRepository.save(community, {});
@@ -189,22 +188,19 @@ export class CommunityService {
 
   async update(
     id: number,
-    updateCommunityDto: UpdateCommunityDto,
+    updateCommunityDto: UpdateCommunityDto | Partial<ICommunity>,
   ): Promise<IUpdateCommunityResponseDto> {
-    // TODO: Update gamemodes relations may not working !important
-    // SEE CREATE METHOD
-    let gamemodes: GameMode[] | undefined = undefined;
-    let versions: Version[] | undefined = undefined;
+    const input: any = updateCommunityDto;
 
     if (updateCommunityDto.gamemodes) {
-      gamemodes = await this.gamemodeRepository.findByIds(updateCommunityDto.gamemodes);
+      input.gamemodes = await this.gamemodeRepository.findByIds(updateCommunityDto.gamemodes);
     }
 
     if (updateCommunityDto.versions) {
-      versions = await this.versionRepository.findByIds(updateCommunityDto.versions);
+      input.versions = await this.versionRepository.findByIds(updateCommunityDto.versions);
     }
 
-    return this.communityRepository.update(id, { ...updateCommunityDto, gamemodes, versions });
+    return this.communityRepository.update(id, input);
   }
 
   remove(id: number): Promise<IRemoveCommunityResponseDto> {

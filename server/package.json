@@ -35,6 +35,7 @@
     "country-code-lookup": "^0.0.20",
     "dotenv": "^16.0.0",
     "jwks-rsa": "^2.0.5",
+    "minecraft-server-util": "^5.2.9",
     "passport": "^0.5.2",
     "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.0",

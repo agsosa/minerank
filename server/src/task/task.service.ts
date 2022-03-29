@@ -1,16 +1,23 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { validate } from 'class-validator';
 import { Cron, CronExpression, Timeout } from '@nestjs/schedule';
-import { EditionEnum } from 'src/@shared/types/enum/community.enum';
+
+import { EditionEnum, ServerStatusEnum } from 'src/@shared/types/enum/community.enum';
+
 import { CommunityService } from 'src/community/community.service';
 import { CreateCommunityDto } from 'src/community/dto/create-community.dto';
+
 import { CreateGamemodeDto } from 'src/gamemode/dto/create-gamemode.dto';
 import { GamemodeService } from 'src/gamemode/gamemode.service';
+
 import { CreateVersionDto } from 'src/version/dto/create-version.dto';
 import { VersionService } from 'src/version/version.service';
+
 import { scrapeGameModes } from './task/scrape-gamemodes.task';
 import { scrapeServers } from './task/scrape-servers.task';
 import { scrapeVersions } from './task/scrape-versions.task';
-import { validate } from 'class-validator';
+import { pingServer } from './task/ping-server.task';
+import { ICommunity } from 'src/@shared/types/entities/ICommunity';
 
 @Injectable()
 export class TaskService {
@@ -74,15 +81,8 @@ export class TaskService {
     const versionEntities = await this.versionService.findAll();
 
     for (const server of servers) {
-      // Get versions ids by label
-      const versions = versionEntities
-        .filter((v) => server.versions.includes(v.label))
-        .map((v) => v.id);
-
-      // Get gamemodes ids by shortName
-      const gamemodes = gamemodeEntities
-        .filter((g) => server.gamemodes.includes(g.shortName))
-        .map((g) => g.id);
+      const versions = versionEntities.filter((v) => server.versions.includes(v.label));
+      const gamemodes = gamemodeEntities.filter((g) => server.gamemodes.includes(g.shortName));
 
       // Optimize social links lookup
       const socialMap = new Map();
@@ -91,11 +91,13 @@ export class TaskService {
       });
 
       // Create input dto
-      const dto: CreateCommunityDto = {
+      const dto: Partial<ICommunity> = {
         versions,
         gamemodes,
+        isApproved: true,
         shortName: server.shortName,
         name: server.name,
+        upvotes: server.upvotes,
         website: socialMap.get('website'),
         discord: socialMap.get('discord'),
         twitter: socialMap.get('twitter'),
@@ -111,7 +113,12 @@ export class TaskService {
         countryCode: server.countryCode,
         user: '',
         youtubeTrailer: '',
-        edition: EditionEnum.JAVA,
+        edition:
+          server.port === 19132 ||
+          server.port === 19133 ||
+          server.name.toLowerCase().includes('bedrock')
+            ? EditionEnum.BEDROCK
+            : EditionEnum.JAVA,
       };
 
       // Async validate dto & create the community
@@ -136,5 +143,48 @@ export class TaskService {
     await Promise.all(promises);
 
     this.logger.debug('ScrapeServersTask() finished');
+  }
+
+  @Timeout(500)
+  @Cron(CronExpression.EVERY_10_MINUTES)
+  async pingServers() {
+    const allCommunities = await this.communityService.findAll();
+    const communities = allCommunities.items.filter((c) => c.isApproved && !c.isDeleted && c.ip);
+
+    this.logger.debug(`Ping ${communities.length} servers...`);
+
+    let count = 0; // throttle
+    let failed = 0;
+    const promises: Promise<any>[] = [];
+
+    for (const server of communities) {
+      if (count >= 50) await Promise.all(promises);
+      count++;
+
+      promises.push(
+        pingServer(server.ip, server.port).then((result) => {
+          count--;
+
+          if (!result) {
+            console.log('Failed to ping server ' + server.ip + ':' + server.port);
+            this.communityService.update(server.id, { serverStatus: ServerStatusEnum.OFFLINE });
+            failed++;
+          } else
+            this.communityService.update(server.id, {
+              players: result.players,
+              maxPlayers: result.maxPlayers,
+              serverStatus: ServerStatusEnum.ONLINE,
+            });
+        }),
+      );
+    }
+
+    await Promise.all(promises);
+
+    this.logger.debug(
+      'Failed to ping ' + failed + ' servers (of total ' + communities.length + ')',
+    );
+
+    this.logger.debug('PingServersTask() finished');
   }
 }

@@ -39,6 +39,7 @@ interface IScrapedServer {
   countryCode: string;
   gamemodes: string[];
   socialLinks: ISocialMediaLink[];
+  upvotes: number;
 }
 
 interface IScrapeListData {
@@ -84,7 +85,7 @@ const scrapeList = async (url: string) => {
             },
             versions: {
               selector: '.celda-version',
-              convert: (elem) => elem?.replace("Versión", "").split('-'),
+              convert: (elem) => elem?.replace('Versión', '').split('-'),
             },
             players: '.celda-jugadores',
             countryCode: {
@@ -138,6 +139,7 @@ interface IScrapeDetailsData {
   description: string;
   imageUrl: string;
   premiumType: PremiumTypeEnum;
+  upvotes: number;
 }
 
 /**
@@ -156,6 +158,10 @@ const scrapeServerDetails = async (shortName: string) => {
     imageUrl: {
       selector: '.slogo',
       attr: 'src',
+    },
+    upvotes: {
+      selector: '#nvotos',
+      convert: (elem) => parseInt(elem) || 0,
     },
     premiumType: {
       selector: '.info-r',
@@ -228,6 +234,7 @@ async function getServersFromJsonOrScrape(): Promise<FinalScrapedServer[]> {
         server.description = details.description;
         server.imageUrl = details.imageUrl;
         server.premiumType = details.premiumType;
+        server.upvotes = details.upvotes;
       }),
     );
   }
