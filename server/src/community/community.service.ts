@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { InsertResult, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { CreateCommunityDto } from './dto/create-community.dto';
 import { UpdateCommunityDto } from './dto/update-community.dto';
 import { Community } from './community.entity';
@@ -47,18 +47,12 @@ export class CommunityService {
     return this.communityRepository.save(community, {}) as any;
   }
 
-  async createIgnoreDuplicate(
-    createCommunityDto: Partial<ICommunity>,
-    forceApprove?: boolean,
-  ): Promise<Community | null> {
+  async createIgnoreDuplicate(createCommunityDto: Partial<ICommunity>): Promise<Community | null> {
     const community = new Community();
 
     for (const key of Object.keys(createCommunityDto)) {
       community[key] = createCommunityDto[key];
     }
-
-    // community.gamemodes = await this.gamemodeRepository.findByIds(createCommunityDto.gamemodes);
-    // community.versions = await this.versionRepository.findByIds(createCommunityDto.versions);
 
     try {
       const res = await this.communityRepository.save(community, {});

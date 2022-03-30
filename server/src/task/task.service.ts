@@ -6,7 +6,6 @@ import * as crypto from 'crypto';
 import { EditionEnum, ServerStatusEnum } from 'src/@shared/types/enum/community.enum';
 
 import { CommunityService } from 'src/community/community.service';
-import { CreateCommunityDto } from 'src/community/dto/create-community.dto';
 
 import { CreateGamemodeDto } from 'src/gamemode/dto/create-gamemode.dto';
 import { GamemodeService } from 'src/gamemode/gamemode.service';
@@ -40,9 +39,7 @@ export class TaskService {
   @Cron(CronExpression.EVERY_8_HOURS)
   async scrapeVersionsTask() {
     this.logger.debug('Executing scrapeVersionsTask()');
-
     const versions = await scrapeVersions();
-
     this.logger.debug('Versions scraped:', versions);
 
     const dto: CreateVersionDto[] = versions.map((version) => ({
@@ -55,9 +52,7 @@ export class TaskService {
   @Cron(CronExpression.EVERY_8_HOURS)
   async scrapeGameModesTask() {
     this.logger.debug('Executing scrapeGameModesTask()');
-
     const gamemodes = await scrapeGameModes();
-
     this.logger.debug('GameModes scraped:', gamemodes);
 
     const dto: CreateGamemodeDto[] = gamemodes.map((gm) => ({
@@ -116,18 +111,16 @@ export class TaskService {
         user: '',
         youtubeTrailer: '',
         edition:
-          server.port === 19132 ||
-          server.port === 19133 ||
-          server.name.toLowerCase().includes('bedrock')
+          [19132, 19133].includes(server.port) || server.name.toLowerCase().includes('bedrock')
             ? EditionEnum.BEDROCK
             : EditionEnum.JAVA,
       };
 
-      // Async validate dto & create the community
+      // Async save community
       promises.push(
         new Promise(async (resolve) => {
+          // Validate DTO
           const errors = await validate(dto);
-
           if (errors.length > 0) {
             this.logger.error('DTO Validation failed. errors: ', errors);
             throw new Error('DTO Validation Error');
@@ -137,22 +130,17 @@ export class TaskService {
           if (server.imageUrl) {
             const imageName = crypto.randomUUID() + '.png';
             const success = await downloadImage(server.imageUrl, imageName);
-            if (success) {
-              dto.imagePath = `/public/${imageName}`;
-            }
+            if (success) dto.imagePath = `/public/${imageName}`;
           }
 
-          await this.communityService.createIgnoreDuplicate(dto, true);
-
+          await this.communityService.createIgnoreDuplicate(dto);
           resolve(null);
         }),
       );
     }
 
     this.logger.debug('Waiting for ScrapeServersTask() to finish...');
-
     await Promise.all(promises);
-
     this.logger.debug('ScrapeServersTask() finished');
   }
 
@@ -164,9 +152,9 @@ export class TaskService {
 
     this.logger.debug(`Ping ${communities.length} servers...`);
 
+    const promises: Promise<any>[] = [];
     let count = 0; // throttle
     let failed = 0;
-    const promises: Promise<any>[] = [];
 
     for (const server of communities) {
       if (count >= 50) await Promise.all(promises);
@@ -177,25 +165,23 @@ export class TaskService {
           count--;
 
           if (!result) {
-            console.log('Failed to ping server ' + server.ip + ':' + server.port);
+            this.logger.debug(`Failed to ping server ${server.ip}:${server.port}`);
             this.communityService.update(server.id, { serverStatus: ServerStatusEnum.OFFLINE });
             failed++;
-          } else
+          } else {
             this.communityService.update(server.id, {
               players: result.players,
               maxPlayers: result.maxPlayers,
               serverStatus: ServerStatusEnum.ONLINE,
             });
+          }
         }),
       );
     }
 
     await Promise.all(promises);
 
-    this.logger.debug(
-      'Failed to ping ' + failed + ' servers (of total ' + communities.length + ')',
-    );
-
+    this.logger.debug(`Failed to ping ${failed}/${communities.length}`);
     this.logger.debug('PingServersTask() finished');
   }
 }
