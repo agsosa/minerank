@@ -59,7 +59,7 @@ export function getCommunityVersionsString(community: ICommunity | IListCommunit
  * @returns the image url
  */
 export function getCommunityImageUrl(community: ICommunity | IListCommunity): string {
-  if (!community || !community.imagePath) return "/default.png";
+  if (!community || !community.imagePath) return "/default-server-logo.png";
   return `/api/static${community.imagePath}`;
 }
 
