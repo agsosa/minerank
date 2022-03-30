@@ -6,6 +6,14 @@ const nextConfig = {
     pageSize: process.env.NEXT_PUBLIC_PAGE_SIZE,
   },
   reactStrictMode: true,
+  async rewrites() {
+    return [
+      {
+        source: "/api/static/public/:path*",
+        destination: process.env.API_SERVER_BASE_URL + "/public/:path*",
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

@@ -46,6 +46,7 @@ export interface ICommunity {
   facebook: string | null;
   instagram: string | null;
   teamspeak: string | null;
+  imagePath: string | null;
 }
 
 export const ListCommunityOmittedKeys = [

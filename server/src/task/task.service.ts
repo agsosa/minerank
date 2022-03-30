@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { validate } from 'class-validator';
 import { Cron, CronExpression, Timeout } from '@nestjs/schedule';
+import * as crypto from 'crypto';
 
 import { EditionEnum, ServerStatusEnum } from 'src/@shared/types/enum/community.enum';
 
@@ -18,6 +19,7 @@ import { scrapeServers } from './task/scrape-servers.task';
 import { scrapeVersions } from './task/scrape-versions.task';
 import { pingServer } from './task/ping-server.task';
 import { ICommunity } from 'src/@shared/types/entities/ICommunity';
+import { downloadImage } from 'src/utils/images.utils';
 
 @Injectable()
 export class TaskService {
@@ -129,6 +131,15 @@ export class TaskService {
           if (errors.length > 0) {
             this.logger.error('DTO Validation failed. errors: ', errors);
             throw new Error('DTO Validation Error');
+          }
+
+          // Try to download the server's image
+          if (server.imageUrl) {
+            const imageName = crypto.randomUUID() + '.png';
+            const success = await downloadImage(server.imageUrl, imageName);
+            if (success) {
+              dto.imagePath = `/public/${imageName}`;
+            }
           }
 
           await this.communityService.createIgnoreDuplicate(dto, true);

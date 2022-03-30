@@ -112,6 +112,9 @@ export class Community extends EntityBase implements ICommunity {
   @Column({ type: 'varchar', nullable: true })
   teamspeak: string | null;
 
+  @Column({ type: 'varchar', nullable: true })
+  imagePath: string | null;
+
   toListMember(): IListCommunity {
     for (const key of ListCommunityOmittedKeys) {
       this[key] = '';

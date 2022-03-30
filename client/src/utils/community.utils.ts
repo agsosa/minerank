@@ -4,6 +4,7 @@
  */
 
 import { ICommunity, IListCommunity } from "@shared/types/entities/ICommunity";
+import { getAppConfig } from "src/services/config.service";
 import { getCountryFlagComponent } from "./country.utils";
 
 /**
@@ -50,4 +51,14 @@ export function getCommunityGameModesString(community: ICommunity | IListCommuni
  */
 export function getCommunityVersionsString(community: ICommunity | IListCommunity): string {
   return community?.versions?.map((elem) => elem.label).join(" - ") || "Sin definir";
+}
+
+/**
+ * getCommunityImageUrl
+ * @param community the community object
+ * @returns the image url
+ */
+export function getCommunityImageUrl(community: ICommunity | IListCommunity): string {
+  if (!community || !community.imagePath) return "/default.png";
+  return `/api/static${community.imagePath}`;
 }
