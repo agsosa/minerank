@@ -151,15 +151,13 @@ export class CommunityService {
           }),
       );
 
-    const maxPage = Math.ceil(total / limit);
-
     await Promise.all(promises);
 
     return {
       total,
       page,
       perPage: limit,
-      maxPage,
+      maxPage: Math.ceil(total / limit),
       items: {
         featured,
         latest,
