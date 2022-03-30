@@ -6,29 +6,33 @@ import { FaCircle, FaMousePointer, FaSyncAlt } from "react-icons/fa";
 import { formatBigNumber } from "src/utils/misc.utils";
 import { selectCommunityState } from "src/state/community";
 import { Container, Card, Flex, Stat, SmallStat, IPAddress } from "./LeftColumn.styled";
-import { getCommunityConnectionString } from "src/utils/community.utils";
+import { getCommunityConnectionString, getCommunityImageUrl, getCommunityServerStatusColor } from "src/utils/community.utils";
 
 const LeftColumn = () => {
   const { communityDetails } = useSelector(selectCommunityState);
+  if (!communityDetails) throw new Error("Community details not found");
 
-  const { updatedAt } = communityDetails!;
+  const { updatedAt, players, maxPlayers } = communityDetails;
   const updateDate = dayjs(updatedAt).format("DD/MM/YYYY");
-  const connectionStr = getCommunityConnectionString(communityDetails!);
+  const connectionStr = getCommunityConnectionString(communityDetails);
+  const imageUrl = getCommunityImageUrl(communityDetails);
+  const statusColor = getCommunityServerStatusColor(communityDetails);
   const clicks = formatBigNumber(15555555);
 
   return (
     <Container>
-      <Image src="/cryptosignal-thumb.png" width="318" height="318" />
+      <Image src={imageUrl} width="318" height="318" />
 
       <Card>
         <div id="content">
           <Stat>
-            <FaCircle color="green" />
-            <span>327/1000</span>
+            <FaCircle color={statusColor} />
+            <span>{players}/{maxPlayers}</span>
           </Stat>
 
           <IPAddress>
             <span>{connectionStr}</span>
+            {/* TODO: Add click to copy & label "IP Address" below & tooltip */}
           </IPAddress>
         </div>
       </Card>

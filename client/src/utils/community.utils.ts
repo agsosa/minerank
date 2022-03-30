@@ -62,3 +62,12 @@ export function getCommunityImageUrl(community: ICommunity | IListCommunity): st
   if (!community || !community.imagePath) return "/default.png";
   return `/api/static${community.imagePath}`;
 }
+
+/**
+ * getCommunityServerStatusColor
+ * @param community the community object
+ * @returns the color
+ */
+export function getCommunityServerStatusColor(community: ICommunity | IListCommunity): string {
+  return community?.serverStatus ? "green" : "red";
+}

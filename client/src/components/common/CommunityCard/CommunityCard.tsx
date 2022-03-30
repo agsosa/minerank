@@ -20,6 +20,7 @@ import {
   getCommunityCountryFlagComponent,
   getCommunityGameModesString,
   getCommunityImageUrl,
+  getCommunityServerStatusColor,
   getCommunityVersionsString,
 } from "src/utils/community.utils";
 import { formatBigNumber } from "src/utils/misc.utils";
@@ -32,20 +33,10 @@ interface CommunityCardProps {
 const CommunityCard: React.FC<CommunityCardProps> = ({ community, ...props }) => {
   const router = useRouter();
 
-  const {
-    isFeatured,
-    name,
-    upvotes,
-    premiumType,
-    shortName,
-    players,
-    maxPlayers,
-    serverStatus,
-    imagePath,
-  } = community;
+  const { isFeatured, name, upvotes, premiumType, shortName, players, maxPlayers } = community;
 
-  const statusColor = serverStatus ? "green" : "red";
   const totalVotes = formatBigNumber(upvotes);
+  const statusColor = getCommunityServerStatusColor(community);
   const Flag = getCommunityCountryFlagComponent(community);
   const connectionStr = getCommunityConnectionString(community);
   const gamemodesStr = getCommunityGameModesString(community);
@@ -73,17 +64,15 @@ const CommunityCard: React.FC<CommunityCardProps> = ({ community, ...props }) =>
 
         <StatsContainer>
           <Stat>
-            <FaCircle style={{ color: statusColor }} />
-            <span>{connectionStr}</span>
+            <FaTags />
+            <Tags>{gamemodesStr}</Tags>
           </Stat>
         </StatsContainer>
 
         <StatsContainer>
           <Stat>
-            <FaShieldAlt /> <span>{premiumType}</span>
-          </Stat>
-          <Stat>
-            <BiGitBranch /> <span>{versionsStr}</span>
+            <FaCircle style={{ color: statusColor }} />
+            <span>{connectionStr}</span>
           </Stat>
           <Stat>
             <FaUserAlt />{" "}
@@ -95,8 +84,10 @@ const CommunityCard: React.FC<CommunityCardProps> = ({ community, ...props }) =>
 
         <StatsContainer>
           <Stat>
-            <FaTags />
-            <Tags>{gamemodesStr}</Tags>
+            <FaShieldAlt /> <span>{premiumType}</span>
+          </Stat>
+          <Stat>
+            <BiGitBranch /> <span>{versionsStr}</span>
           </Stat>
         </StatsContainer>
       </InfoContainer>

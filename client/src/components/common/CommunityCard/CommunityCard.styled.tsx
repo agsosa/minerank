@@ -5,9 +5,9 @@ export const Container = styled.div<{ isFeatured?: boolean }>`
   position: relative;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   background-color: ${(props) => (props.isFeatured ? "#fff8dc" : "white")};
-  padding: 18px 18px 18px 22px;
+  padding: 16px 16px 16px 20px;
   width: 100%;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03) !important;
@@ -42,6 +42,7 @@ export const InfoContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 100%;
+  gap: 3px;
 `;
 
 export const CopyIP = styled.button`
@@ -74,20 +75,21 @@ export const NameContainer = styled.div`
 
 export const StatsContainer = styled.div`
   display: grid;
+  grid-template-columns: 1fr 2fr;
   font-size: 13px;
   align-items: center;
-  grid-template-columns: 1fr 1fr 1fr;
+  gap: 28px;
 `;
 
 export const Stat = styled.div`
   display: flex;
-  gap: 3px;
+  gap: 4px;
   align-items: center;
 `;
 
 export const Tags = styled.span`
   font-size: 12px;
-  width: 300px;
+  max-width: 400px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
